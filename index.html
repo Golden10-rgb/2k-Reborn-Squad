@@ -78,12 +78,12 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <div id="authPage" class="page active">
   <div class="authHero"><h1 class="smallcap">🔥 2ᴋ ʀᴇʙᴏʀɴ</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
   <div class="card"><h3 style="font-size:18px">Create your account</h3><p class="muted">You must sign up first. No one can see anything without an account.</p>
-  <input id="regName" placeholder="Your Name" oninput="checkOwnerName(this.value)">
+  <input id="regName" placeholder="Your Name">
   <input id="regUID" placeholder="Your Free Fire UID * 9-12 digits normal, 13 digits needs screenshot *" oninput="liveCheckUID(this.value)">
   <p id="uidLiveCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
   <input id="regIGN" placeholder="Your Free Fire In-Game Name (IGN) * Must match UID *">
   <input id="regPass" type="password" placeholder="Create Password">
-  <input id="ownerCode" type="password" placeholder="Code" style="display:none" autocomplete="off">
+  <input id="ownerCode" type="password" placeholder="Code" autocomplete="off">
   <select id="regGame"><option>Free Fire</option><option>2K</option><option>2K + Free Fire</option></select>
   <label style="font-size:13px;font-weight:700">🌍 Your Country — Type to search</label>
   <input id="regCountry" list="countryList" placeholder="Type your country..." value="Nigeria" oninput="onCountryChange()" onchange="onCountryChange()">
@@ -93,7 +93,7 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
   <input id="regLangInput" list="langList" placeholder="Language..." value="English" onchange="onLangManualChange()">
   <datalist id="langList"></datalist>
   <input id="regBio" placeholder="Bio — e.g. I live in Lagos, I love gaming">
-  <label style="font-size:13px;font-weight:700">🔢 Type UID as e dey for Screenshot</label>
+  <label style="font-size:13px;font-weight:700">🔢 Type UID as it appears in the screenshot</label>
   <input id="regUIDConfirm" placeholder="Type the UID you see inside the screenshot" oninput="checkUIDMatch()">
   <p id="uidMatchCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
   <label style="font-size:13px;font-weight:700">📸 Proof — Upload Free Fire Profile Screenshot (MUST show UID)</label>
@@ -137,7 +137,7 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
     <label style="font-size:12px;font-weight:700">Display Name</label><input id="editName" placeholder="Your Name">
     <label style="font-size:12px;font-weight:700">🔄 New Free Fire UID</label><input id="editUID" placeholder="New UID — 9-12 normal, 13 with screenshot" oninput="liveCheckEditUID(this.value)">
     <p id="editUidCheck" style="font-size:12px;font-weight:700"></p>
-    <label style="font-size:12px;font-weight:700">🔢 Type New UID as e dey for Screenshot</label><input id="editUIDConfirm" placeholder="Type UID from new screenshot">
+    <label style="font-size:12px;font-weight:700">🔢 Type New UID as it appears in the screenshot</label><input id="editUIDConfirm" placeholder="Type UID from new screenshot">
     <p id="editUidMatchCheck" style="font-size:12px;font-weight:700"></p>
     <label style="font-size:12px;font-weight:700">New IGN — Must match new UID</label><input id="editIGN" placeholder="New In-Game Name">
     <label style="font-size:12px;font-weight:700">Password — Enter your password to confirm</label><input id="editPass" type="password" placeholder="Enter your password to save changes">
@@ -162,30 +162,19 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <nav id="bottomNav"><button onclick="show('feedPage',this)" class="active">🏠<br>Feed</button><button onclick="show('chatPage',this)">💬<br>Chats</button><button onclick="show('leaderPage',this)">🏆<br>Top</button><button onclick="show('profilePage',this)">👤<br>Profile</button></nav>
 
 <script>
-// ===== OWNER - HIDDEN =====
 const OWNER_NAME = "2ᴋ ʀᴇʙᴏʀɴ";
 const OWNER_CODE = "2K-REBORN-OWNER-2026";
 function normName(s){
   return (s||"").toLowerCase().replace(/ᴋ/g,"k").replace(/ʀ/g,"r").replace(/ᴇ/g,"e").replace(/ʙ/g,"b").replace(/ᴏ/g,"o").replace(/ɴ/g,"n").replace(/\s+/g," ").trim();
-}
-function checkOwnerName(val){
-  let codeBox=document.getElementById('ownerCode');
-  if(!codeBox) return;
-  if(normName(val)==="2k reborn" || val===OWNER_NAME){
-    codeBox.style.display='block';
-  } else {
-    codeBox.style.display='none';
-  }
 }
 function checkUIDMatch(){
   let a=document.getElementById('regUID').value.trim();
   let b=document.getElementById('regUIDConfirm').value.trim();
   let el=document.getElementById('uidMatchCheck');
   if(!b){el.innerText='';return;}
-  if(a===b){el.innerText='✅ UID match screenshot UID';el.style.color='#16a34a';}
-  else{el.innerText='❌ UID no match screenshot UID - type same UID';el.style.color='#dc2626';}
+  if(a===b){el.innerText='✅ UID matches screenshot UID';el.style.color='#16a34a';}
+  else{el.innerText='❌ UID does not match screenshot UID - type the same UID';el.style.color='#dc2626';}
 }
-// ==========================
 const ALL_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
 const COUNTRY_LANGUAGES={"Afghanistan":["Pashto","Persian"],"Albania":["Albanian"],"Algeria":["Arabic","French"],"Andorra":["Catalan"],"Angola":["Portuguese"],"Antigua and Barbuda":["English"],"Argentina":["Spanish"],"Armenia":["Armenian"],"Australia":["English"],"Austria":["German"],"Azerbaijan":["Azerbaijani"],"Bahamas":["English"],"Bahrain":["Arabic"],"Bangladesh":["Bengali"],"Barbados":["English"],"Belarus":["Russian"],"Belgium":["Dutch","French"],"Belize":["English"],"Benin":["French"],"Bhutan":["Dzongkha"],"Bolivia":["Spanish"],"Bosnia and Herzegovina":["Bosnian"],"Botswana":["English"],"Brazil":["Portuguese"],"Brunei":["Malay"],"Bulgaria":["Bulgarian"],"Burkina Faso":["French"],"Burundi":["Kirundi"],"Cambodia":["Khmer"],"Cameroon":["French","English"],"Canada":["English","French"],"Cape Verde":["Portuguese"],"Central African Republic":["French"],"Chad":["French","Arabic"],"Chile":["Spanish"],"China":["Chinese"],"Colombia":["Spanish"],"Comoros":["French"],"Congo":["French"],"Costa Rica":["Spanish"],"Croatia":["Croatian"],"Cuba":["Spanish"],"Cyprus":["Greek"],"Czech Republic":["Czech"],"Denmark":["Danish"],"Djibouti":["French"],"Dominica":["English"],"Dominican Republic":["Spanish"],"Ecuador":["Spanish"],"Egypt":["Arabic"],"El Salvador":["Spanish"],"Equatorial Guinea":["Spanish"],"Eritrea":["Tigrinya"],"Estonia":["Estonian"],"Eswatini":["English"],"Ethiopia":["Amharic"],"Fiji":["English"],"Finland":["Finnish"],"France":["French"],"Gabon":["French"],"Gambia":["English"],"Georgia":["Georgian"],"Germany":["German"],"Ghana":["English"],"Greece":["Greek"],"Grenada":["English"],"Guatemala":["Spanish"],"Guinea":["French"],"Guinea-Bissau":["Portuguese"],"Guyana":["English"],"Haiti":["French"],"Honduras":["Spanish"],"Hungary":["Hungarian"],"Iceland":["Icelandic"],"India":["Hindi","English"],"Indonesia":["Indonesian"],"Iran":["Persian"],"Iraq":["Arabic"],"Ireland":["English"],"Israel":["Hebrew"],"Italy":["Italian"],"Ivory Coast":["French"],"Jamaica":["English"],"Japan":["Japanese"],"Jordan":["Arabic"],"Kazakhstan":["Kazakh"],"Kenya":["Swahili","English"],"Kiribati":["English"],"Kuwait":["Arabic"],"Kyrgyzstan":["Kyrgyz"],"Laos":["Lao"],"Latvia":["Latvian"],"Lebanon":["Arabic"],"Lesotho":["English"],"Liberia":["English"],"Libya":["Arabic"],"Liechtenstein":["German"],"Lithuania":["Lithuanian"],"Luxembourg":["French"],"Madagascar":["French"],"Malawi":["English"],"Malaysia":["Malay"],"Maldives":["Dhivehi"],"Mali":["French"],"Malta":["Maltese"],"Marshall Islands":["English"],"Mauritania":["Arabic"],"Mauritius":["English"],"Mexico":["Spanish"],"Micronesia":["English"],"Moldova":["Romanian"],"Monaco":["French"],"Mongolia":["Mongolian"],"Montenegro":["Montenegrin"],"Morocco":["Arabic"],"Mozambique":["Portuguese"],"Myanmar":["Burmese"],"Namibia":["English"],"Nauru":["English"],"Nepal":["Nepali"],"Netherlands":["Dutch"],"New Zealand":["English"],"Nicaragua":["Spanish"],"Niger":["French"],"Nigeria":["English"],"North Korea":["Korean"],"North Macedonia":["Macedonian"],"Norway":["Norwegian"],"Oman":["Arabic"],"Pakistan":["Urdu"],"Palau":["English"],"Palestine":["Arabic"],"Panama":["Spanish"],"Papua New Guinea":["English"],"Paraguay":["Spanish"],"Peru":["Spanish"],"Philippines":["English"],"Poland":["Polish"],"Portugal":["Portuguese"],"Qatar":["Arabic"],"Romania":["Romanian"],"Russia":["Russian"],"Rwanda":["French"],"Saint Kitts and Nevis":["English"],"Saint Lucia":["English"],"Saint Vincent and the Grenadines":["English"],"Samoa":["English"],"San Marino":["Italian"],"Sao Tome and Principe":["Portuguese"],"Saudi Arabia":["Arabic"],"Senegal":["French"],"Serbia":["Serbian"],"Seychelles":["English"],"Sierra Leone":["English"],"Singapore":["English"],"Slovakia":["Slovak"],"Slovenia":["Slovenian"],"Solomon Islands":["English"],"Somalia":["Somali"],"South Africa":["English"],"South Korea":["Korean"],"South Sudan":["English"],"Spain":["Spanish"],"Sri Lanka":["Sinhala"],"Sudan":["Arabic"],"Suriname":["Dutch"],"Sweden":["Swedish"],"Switzerland":["German","French"],"Syria":["Arabic"],"Taiwan":["Chinese"],"Tajikistan":["Tajik"],"Tanzania":["Swahili"],"Thailand":["Thai"],"Togo":["French"],"Tonga":["English"],"Trinidad and Tobago":["English"],"Tunisia":["Arabic"],"Turkey":["Turkish"],"Turkmenistan":["Turkmen"],"Tuvalu":["English"],"Uganda":["English"],"Ukraine":["Ukrainian"],"United Arab Emirates":["Arabic"],"United Kingdom":["English"],"United States":["English"],"Uruguay":["Spanish"],"Uzbekistan":["Uzbek"],"Vanuatu":["English"],"Vatican City":["Italian"],"Venezuela":["Spanish"],"Vietnam":["Vietnamese"],"Yemen":["Arabic"],"Zambia":["English"],"Zimbabwe":["English"]};
 const ALL_LANGUAGES=[{code:"en",name:"English"},{code:"fr",name:"French"},{code:"es",name:"Spanish"},{code:"ar",name:"Arabic"},{code:"pt",name:"Portuguese"},{code:"de",name:"German"},{code:"it",name:"Italian"},{code:"ru",name:"Russian"},{code:"tr",name:"Turkish"},{code:"hi",name:"Hindi"},{code:"ur",name:"Urdu"},{code:"bn",name:"Bengali"},{code:"ja",name:"Japanese"},{code:"ko",name:"Korean"},{code:"zh",name:"Chinese"},{code:"id",name:"Indonesian"},{code:"sw",name:"Swahili"},{code:"am",name:"Amharic"},{code:"nl",name:"Dutch"},{code:"pl",name:"Polish"},{code:"th",name:"Thai"},{code:"vi",name:"Vietnamese"}];
@@ -271,7 +260,7 @@ function saveEditProfile(){
   if(pass!==me.pass){alert('❌ Wrong password. Cannot change UID.');return;}
   if(!newName){alert('Name cannot be empty');return;}
   if(!newUID){alert('UID cannot be empty');return;}
-  if(newUIDConfirm && newUIDConfirm!==newUID){alert('❌ UID no match! UID for top must be SAME as UID wey dey for screenshot.');return;}
+  if(newUIDConfirm && newUIDConfirm!==newUID){alert('❌ UID does not match! UID must be the same as the UID in the screenshot.');return;}
   let hasProofForCheck = proofFile ? true : (newUID===me.uid && me.proof ? true : hasEditProofUploaded);
   let check=isValidUID(newUID, hasProofForCheck);
   if(!check.ok){alert(check.msg);return;}
@@ -324,8 +313,8 @@ function signup(){
   let proofFile=document.getElementById('regProof').files[0];
   if(!rawName){alert('Please enter your Name');return;}
   if(!uid){alert('Please enter your Game UID');return;}
-  if(!uidConfirm){alert('Please type UID as e dey for screenshot');return;}
-  if(uidConfirm!==uid){alert('❌ UID no match! UID for top must be SAME as UID wey dey inside your screenshot.');return;}
+  if(!uidConfirm){alert('Please type UID as it appears in the screenshot');return;}
+  if(uidConfirm!==uid){alert('❌ UID does not match! UID must be the same as the UID in your screenshot.');return;}
   let hasProof = proofFile ? true : hasProofUploaded;
   let check=isValidUID(uid, hasProof);
   if(!check.ok){alert(check.msg);return;}
@@ -412,4 +401,12 @@ document.getElementById('myPostsGrid').innerHTML=tiktokGridHTML(me.name);
 document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p></div>`).join('')||'<p class="muted">You have not posted yet.</p>';if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
 function likePost(i){posts[i].likes++;save();render()}
 function addComment(i){let el=document.getElementById('cmt-'+i);let t=el.value.trim();if(!t) return;posts[i].comments=posts[i].comments||[];posts[i].comments.push({from:me.name,text:t});el.value='';save();render();}
-function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}
+function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}currentChat=name;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('chatPage').classList.add('active');document.getElementById('chatArea').classList.remove('hidden');let u=users.find(x=>x.name==name);document.getElementById('chatTitle').innerText=name=='public'?'GENERAL CHAT — Everyone Is Here':'Chat with '+name+(u&&u.owner?' 👑 OWNER':'')+(u?` ${flagOf(u.country)} ${u.country||''}`:'');renderChat();setTimeout(()=>{document.getElementById('chatArea').scrollIntoView({behavior:'smooth'});},100);}
+function getChatKey(){return currentChat=='public'?'public':[me.name,currentChat].sort().join('_')}
+function renderChat(){if(!me) return;let k=getChatKey();let arr=chats[k]||[];document.getElementById('chatBox').innerHTML=arr.map(m=>`<div class="msg ${m.from==me.name?'me':''}"><b>${m.from}</b><div>${m.text||''}</div>${m.voice?`<audio src="${m.voice}" controls></audio>`:''}</div>`).join('')||'<p class="muted" style="text-align:center">No message yet. Say hello! 👋</p>';document.getElementById('chatBox').scrollTop=99999;}
+function sendMsg(){if(!me) return;let t=document.getElementById('chatInput').value.trim();if(!t)return;let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t});document.getElementById('chatInput').value='';save();renderChat();}
+async function toggleRec(){if(!recording){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(s);chunks=[];mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let r=new FileReader();r.onload=e=>{let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,voice:e.target.result});save();renderChat()};r.readAsDataURL(blob)};mediaRecorder.start();recording=true;document.getElementById('recStatus').innerText='Recording... Press again to stop and send';document.getElementById('recBtn').innerText='Stop and Send Voice Note';}catch(e){alert('Please allow microphone access')}}else{mediaRecorder.stop();recording=false;document.getElementById('recStatus').innerText='';document.getElementById('recBtn').innerText='Record Voice Note'}}
+if(me){showApp();show('feedPage',document.querySelector('nav button'));}else{showAuthOnly();}
+</script>
+</body>
+</html>
