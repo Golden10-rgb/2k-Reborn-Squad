@@ -3,85 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2K Reborn Free Fire community  - Friends, Chat & Gameplay</title>
+<title>2ᴋ ʀᴇʙᴏʀɴ - Free Fire Community</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#000;color:#fff;max-width:480px;margin:auto;min-height:100vh;padding-bottom:70px}
-header{background:#111;padding:12px;text-align:center;position:sticky;top:0;z-index:10}
-header h2{font-size:18px} header p{font-size:12px;color:#aaa}
+body{background:#1a0033;color:#fff;max-width:480px;margin:auto;min-height:100vh;padding-bottom:70px}
+header{background:#6d28d9;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
+header h2{font-size:26px;letter-spacing:2px;font-variant:small-caps}
+header p{font-size:12px;color:#e9d5ff}
 .page{display:none;padding:12px}.page.active{display:block}
-input,textarea,select{width:100%;padding:11px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#1a1a1a;color:#fff}
-button{width:100%;padding:12px;border:0;border-radius:10px;background:#fe2c55;color:#fff;font-weight:bold;margin:6px 0}
-button.secondary{background:#222} button.small{width:auto;padding:7px 12px;font-size:13px}
-.card{background:#111;border-radius:14px;padding:10px;margin:12px 0}
+input,textarea,select{width:100%;padding:11px;margin:7px 0;border-radius:10px;border:1px solid #7c3aed;background:#2e1065;color:#fff}
+input::placeholder,textarea::placeholder{color:#c4b5fd}
+button{width:100%;padding:12px;border:0;border-radius:10px;background:#8b5cf6;color:#fff;font-weight:bold;margin:6px 0}
+button.secondary{background:#4c1d95} button.small{width:auto;padding:7px 12px;font-size:13px}
+.card{background:#2e1065;border:1px solid #7c3aed;border-radius:14px;padding:10px;margin:12px 0}
 .card img,.card video{width:100%;border-radius:10px;max-height:380px;object-fit:cover}
-.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#333}
+.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#7c3aed;border:2px solid #a78bfa}
 .row{display:flex;gap:10px;align-items:center}
 .statusRow{display:flex;gap:10px;overflow-x:auto;padding:8px 0}
 .status{flex:0 0 68px;text-align:center;font-size:11px}
-.status img{width:60px;height:60px;border-radius:50%;border:3px solid #fe2c55;object-fit:cover}
-.chatbox{height:320px;overflow-y:auto;background:#111;padding:10px;border-radius:12px}
-.msg{background:#222;padding:8px 10px;border-radius:12px;margin:6px 0;max-width:85%}
-.msg.me{background:#fe2c55;margin-left:auto}
-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:#111;display:flex;border-top:1px solid #222}
-nav button{background:none;color:#aaa;font-size:12px} nav button.active{color:#fff}
-.hidden{display:none} audio{width:100%} .pill{background:#222;padding:5px 10px;border-radius:20px;font-size:12px}
+.status img{width:60px;height:60px;border-radius:50%;border:3px solid #a78bfa;object-fit:cover}
+/* CHAT WHITE */
+.chatbox{height:320px;overflow-y:auto;background:#ffffff;padding:10px;border-radius:12px;border:2px solid #a78bfa}
+.msg{background:#f3f0ff;padding:9px 11px;border-radius:12px;margin:6px 0;max-width:85%;color:#1a0033}
+.msg b{color:#6d28d9}
+.msg.me{background:#8b5cf6;margin-left:auto;color:#fff}
+.msg.me b{color:#fff}
+#chatInput{background:#fff !important;color:#1a0033 !important;border:2px solid #a78bfa !important}
+#chatInput::placeholder{color:#7c3aed !important}
+/* COMMENTS WHITE */
+.commentBox{background:#fff;border-radius:10px;padding:8px;margin-top:8px;color:#1a0033}
+.comment{font-size:13px;padding:6px 0;border-bottom:1px solid #eee;color:#1a0033}
+.comment b{color:#6d28d9}
+.commentInput{background:#fff !important;color:#1a0033 !important;border:1px solid #a78bfa !important;padding:8px !important;margin:4px 0 !important}
+.generalBanner{background:linear-gradient(135deg,#8b5cf6,#6d28d9);border:2px solid #ffd700;border-radius:14px;padding:12px;text-align:center;margin:10px 0}
+.leaderRow{display:flex;align-items:center;gap:10px;background:#fff;color:#1a0033;padding:8px;border-radius:10px;margin:6px 0}
+.leaderRow b{color:#6d28d9}
+nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:auto;background:#2e1065;display:flex;border-top:1px solid #7c3aed}
+nav button{background:none;color:#c4b5fd;font-size:11px} nav button.active{color:#fff;background:#6d28d9}
+.hidden{display:none} audio{width:100%}
+.ownerBadge{color:#ffd700;font-size:11px;font-weight:bold}
 </style>
 </head>
 <body>
+<header><h2>🔥 2ᴋ ʀᴇʙᴏʀɴ</h2><p>FREE FIRE COMMUNITY • MAKE FRIENDS • GAME TOGETHER</p></header>
 
-<header><h2>🔥 2K REBORN SQUAD</h2><p>Real People • Gameplay • Chat • Status</p></header>
-
-<!-- AUTH -->
 <div id="authPage" class="page active">
   <h3>Create Account / Login</h3>
-  <p style="font-size:13px;color:#aaa">UID is compulsory. No UID = No account. Type your real 2K UID.</p>
-  <input id="regName" placeholder="Username e.g Golden10">
-  <input id="regUID" placeholder="Your 2K UID * COMPULSORY *">
+  <p style="font-size:13px;color:#e9d5ff">First person to sign up becomes OWNER. UID is compulsory.</p>
+  <input id="regName" placeholder="Your Name - This go be Owner if you be first">
+  <input id="regUID" placeholder="Your Game UID * COMPULSORY *">
   <input id="regPass" type="password" placeholder="Password">
-  <input id="regBio" placeholder="Bio e.g I play 2K, I dey Lagos">
+  <select id="regGame"><option>2K</option><option>Free Fire</option><option>2K + Free Fire</option></select>
+  <input id="regBio" placeholder="Bio e.g I dey Lagos, I love gaming">
   <label style="font-size:13px">Your Profile Photo</label>
   <input type="file" id="regPhoto" accept="image/*">
   <button onclick="signup()">Sign Up / Login</button>
-  <p style="font-size:12px;color:#aaa;text-align:center">If you don get account before, just type same username + password to login.</p>
 </div>
 
-<!-- FEED -->
 <div id="feedPage" class="page">
+  <div class="generalBanner" onclick="openChat('public')">
+    <h3>💬 GENERAL CHAT - EVERYBODY DEY HERE</h3>
+    <p style="font-size:12px">Tap to gist like Lagos Life General Chat 🔥</p>
+    <button class="small" style="background:#fff;color:#6d28d9;margin-top:6px">Enter General Chat</button>
+  </div>
+  <div style="display:flex;gap:8px"><button class="small secondary" onclick="show('feedPage',document.querySelector('nav button'))">🏠 Feed</button><button class="small" onclick="show('leaderPage',null)">🏆 Leaderboard</button></div>
   <div class="statusRow" id="statusList"></div>
   <div class="card">
     <h4>Post Gameplay / Tutorial</h4>
-    <textarea id="postText" placeholder="Write caption... e.g How to shoot green every time 🎮"></textarea>
+    <textarea id="postText" placeholder="Write caption..."></textarea>
     <label style="font-size:13px">Pick from Photos / Gallery (Photo or Video)</label>
     <input type="file" id="postFile" accept="image/*,video/*">
-    <select id="postType"><option value="Gameplay">Gameplay</option><option value="Tutorial">Tutorial</option><option value="Status">Status Only</option></select>
+    <select id="postType"><option>Gameplay</option><option>Tutorial</option><option>Just Vibes</option></select>
     <button onclick="addPost()">Post</button>
     <button class="secondary" onclick="addStatus()">Post as Status (go commot in 24hrs)</button>
   </div>
   <div id="feed"></div>
 </div>
 
-<!-- FRIENDS / CHATS -->
+<div id="leaderPage" class="page">
+  <h3>🏆 LEADERBOARD - TOP PLAYERS</h3>
+  <p style="font-size:12px;color:#e9d5ff">Based on Likes + Posts + Comments. Top 1 go be Star of the Week!</p>
+  <div id="leaderList"></div>
+  <button class="secondary" onclick="show('feedPage',document.querySelector('nav button'))">Back to Feed</button>
+</div>
+
 <div id="chatPage" class="page">
   <h3>Chats</h3>
-  <div class="card"><b>🌍 Public Group Chat</b><p style="font-size:12px;color:#aaa">Everybody wey don sign up dey here</p><button class="small" onclick="openChat('public')">Open Group Chat</button></div>
-  <h4>People - Tap to Chat Personally</h4>
+  <div class="card" style="border:2px solid #ffd700"><b>🌍 GENERAL CHAT - LAGOS LIFE STYLE</b><p style="font-size:12px;color:#e9d5ff">Everybody for community dey gist here. No private, na general!</p><button class="small" onclick="openChat('public')">Enter General Chat</button></div>
+  <h4>People - Add Friend / Chat Personally</h4>
   <div id="peopleList"></div>
   <div id="chatArea" class="hidden">
     <h4 id="chatTitle">Chat</h4>
     <div class="chatbox" id="chatBox"></div>
     <input id="chatInput" placeholder="Type message...">
     <button onclick="sendMsg()">Send Message</button>
-    <button id="recBtn" class="secondary" onclick="toggleRec()">🎤 Hold to Record Voice Note</button>
-    <p id="recStatus" style="font-size:12px;color:#fe2c55"></p>
+    <button id="recBtn" class="secondary" onclick="toggleRec()">🎤 Record Voice Note</button>
+    <p id="recStatus" style="font-size:12px;color:#c4b5fd"></p>
   </div>
 </div>
 
-<!-- PROFILE -->
 <div id="profilePage" class="page">
   <div class="card" style="text-align:center">
     <img id="myPic" class="avatar" style="width:90px;height:90px">
-    <h3 id="myName"></h3><p id="myUID"></p><p id="myBio" style="color:#aaa;font-size:13px"></p>
+    <h3 id="myName"></h3><p id="myUID"></p><p id="myGame"></p><p id="myBio" style="color:#e9d5ff;font-size:13px"></p>
+    <p id="myRank" style="color:#ffd700;font-weight:bold"></p>
     <button class="secondary" onclick="logout()">Logout</button>
   </div>
   <h4>My Posts</h4><div id="myPosts"></div>
@@ -90,87 +115,47 @@ nav button{background:none;color:#aaa;font-size:12px} nav button.active{color:#f
 <nav>
   <button onclick="show('feedPage',this)" class="active">🏠 Feed</button>
   <button onclick="show('chatPage',this)">💬 Chats</button>
+  <button onclick="show('leaderPage',this)">🏆 Top</button>
   <button onclick="show('profilePage',this)">👤 Profile</button>
 </nav>
 
 <script>
-let users=JSON.parse(localStorage.getItem('r_users')||'[]');
-let posts=JSON.parse(localStorage.getItem('r_posts')||'[]');
-let chats=JSON.parse(localStorage.getItem('r_chats')||'{}');
-let statuses=JSON.parse(localStorage.getItem('r_status')||'[]');
-let me=JSON.parse(localStorage.getItem('r_me')||'null');
-let currentChat='public';
-let mediaRecorder, chunks=[], recording=false;
-
-function save(){localStorage.setItem('r_users',JSON.stringify(users));localStorage.setItem('r_posts',JSON.stringify(posts));localStorage.setItem('r_chats',JSON.stringify(chats));localStorage.setItem('r_status',JSON.stringify(statuses));localStorage.setItem('r_me',JSON.stringify(me));}
+let users=JSON.parse(localStorage.getItem('final_users')||'[]');
+let posts=JSON.parse(localStorage.getItem('final_posts')||'[]');
+let chats=JSON.parse(localStorage.getItem('final_chats')||'{}');
+let statuses=JSON.parse(localStorage.getItem('final_status')||'[]');
+let me=JSON.parse(localStorage.getItem('final_me')||'null');
+let currentChat='public';let mediaRecorder,chunks=[],recording=false;
+function save(){localStorage.setItem('final_users',JSON.stringify(users));localStorage.setItem('final_posts',JSON.stringify(posts));localStorage.setItem('final_chats',JSON.stringify(chats));localStorage.setItem('final_status',JSON.stringify(statuses));localStorage.setItem('final_me',JSON.stringify(me));}
 function fileToUrl(f,cb){let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f)}
 function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');render();}
 function signup(){
-  let name=document.getElementById('regName').value.trim();
-  let uid=document.getElementById('regUID').value.trim();
-  let pass=document.getElementById('regPass').value.trim();
-  let bio=document.getElementById('regBio').value.trim();
-  if(!name||!uid||!pass){alert('Username, UID and Password na compulsory! UID no fit empty.');return}
+  let name=document.getElementById('regName').value.trim();let uid=document.getElementById('regUID').value.trim();let pass=document.getElementById('regPass').value.trim();let game=document.getElementById('regGame').value;let bio=document.getElementById('regBio').value.trim();
+  if(!name||!uid||!pass){alert('Username, UID and Password na compulsory!');return}
   let f=document.getElementById('regPhoto').files[0];
-  let done=(photo)=>{let ex=users.find(u=>u.name==name);
+  let done=(photo)=>{
+    let ex=users.find(u=>u.name==name);
     if(ex){if(ex.pass!=pass){alert('Wrong password');return} me=ex;}
-    else{me={name,uid,pass,bio,photo:photo||''};users.push(me);}
-    save();document.getElementById('authPage').classList.remove('active');show('feedPage',document.querySelector('nav button'));alert('Welcome '+name+'! UID: '+uid);};
+    else{let isOwner=users.length===0;me={name,uid,pass,game,bio,photo:photo||'',owner:isOwner};users.push(me);if(isOwner) alert('You be the OWNER because you be first!');}
+    save();document.getElementById('authPage').classList.remove('active');show('feedPage',document.querySelector('nav button'));alert('Welcome to 2ᴋ ʀᴇʙᴏʀɴ, '+name+'!');
+  };
   if(f) fileToUrl(f,done); else done('');
 }
 function logout(){me=null;save();location.reload()}
-function addPost(){
-  let file=document.getElementById('postFile').files[0];
-  let text=document.getElementById('postText').value;
-  let type=document.getElementById('postType').value;
-  let push=(media,mediaType)=>{posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text,type,media,mediaType,time:Date.now(),likes:0});save();render();alert('Posted!')};
-  if(file){fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image'))} else push('','');
-}
-function addStatus(){
-  let file=document.getElementById('postFile').files[0];
-  let text=document.getElementById('postText').value;
-  let push=(media,mediaType)=>{statuses.push({name:me.name,photo:me.photo,text,media,mediaType,expire:Date.now()+24*60*60*1000});save();render();alert('Status posted! E go commot in 24 hours')};
-  if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');
-}
-function render(){
-  if(!me) return;
-  // clean expired status
-  statuses=statuses.filter(s=>s.expire>Date.now());save();
-  document.getElementById('myName').innerText=me.name;
-  document.getElementById('myUID').innerText='UID: '+me.uid;
-  document.getElementById('myBio').innerText=me.bio||'';
-  document.getElementById('myPic').src=me.photo||'';
-  // status
-  document.getElementById('statusList').innerHTML=statuses.map(s=>`<div class="status" onclick="alert('${s.name}: ${s.text||''}')"><img src="${s.photo||''}"><div>${s.name}</div></div>`).join('')||'<p style="font-size:12px;color:#aaa">No status yet. Post one, e go commot in 24hrs.</p>';
-  // feed
-  document.getElementById('feed').innerHTML=posts.map((p,i)=>`<div class="card"><div class="row"><img class="avatar" src="${p.photo||''}"><div><b>${p.name}</b><div style="font-size:11px;color:#aaa">UID: ${p.uid} • ${p.type}</div></div></div><p style="margin:8px 0">${p.text||''}</p>${p.media?(p.mediaType=='video'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`):''}<button class="small secondary" onclick="likePost(${i})">❤️ Like (${p.likes})</button> <button class="small secondary" onclick="openChat('${p.name}')">💬 Chat ${p.name}</button></div>`).join('')||'<p style="text-align:center;color:#aaa">No post yet. Be first to post gameplay!</p>';
-  // people
-  document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name}</b><div style="font-size:12px;color:#aaa">UID: ${u.uid}<br>${u.bio||''}</div></div><button class="small" onclick="openChat('${u.name}')">Chat</button></div>`).join('')||'<p style="font-size:12px;color:#aaa">No other person don join yet. Share your link make dem sign up with their UID.</p>';
-  document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`):''}</div>`).join('');
-  if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();
-}
+function addPost(){let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let type=document.getElementById('postType').value;let push=(media,mediaType)=>{posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text,type,media,mediaType,likes:0,comments:[],owner:me.owner});save();render();alert('Posted!')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
+function addStatus(){let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let push=(media,mediaType)=>{statuses.push({name:me.name,photo:me.photo,text,media,mediaType,expire:Date.now()+24*60*60*1000});save();render();alert('Status posted! E go commot in 24 hours')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
+function getScores(){let scores={};users.forEach(u=>scores[u.name]={name:u.name,photo:u.photo,owner:u.owner,likes:0,posts:0,comments:0,points:0});posts.forEach(p=>{if(scores[p.name]){scores[p.name].posts++;scores[p.name].likes+=p.likes;scores[p.name].comments+=(p.comments||[]).length;}});Object.values(scores).forEach(s=>s.points=s.likes*2+s.posts*5+s.comments*1);return Object.values(scores).sort((a,b)=>b.points-a.points);}
+function renderLeader(){let list=getScores();document.getElementById('leaderList').innerHTML=list.map((u,i)=>`<div class="leaderRow"><span style="font-size:20px">${i==0?'🥇':i==1?'🥈':i==2?'🥉':'#'+(i+1)}</span><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.owner?'👑 OWNER':''}</b><div style="font-size:12px;color:#555">${u.posts} Posts • ${u.likes} Likes • ${u.comments} Comments</div></div><b>${u.points} pts</b></div>`).join('')||'<p>No players yet</p>';let myRank=list.findIndex(u=>u.name==me.name);if(myRank>=0) document.getElementById('myRank').innerText='Your Rank: #'+(myRank+1)+' • '+list[myRank].points+' points';}
+function render(){if(!me) return;statuses=statuses.filter(s=>s.expire>Date.now());save();renderLeader();document.getElementById('myName').innerText=me.name+(me.owner?' 👑 OWNER':'');document.getElementById('myUID').innerText='UID: '+me.uid;document.getElementById('myGame').innerText=me.game||'';document.getElementById('myBio').innerText=me.bio||'';document.getElementById('myPic').src=me.photo||'';document.getElementById('statusList').innerHTML=statuses.map(s=>`<div class="status" onclick="alert('${s.name}: ${s.text||''}')"><img src="${s.photo||''}"><div>${s.name}</div></div>`).join('')||'<p style="font-size:12px;color:#e9d5ff">No status yet.</p>';
+document.getElementById('feed').innerHTML=posts.map((p,i)=>`<div class="card"><div class="row"><img class="avatar" src="${p.photo||''}"><div><b>${p.name} ${p.owner?'👑 OWNER':''}</b><div style="font-size:11px;color:#e9d5ff">UID: ${p.uid} • ${p.type}</div></div></div><p style="margin:8px 0">${p.text||''}</p>${p.media?(p.mediaType=='video'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`):''}<div style="display:flex;gap:6px"><button class="small secondary" onclick="likePost(${i})">💜 Like (${p.likes})</button> <button class="small secondary" onclick="openChat('${p.name}')">💬 Chat</button></div><div class="commentBox"><b style="font-size:13px">💬 Comments (${(p.comments||[]).length})</b>${(p.comments||[]).map(c=>`<div class="comment"><b>${c.from}:</b> ${c.text}</div>`).join('')||'<div style="font-size:12px;color:#888">No comment yet. Be first!</div>'}<input class="commentInput" id="cmt-${i}" placeholder="Write comment..."><button class="small" onclick="addComment(${i})">Post Comment</button></div></div>`).join('')||'<p style="text-align:center;color:#e9d5ff">No post yet. Be first!</p>';
+document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row" style="${u.owner?'border:1px solid #ffd700':''}"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.owner?'<span class="ownerBadge">👑 OWNER</span>':''}</b><div style="font-size:12px;color:#e9d5ff">UID: ${u.uid}<br>${u.game||''}<br>${u.bio||''}</div></div><button class="small" onclick="openChat('${u.name}')">Add Friend / Chat</button></div>`).join('');document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`):''}<p style="font-size:12px;color:#e9d5ff">❤️ ${p.likes} Likes • 💬 ${(p.comments||[]).length} Comments</p></div>`).join('');if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
 function likePost(i){posts[i].likes++;save();render()}
-function openChat(name){
-  currentChat=name;show('chatPage');document.getElementById('chatArea').classList.remove('hidden');
-  document.getElementById('chatTitle').innerText=name=='public'?'🌍 Public Group Chat':'💬 Chat with '+name;
-  renderChat();
-}
+function addComment(i){let el=document.getElementById('cmt-'+i);let t=el.value.trim();if(!t) return;posts[i].comments=posts[i].comments||[];posts[i].comments.push({from:me.name,text:t});el.value='';save();render();}
+function openChat(name){currentChat=name;show('chatPage');document.getElementById('chatArea').classList.remove('hidden');let u=users.find(x=>x.name==name);document.getElementById('chatTitle').innerText=name=='public'?'🌍 GENERAL CHAT - Everybody Dey Gist':'💬 Chat with '+name+(u&&u.owner?' 👑 OWNER':'');renderChat();}
 function getChatKey(){return currentChat=='public'?'public':[me.name,currentChat].sort().join('_')}
-function renderChat(){
-  let key=getChatKey();let arr=chats[key]||[];
-  document.getElementById('chatBox').innerHTML=arr.map(m=>`<div class="msg ${m.from==me.name?'me':''}"><b style="font-size:11px">${m.from}</b><div>${m.text||''}</div>${m.voice?`<audio src="${m.voice}" controls></audio>`:''}</div>`).join('');
-  document.getElementById('chatBox').scrollTop=99999;
-}
-function sendMsg(){
-  let t=document.getElementById('chatInput').value.trim();if(!t)return;
-  let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t,time:Date.now()});document.getElementById('chatInput').value='';save();renderChat();
-}
-async function toggleRec(){
-  if(!recording){
-    try{let s=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(s);chunks=[];mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let r=new FileReader();r.onload=e=>{let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,voice:e.target.result});save();renderChat()};r.readAsDataURL(blob)};mediaRecorder.start();recording=true;document.getElementById('recStatus').innerText='🔴 Recording... press again to stop & send';document.getElementById('recBtn').innerText='⏹️ Stop & Send Voice Note';}
-    catch(e){alert('Allow microphone to send voice note')}
-  } else {mediaRecorder.stop();recording=false;document.getElementById('recStatus').innerText='';document.getElementById('recBtn').innerText='🎤 Hold to Record Voice Note'}
-}
+function renderChat(){let k=getChatKey();let arr=chats[k]||[];document.getElementById('chatBox').innerHTML=arr.map(m=>`<div class="msg ${m.from==me.name?'me':''}"><b style="font-size:11px">${m.from}</b><div>${m.text||''}</div>${m.voice?`<audio src="${m.voice}" controls></audio>`:''}</div>`).join('');document.getElementById('chatBox').scrollTop=99999;}
+function sendMsg(){let t=document.getElementById('chatInput').value.trim();if(!t)return;let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t});document.getElementById('chatInput').value='';save();renderChat();}
+async function toggleRec(){if(!recording){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(s);chunks=[];mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let r=new FileReader();r.onload=e=>{let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,voice:e.target.result});save();renderChat()};r.readAsDataURL(blob)};mediaRecorder.start();recording=true;document.getElementById('recStatus').innerText='🔴 Recording... press again to stop & send';document.getElementById('recBtn').innerText='⏹️ Stop & Send Voice Note';}catch(e){alert('Allow microphone')}}else{mediaRecorder.stop();recording=false;document.getElementById('recStatus').innerText='';document.getElementById('recBtn').innerText='🎤 Record Voice Note'}}
 if(me){document.getElementById('authPage').classList.remove('active');show('feedPage',document.querySelector('nav button'))}
 render();
 </script>
