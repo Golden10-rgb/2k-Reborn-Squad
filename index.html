@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2K REBORN SQUAD - Find Your Squad</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0b0014;color:white;padding-bottom:80px}
+header{background:#1a0033;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{font-size:20px;color:#c084fc}
+header p{font-size:12px;opacity:.8}
+.hero{background:linear-gradient(135deg,#6d28d9,#db2777);margin:12px;border-radius:16px;padding:20px;text-align:center}
+.hero h2{font-size:24px;margin-bottom:6px}
+.hero p{font-size:13px;margin-bottom:14px}
+.btn{background:white;color:#6d28d9;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;cursor:pointer}
+.btn2{background:#a855f7;color:white;border:none;padding:8px 14px;border-radius:20px;cursor:pointer}
+.card{background:#1e1033;margin:12px;border-radius:14px;padding:14px}
+input,textarea,select{width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #444;background:#120826;color:white}
+.player{display:flex;align-items:center;gap:10px;background:#2a1650;padding:10px;border-radius:12px;margin:8px 0}
+.player img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.player b{font-size:14px}
+.player small{font-size:11px;opacity:.8}
+nav{position:fixed;bottom:0;left:0;right:0;background:#160a2e;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #333}
+nav button{background:none;border:none;color:white;font-size:13px;cursor:pointer}
+nav button.active{color:#c084fc;font-weight:bold}
+.page{display:none;padding:4px}
+.page.active{display:block}
+.chat-box{background:#120826;height:220px;overflow-y:auto;padding:10px;border-radius:12px;margin:8px 0}
+.msg{background:#2a1650;padding:8px 10px;border-radius:12px;margin:6px 0;font-size:13px}
+.uid-box{background:#00000066;padding:8px;border-radius:8px;font-size:13px;margin:6px 0;display:flex;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌹 2K REBORN SQUAD 🌹</h1>
+<p>Find Your Squad • Play Together • BOOYAH Together</p>
+</header>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <h2>Find Your Squad. Play Together.</h2>
+    <p>Post, Add Friends by UID, Chat & Play Free Fire Together</p>
+    <button class="btn" onclick="show('squad')">Find Players 🔍</button>
+  </div>
+
+  <div class="card">
+    <h3>📝 Create Post</h3>
+    <textarea id="postText" placeholder="Drop your clip link, or talk about your game..."></textarea>
+    <button class="btn2" onclick="addPost()">Post Now</button>
+  </div>
+
+  <div id="feed"></div>
+</div>
+
+<!-- SQUAD -->
+<div id="squad" class="page">
+  <div class="card">
+    <h3>🔍 Find Squad Members</h3>
+    <input id="search" placeholder="Search by name, rank, role..." oninput="renderPlayers()">
+  </div>
+  <div id="players"></div>
+  <div class="card">
+    <h3>👥 My Friends (<span id="friendCount">0</span>)</h3>
+    <div id="friendsList">No friends yet. Add someone!</div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="page">
+  <div class="card">
+    <h3>💬 Squad Global Chat</h3>
+    <div class="chat-box" id="chatBox"></div>
+    <input id="chatInput" placeholder="Type message...">
+    <button class="btn2" onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="page">
+  <div class="card">
+    <h3>👤 My Profile</h3>
+    <input id="ign" placeholder="In-Game Name e.g. 2K•Reborn">
+    <input id="uid" placeholder="Free Fire UID e.g. 1234567890">
+    <select id="rank">
+      <option>Bronze</option><option>Platinum</option><option>Diamond</option>
+      <option>Heroic</option><option>Grandmaster</option>
+    </select>
+    <select id="role">
+      <option>Rusher</option><option>Sniper</option><option>Support</option><option>All-Rounder</option>
+    </select>
+    <input id="bio" placeholder="Bio - e.g. I play everyday 6pm">
+    <button class="btn2" onclick="saveProfile()">Save Profile</button>
+    <div id="myProfileView"></div>
+  </div>
+</div>
+
+<nav>
+  <button class="active" onclick="show('home',this)">🏠 Home</button>
+  <button onclick="show('squad',this)">👥 Squad</button>
+  <button onclick="show('chat',this)">💬 Chat</button>
+  <button onclick="show('profile',this)">👤 Profile</button>
+</nav>
+
+<script>
+let players=[
+  {name:"2K•Reborn",uid:"2847392011",rank:"Heroic",role:"Rusher",img:"https://i.pravatar.cc/100?img=12"},
+  {name:"2K•Ghost",uid:"1928374650",rank:"Diamond",role:"Sniper",img:"https://i.pravatar.cc/100?img=32"},
+  {name:"2K•Queen",uid:"9182736450",rank:"Grandmaster",role:"Support",img:"https://i.pravatar.cc/100?img=47"},
+  {name:"2K•Blaze",uid:"5566778899",rank:"Platinum",role:"All-Rounder",img:"https://i.pravatar.cc/100?img=59"},
+];
+let friends=JSON.parse(localStorage.getItem('friends')||'[]');
+let posts=JSON.parse(localStorage.getItem('posts')||'[{"user":"2K•Reborn","text":"Who wan play Full Map now? I need 3 rushers! Drop your UID 👇","likes":24},{"user":"2K•Queen","text":"Just hit Grandmaster! Who go celebrate with me? 🔥","likes":18}]');
+let chats=JSON.parse(localStorage.getItem('chats')||'[{"user":"2K•Ghost","text":"Anybody online for CS Rank?"}]');
+
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+function renderFeed(){
+  let f=document.getElementById('feed');
+  f.innerHTML=posts.map((p,i)=>`<div class="card"><b>🔥 ${p.user}</b><p style="margin:8px 0;font-size:14px">${p.text}</p><button class="btn2" onclick="likePost(${i})">❤️ ${p.likes} Like</button> <button class="btn2" onclick="show('squad')">Add Friend</button></div>`).join('');
+}
+function addPost(){
+  let t=document.getElementById('postText').value;
+  if(!t) return alert('Write something first');
+  let name=document.getElementById('ign').value||'You';
+  posts.unshift({user:name,text:t,likes:0});
+  localStorage.setItem('posts',JSON.stringify(posts));
+  document.getElementById('postText').value='';
+  renderFeed(); show('home');
+}
+function likePost(i){posts[i].likes++;localStorage.setItem('posts',JSON.stringify(posts));renderFeed();}
+function renderPlayers(){
+  let q=(document.getElementById('search').value||'').toLowerCase();
+  let list=players.filter(p=>(p.name+p.rank+p.role).toLowerCase().includes(q));
+  document.getElementById('players').innerHTML=list.map(p=>`
+    <div class="player">
+      <img src="${p.img}"><div style="flex:1"><b>${p.name}</b><br><small>${p.rank} • ${p.role}</small><br><small>UID: ${p.uid}</small></div>
+      <button class="btn2" onclick="addFriend('${p.name}','${p.uid}')">+ Add</button>
+      <button class="btn2" onclick="copyUID('${p.uid}')">Copy UID</button>
+    </div>`).join('');
+  document.getElementById('friendCount').innerText=friends.length;
+  document.getElementById('friendsList').innerHTML=friends.length?friends.map(f=>`<div class="player"><b>${f.name}</b> <small>UID: ${f.uid}</small></div>`).join(''):'No friends yet. Add someone!';
+}
+function addFriend(name,uid){
+  if(friends.find(f=>f.uid===uid)) return alert('Already added');
+  friends.push({name,uid}); localStorage.setItem('friends',JSON.stringify(friends)); renderPlayers(); alert(name+' added! Now you fit chat & play together');
+}
+function copyUID(uid){navigator.clipboard.writeText(uid); alert('UID copied: '+uid);}
+function renderChat(){
+  document.getElementById('chatBox').innerHTML=chats.map(c=>`<div class="msg"><b>${c.user}:</b> ${c.text}</div>`).join('');
+}
+function sendChat(){
+  let t=document.getElementById('chatInput').value; if(!t) return;
+  let name=document.getElementById('ign').value||'You';
+  chats.push({user:name,text:t}); localStorage.setItem('chats',JSON.stringify(chats));
+  document.getElementById('chatInput').value=''; renderChat();
+}
+function saveProfile(){
+  let ign=document.getElementById('ign').value, uid=document.getElementById('uid').value;
+  let rank=document.getElementById('rank').value, role=document.getElementById('role').value;
+  let bio=document.getElementById('bio').value;
+  if(!ign||!uid) return alert('Put your In-Game Name and UID');
+  localStorage.setItem('myProfile',JSON.stringify({ign,uid,rank,role,bio}));
+  document.getElementById('myProfileView').innerHTML=`<div class="uid-box"><span><b>${ign}</b><br>${rank} • ${role}<br>UID: ${uid}<br>${bio}</span><button class="btn2" onclick="copyUID('${uid}')">Copy</button></div><p style="font-size:12px">Share your profile link so people fit add you!</p>`;
+  alert('Profile saved!');
+}
+let saved=JSON.parse(localStorage.getItem('myProfile')||'null');
+if(saved){document.getElementById('ign').value=saved.ign;document.getElementById('uid').value=saved.uid;document.getElementById('myProfileView').innerHTML=`<div class="uid-box"><span><b>${saved.ign}</b><br>${saved.rank} • ${saved.role}<br>UID: ${saved.uid}</span><button class="btn2" onclick="copyUID('${saved.uid}')">Copy</button></div>`;}
+renderFeed(); renderPlayers(); renderChat();
+</script>
+</body>
+</html>
