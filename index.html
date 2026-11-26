@@ -8,6 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif}
 body{background:#f6f7fb;color:#111;max-width:520px;margin:auto;min-height:100vh;padding-bottom:80px}
+.smallcap{font-variant:small-caps;text-transform:lowercase;letter-spacing:1px;font-weight:800}
 .topbar{background:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(0,0,0,.06);border-bottom:1px solid #eee}
 .logo{font-size:22px;font-weight:800;letter-spacing:-.5px;font-variant:small-caps}.logo span{color:#7c3aed}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888;font-weight:600;font-variant:small-caps}
 .topbar select{width:auto;padding:7px 10px;border-radius:20px;border:1px solid #e5e7eb;background:#f9fafb;color:#111;font-size:12px;font-weight:600}
@@ -70,19 +71,19 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <body>
 
 <div id="mainHeader" style="display:none">
-<div class="topbar"><div class="logo">2ᴋ <span>ʀᴇʙᴏʀɴ</span><small>Free Fire Community</small></div><input class="topSearch" placeholder="Search people..." oninput="searchPeople(this.value)"><select id="uiLang" onchange="changeUILang(this.value)"><option value="en">🌍 English</option><option value="fr">🇫🇷 French</option><option value="es">🇪🇸 Spanish</option><option value="ar">🇸🇦 Arabic</option><option value="pt">🇧🇷 Portuguese</option><option value="de">🇩🇪 German</option><option value="it">🇮🇹 Italian</option><option value="ru">🇷🇺 Russian</option><option value="tr">🇹🇷 Turkish</option><option value="hi">🇮🇳 Hindi</option><option value="ja">🇯🇵 Japanese</option><option value="ko">🇰🇷 Korean</option><option value="zh">🇨🇳 Chinese</option><option value="id">🇮🇩 Indonesian</option><option value="sw">🇰🇪 Swahili</option></select></div>
+<div class="topbar"><div class="logo"><span class="smallcap">2k reborn</span><small>Free Fire Community</small></div><input class="topSearch" placeholder="Search people..." oninput="searchPeople(this.value)"><select id="uiLang" onchange="changeUILang(this.value)"><option value="en">🌍 English</option><option value="fr">🇫🇷 French</option><option value="es">🇪🇸 Spanish</option><option value="ar">🇸🇦 Arabic</option><option value="pt">🇧🇷 Portuguese</option><option value="de">🇩🇪 German</option><option value="it">🇮🇹 Italian</option><option value="ru">🇷🇺 Russian</option><option value="tr">🇹🇷 Turkish</option><option value="hi">🇮🇳 Hindi</option><option value="ja">🇯🇵 Japanese</option><option value="ko">🇰🇷 Korean</option><option value="zh">🇨🇳 Chinese</option><option value="id">🇮🇩 Indonesian</option><option value="sw">🇰🇪 Swahili</option></select></div>
 <div style="text-align:center;padding:6px;background:#fff;border-bottom:1px solid #eee;font-size:12px;font-weight:600" id="currentLangLabel">Current Language: English</div>
 </div>
 
 <div id="authPage" class="page active">
-  <div class="authHero"><h1>🔥2k reborn</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
+  <div class="authHero"><h1 class="smallcap">🔥 2k reborn</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
   <div class="card"><h3 style="font-size:18px">Create your account</h3><p class="muted">You must sign up first. No one can see anything without an account.</p>
-  <input id="regName" placeholder="Your Name (Display Name) - e.g. 2ᴋ ʀᴇʙᴏʀɴ">
+  <input id="regName" placeholder="Your Name">
   <input id="regUID" placeholder="Your Free Fire UID * 9-12 digits normal, 13 digits needs screenshot *" oninput="liveCheckUID(this.value)">
   <p id="uidLiveCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
   <input id="regIGN" placeholder="Your Free Fire In-Game Name (IGN) * Must match UID *">
   <input id="regPass" type="password" placeholder="Create Password">
-  <input id="ownerCode" type="password" placeholder="Owner Code (First time only - Leave empty if not owner)">
+  <input id="ownerCode" type="password" placeholder="Owner Code (First time only)">
   <p class="muted" style="font-size:11px">Only the owner uses this once. After that, you stay owner forever with just your name + password.</p>
   <select id="regGame"><option>Free Fire</option><option>2K</option><option>2K + Free Fire</option></select>
   <label style="font-size:13px;font-weight:700">🌍 Your Country — Type to search</label>
@@ -124,7 +125,7 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 </div>
 
 <div id="profilePage" class="page">
-  <div class="card" style="text-align:center"><img id="myPic" class="avatar" style="width:96px;height:96px"><h2 id="myName" style="margin-top:8px"></h2><p id="myUID" class="muted"></p><p id="myIGN" class="muted"></p><p id="myVerify" class="muted"></p><p id="myGame" class="muted"></p><p id="myCountry" style="font-weight:800;margin:6px 0"></p><p id="myLang" class="muted"></p><p id="myBio" style="font-size:13px;margin:6px 0"></p><div id="myBadges"></div><div class="profileStats"><div><b id="myPostCount">0</b><span>Posts</span></div><div><b id="myLikeCount">0</b><span>Likes</span></div><div><b id="myRank" style="color:#b45309">-</b><span>Rank</span></div></div><p id="myPoints" style="font-weight:700"></p><div id="myProofBox"></div>
+  <div class="card" style="text-align:center"><img id="myPic" class="avatar" style="width:96px;height:96px"><h2 id="myName" class="smallcap" style="margin-top:8px"></h2><p id="myUID" class="muted"></p><p id="myIGN" class="muted"></p><p id="myVerify" class="muted"></p><p id="myGame" class="muted"></p><p id="myCountry" style="font-weight:800;margin:6px 0"></p><p id="myLang" class="muted"></p><p id="myBio" style="font-size:13px;margin:6px 0"></p><div id="myBadges"></div><div class="profileStats"><div><b id="myPostCount">0</b><span>Posts</span></div><div><b id="myLikeCount">0</b><span>Likes</span></div><div><b id="myRank" style="color:#b45309">-</b><span>Rank</span></div></div><p id="myPoints" style="font-weight:700"></p><div id="myProofBox"></div>
   <button onclick="openEditProfile()">✏️ Edit Profile / Change UID</button>
   <button class="light" onclick="logout()">Logout</button></div>
 
@@ -158,10 +159,11 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 
 <script>
 // ===== OWNER - PERMANENT - ONLY ONE - ONLY YOU =====
-// Owner name is 2ᴋ ʀᴇʙᴏʀɴ in small cap font
-const OWNER_NAME = "2ᴋ ʀᴇʙᴏʀɴ";
+// Owner name is "2k reborn" lowercase. CSS .smallcap makes it show as 2K REBORN small cap font.
+// This avoids unicode breaking to "Reba rn" on some phones.
+const OWNER_NAME = "2k reborn";
 const OWNER_CODE = "2K-REBORN-OWNER-2026";
-// Owner code is used ONLY first time. After that, owner stays forever with name + password.
+// Owner code used ONLY first time. After that, owner stays forever with name + password.
 // No second owner can ever be created.
 // ===================================================
 const ALL_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
@@ -178,7 +180,6 @@ function langCodeFromName(name){let f=ALL_LANGUAGES.find(l=>l.name.toLowerCase()
 function langNameFromCode(code){return LANGNAMES[code]||code;}
 let users=[];let posts=[];let chats={};let statuses=[];let me=null;
 try{users=JSON.parse(localStorage.getItem('final_users')||'[]');posts=JSON.parse(localStorage.getItem('final_posts')||'[]');chats=JSON.parse(localStorage.getItem('final_chats')||'{}');statuses=JSON.parse(localStorage.getItem('final_status')||'[]');me=JSON.parse(localStorage.getItem('final_me')||'null');}catch(e){users=[];posts=[];chats={};statuses=[];me=null;}
-// SAFETY: If owner already exists, force only that one to stay owner. No second owner.
 if(users.filter(u=>u.owner).length>1){ let firstOwner=users.find(u=>u.owner); users.forEach(u=>{ if(u!==firstOwner) u.owner=false; }); }
 let currentChat='public';let mediaRecorder=null,chunks=[],recording=false;
 let hasProofUploaded=false; let hasEditProofUploaded=false;
@@ -237,7 +238,7 @@ function openEditProfile(){
 function closeEditProfile(){document.getElementById('editProfileBox').classList.add('hidden');}
 function saveEditProfile(){
   if(!me) return;
-  let newName=document.getElementById('editName').value.trim();
+  let newName=document.getElementById('editName').value.trim().toLowerCase();
   let newUID=document.getElementById('editUID').value.trim();
   let newIGN=document.getElementById('editIGN').value.trim();
   let pass=document.getElementById('editPass').value.trim();
@@ -246,8 +247,6 @@ function saveEditProfile(){
   let proofFile=document.getElementById('editProof').files[0];
   if(!pass){alert('Enter your password to confirm change');return;}
   if(pass!==me.pass){alert('❌ Wrong password. Cannot change UID.');return;}
-  // OWNER NAME CANNOT BE CHANGED BY ANYONE ELSE - Owner stays owner even if he edits profile
-  if(me.owner && newName !== OWNER_NAME){ alert('Owner name must stay as 2ᴋ ʀᴇʙᴏʀɴ. You cannot change owner name.'); return; }
   if(!newName){alert('Name cannot be empty');return;}
   if(!newUID){alert('UID cannot be empty');return;}
   let hasProofForCheck = proofFile ? true : (newUID===me.uid && me.proof ? true : hasEditProofUploaded);
@@ -268,12 +267,12 @@ function saveEditProfile(){
       me.uid=newUID; me.ign=newIGN;
       posts.forEach(p=>{ if(p.name===me.name) p.uid=newUID; });
     }
-    // Owner flag is NEVER removed here - once owner, always owner
     let wasOwner = me.owner;
     me.name=newName; if(newIGN) me.ign=newIGN; if(newBio) me.bio=newBio; if(newCountry) me.country=newCountry;
     if(newProof) me.proof=newProof;
     if(newPhoto) me.photo=newPhoto;
-    me.verified=true; me.owner=wasOwner; me.verifiedNote = newUID.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
+    me.verified=true; me.owner=wasOwner;
+    me.verifiedNote = newUID.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
     let userIdx=users.findIndex(u=>u.uid===oldUID);
     if(userIdx>=0) users[userIdx]=me; else users.push(me);
     save(); closeEditProfile(); render();
@@ -285,7 +284,7 @@ function saveEditProfile(){
   else doSave('','');
 }
 function signup(){
-  let name=document.getElementById('regName').value.trim();
+  let name=document.getElementById('regName').value.trim().toLowerCase();
   let uid=document.getElementById('regUID').value.trim();
   let ign=document.getElementById('regIGN').value.trim();
   let pass=document.getElementById('regPass').value.trim();
@@ -309,52 +308,40 @@ function signup(){
   if(!pass){alert('Please enter your Password');return;}
   if(!country){alert('Please select your country');return;}
   if(country=="Nigeria"){lang="en";langName="English";}
-  // ===== OWNER LOGIC - PERMANENT, ONE TIME CODE, ONLY ONE OWNER =====
   let existingOwner = users.find(u=>u.owner===true);
   let ex = users.find(u=>u.name==name);
   let isOwner = false;
-  // If this account already be owner before, keep am owner - no need code again
   if(ex && ex.owner===true){
     if(ex.pass !== pass){ alert('Wrong password'); return; }
     isOwner = true;
   } else if(ownerCodeInput !== ""){
-    // Person try use owner code
     if(existingOwner){
-      alert('Owner already exists: '+existingOwner.name+'. Only one owner allowed. You cannot become second owner.');
+      alert('Owner already exists. Only one owner allowed. You cannot become second owner.');
       return;
     }
     if(name === OWNER_NAME && ownerCodeInput === OWNER_CODE){
       isOwner = true;
     } else {
-      alert('❌ Wrong Owner Code or Wrong Owner Name. Owner name must be exactly 2ᴋ ʀᴇʙᴏʀɴ. Leave it empty if you are not owner.');
+      alert('❌ Wrong Owner Code. Leave it empty if you are not owner.');
       return;
     }
   } else {
-    // No code typed
     if(name === OWNER_NAME){
-      // Person try claim owner name without code - block am
       if(existingOwner){
-        alert('This name 2ᴋ ʀᴇʙᴏʀɴ is already taken by the owner. Use another name.');
+        alert('This name is already taken by the owner. Use another name.');
         return;
       }
-      alert('To use name 2ᴋ ʀᴇʙᴏʀɴ, you must enter the Owner Code first time.');
+      alert('To use this name, you must enter the Owner Code first time.');
       return;
     }
     isOwner = false;
   }
-  // If owner already exists and person no be owner, e no fit claim owner name
-  if(existingOwner && name === OWNER_NAME && existingOwner.name !== name){
-    alert('Owner already exists.');
-    return;
-  }
-  // ================================================================
   let done=(photo,proof)=>{
     let ex2=users.find(u=>u.name==name);
     if(ex2){
       if(ex2.pass!=pass){alert('Wrong password');return;}
       me=ex2; me.country=country; me.lang=lang; me.uid=uid; me.ign=ign;
       if(photo) me.photo=photo; if(proof) me.proof=proof; me.verified=true;
-      // Keep owner forever - if e don be owner before, e still be owner
       if(ex2.owner) me.owner=true;
       if(isOwner) me.owner=true;
       me.verifiedNote = uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
@@ -364,8 +351,8 @@ function signup(){
       users.push(me);
     }
     save();showApp();show('feedPage',document.querySelector('nav button'));
-    if(isOwner) alert('👑 Welcome OWNER 2ᴋ ʀᴇʙᴏʀɴ! You are now owner PERMANENTLY. Next time, just login with name + password, no code needed again.');
-    else alert(uid.length===13 ? '✅ Verified with Screenshot! Welcome, '+name+'!\nYour 13-digit UID: '+uid+' is accepted because screenshot shows it.' : '✅ Verified! Welcome to 2ᴋ ʀᴇʙᴏʀɴ, '+name+'!\nUID: '+uid+'\nIGN: '+ign);
+    if(isOwner) alert('👑 Welcome OWNER! You are now owner PERMANENTLY. Next time, just login with name + password, no code needed again.');
+    else alert(uid.length===13 ? '✅ Verified with Screenshot! Welcome, '+name+'!\nYour 13-digit UID: '+uid+' is accepted because screenshot shows it.' : '✅ Verified! Welcome, '+name+'!\nUID: '+uid+'\nIGN: '+ign);
   };
   if(photoFile && proofFile){ fileToUrl(photoFile, photoUrl=>{ fileToUrl(proofFile, proofUrl=> done(photoUrl, proofUrl)); }); }
   else if(photoFile){ fileToUrl(photoFile, photoUrl=> done(photoUrl,'')); }
@@ -376,7 +363,7 @@ function logout(){me=null;save();showAuthOnly();location.reload();}
 function addPost(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let type=document.getElementById('postType').value;let push=(media,mediaType)=>{posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text,type,media,mediaType,likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country,lang:me.lang});save();render();document.getElementById('postText').value='';alert('Posted! It will now show in your Profile')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
 function addStatus(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let push=(media,mediaType)=>{statuses.push({name:me.name,photo:me.photo,text,media,mediaType,expire:Date.now()+24*60*60*1000});save();render();alert('Status posted!')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
 function getScores(){let scores={};users.forEach(u=>scores[u.name]={name:u.name,photo:u.photo,owner:u.owner,verified:u.verified,likes:0,posts:0,comments:0,points:u.points||0,country:u.country});posts.forEach(p=>{if(scores[p.name]){scores[p.name].posts++;scores[p.name].likes+=p.likes;scores[p.name].comments+=(p.comments||[]).length;}});Object.values(scores).forEach(s=>{s.points=(s.points||0)+s.likes*2+s.posts*5+s.comments*1;});return Object.values(scores).sort((a,b)=>b.points-a.points);}
-function renderLeader(){let list=getScores();let el=document.getElementById('leaderList');if(!el) return;el.innerHTML=list.map((u,i)=>`<div class="leaderRow ${i==0?'top1':''}" onclick="viewProfile('${u.name}')"><span style="font-size:20px">${i==0?'🥇':i==1?'🥈':i==2?'🥉':'#'+(i+1)}</span><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • ${u.posts} Posts • ${u.likes} Likes</div><div>${getBadges(u.name).map(b=>`<span class="pill purple">${b}</span>`).join(' ')}</div></div><b>${u.points} pts</b></div>`).join('')||'<p class="muted">No players yet</p>';let myRank=list.findIndex(u=>u.name==me.name);if(myRank>=0){let rankEl=document.getElementById('myRank');if(rankEl) rankEl.innerText='#'+(myRank+1);document.getElementById('myPoints').innerText='Total Points: '+list[myRank].points+' pts';document.getElementById('myBadges').innerHTML=getBadges(me.name).map(b=>`<span class="pill">${b}</span>`).join(' ');}if(list.length>0){document.getElementById('shoutoutText').innerText='⭐ Top 1 Today: '+list[0].name+' ✅ — '+list[0].points+' points!';document.getElementById('ownerShoutout').innerText=list[0].owner?'Owner won because he earned the most points, not because he is owner.':'This person earned Top 1.';document.getElementById('shoutoutBadges').innerHTML=getBadges(list[0].name).map(b=>`<span class="pill">${b}</span>`).join(' ');}}
+function renderLeader(){let list=getScores();let el=document.getElementById('leaderList');if(!el) return;el.innerHTML=list.map((u,i)=>`<div class="leaderRow ${i==0?'top1':''}" onclick="viewProfile('${u.name}')"><span style="font-size:20px">${i==0?'🥇':i==1?'🥈':i==2?'🥉':'#'+(i+1)}</span><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • ${u.posts} Posts • ${u.likes} Likes</div><div>${getBadges(u.name).map(b=>`<span class="pill purple">${b}</span>`).join(' ')}</div></div><b>${u.points} pts</b></div>`).join('')||'<p class="muted">No players yet</p>';let myRank=list.findIndex(u=>u.name==me.name);if(myRank>=0){let rankEl=document.getElementById('myRank');if(rankEl) rankEl.innerText='#'+(myRank+1);document.getElementById('myPoints').innerText='Total Points: '+list[myRank].points+' pts';document.getElementById('myBadges').innerHTML=getBadges(me.name).map(b=>`<span class="pill">${b}</span>`).join(' ');}if(list.length>0){document.getElementById('shoutoutText').innerText='⭐ Top 1 Today: '+list[0].name+' ✅ — '+list[0].points+' points!';document.getElementById('ownerShoutout').innerText=list[0].owner?'Owner won because he earned the most points, not because he is owner.':'This person earned Top 1.';document.getElementById('shoutoutBadges').innerHTML=getBadges(list[0].name).map(b=>`<span class="pill">${b}</span>`).join(' ');}}
 function tiktokGridHTML(userName){
   let userPosts=posts.filter(p=>p.name==userName);
   if(userPosts.length==0) return '<p class="muted" style="padding:10px">No posts yet.</p>';
@@ -387,12 +374,12 @@ function tiktokGridHTML(userName){
   }).join('')+'</div>';
 }
 function viewPostDetail(i){let p=posts[i];if(!p) return;alert(p.name+': '+(p.text||'No caption')+'\n❤️ '+p.likes+' Likes');}
-function viewProfile(name){if(!me) return;let u=users.find(x=>x.name==name);if(!u) return;let userPosts=posts.filter(p=>p.name==name);let totalLikes=userPosts.reduce((s,p)=>s+p.likes,0);document.getElementById('viewProfileCard').innerHTML=`<img class="avatar" style="width:90px;height:90px" src="${u.photo||''}"><h3>${u.name} ${u.verified?'✅ Verified':''} ${u.owner?'👑 OWNER':''}</h3><p class="muted">UID: ${u.uid} ${u.verified?'✅':''} ${u.uid && u.uid.length===13?'<span style="color:#b45309;font-weight:700">(13 digits + Screenshot Proof 📸)</span>':''}</p><p class="muted">IGN: ${u.ign||''}</p><p style="font-size:18px;font-weight:800">${flagOf(u.country)} ${u.country||''}</p><p class="muted">Language: ${langNameFromCode(u.lang)}</p><p>${u.game||''}</p><p style="font-size:13px">${u.bio||''}</p>${u.proof?`<div class="verifyBox"><b>📸 Free Fire Proof — Screenshot showing UID</b><br><img src="${u.proof}" style="width:100%;border-radius:10px;margin-top:6px"></div>`:''}${u.uidHistory&&u.uidHistory.length?`<div class="verifyBox pending"><b>🔄 UID Changed Before:</b><br>${u.uidHistory.map(h=>`Old: ${h.oldUid} → New: ${h.newUid} • ${h.date}`).join('<br>')}</div>`:''}<div>${getBadges(u.name).map(b=>`<span class="pill">${b}</span>`).join(' ')}</div><div class="profileStats"><div><b>${userPosts.length}</b><span>Posts</span></div><div><b>${totalLikes}</b><span>Likes</span></div><div><b>${userPosts.reduce((s,p)=>s+(p.comments||[]).length,0)}</b><span>Comments</span></div></div><button onclick="openChat('${u.name}')">Chat with ${u.name} →</button>`;document.getElementById('viewProfilePosts').innerHTML=`<h4 style="margin:14px 0 6px">📱 ${u.name}'s Posts (${userPosts.length})</h4>`+tiktokGridHTML(name)+`<h4 style="margin:14px 0 6px">Full Posts</h4>`+userPosts.map(p=>{let i=posts.indexOf(p);return `<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button></div>`}).join('');show('viewProfilePage',null);}
+function viewProfile(name){if(!me) return;let u=users.find(x=>x.name==name);if(!u) return;let userPosts=posts.filter(p=>p.name==name);let totalLikes=userPosts.reduce((s,p)=>s+p.likes,0);document.getElementById('viewProfileCard').innerHTML=`<img class="avatar" style="width:90px;height:90px" src="${u.photo||''}"><h3 class="smallcap">${u.name} ${u.verified?'✅ Verified':''} ${u.owner?'👑 OWNER':''}</h3><p class="muted">UID: ${u.uid} ${u.verified?'✅':''} ${u.uid && u.uid.length===13?'<span style="color:#b45309;font-weight:700">(13 digits + Screenshot Proof 📸)</span>':''}</p><p class="muted">IGN: ${u.ign||''}</p><p style="font-size:18px;font-weight:800">${flagOf(u.country)} ${u.country||''}</p><p class="muted">Language: ${langNameFromCode(u.lang)}</p><p>${u.game||''}</p><p style="font-size:13px">${u.bio||''}</p>${u.proof?`<div class="verifyBox"><b>📸 Free Fire Proof — Screenshot showing UID</b><br><img src="${u.proof}" style="width:100%;border-radius:10px;margin-top:6px"></div>`:''}${u.uidHistory&&u.uidHistory.length?`<div class="verifyBox pending"><b>🔄 UID Changed Before:</b><br>${u.uidHistory.map(h=>`Old: ${h.oldUid} → New: ${h.newUid} • ${h.date}`).join('<br>')}</div>`:''}<div>${getBadges(u.name).map(b=>`<span class="pill">${b}</span>`).join(' ')}</div><div class="profileStats"><div><b>${userPosts.length}</b><span>Posts</span></div><div><b>${totalLikes}</b><span>Likes</span></div><div><b>${userPosts.reduce((s,p)=>s+(p.comments||[]).length,0)}</b><span>Comments</span></div></div><button onclick="openChat('${u.name}')">Chat with ${u.name} →</button>`;document.getElementById('viewProfilePosts').innerHTML=`<h4 style="margin:14px 0 6px">📱 ${u.name}'s Posts (${userPosts.length})</h4>`+tiktokGridHTML(name)+`<h4 style="margin:14px 0 6px">Full Posts</h4>`+userPosts.map(p=>{let i=posts.indexOf(p);return `<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button></div>`}).join('');show('viewProfilePage',null);}
 function reactPost(i,type){posts[i].reactions=posts[i].reactions||{fire:0,love:0,laugh:0,wow:0};posts[i].reactions[type]++;save();render();}
 function render(){if(!me) return;statuses=statuses.filter(s=>s.expire>Date.now());save();renderLeader();let fa=document.getElementById('feedAvatar');if(fa) fa.src=me.photo||'';document.getElementById('myName').innerText=me.name+(me.owner?' 👑 OWNER':'')+(me.verified?' ✅':'');document.getElementById('myUID').innerText='UID: '+me.uid+(me.verified?' ✅ Verified':'')+(me.uid && me.uid.length===13?' (13 digits + Screenshot 📸)':'');let ignEl=document.getElementById('myIGN');if(ignEl) ignEl.innerText='IGN: '+(me.ign||'');let vEl=document.getElementById('myVerify');if(vEl) vEl.innerHTML=me.verified?(me.uid && me.uid.length===13?'<span style="color:#16a34a;font-weight:700">✅ 13-digit UID Verified With Screenshot Proof</span>':'<span style="color:#16a34a;font-weight:700">✅ UID Verified</span>'):'Not Verified';document.getElementById('myGame').innerText=me.game||'';document.getElementById('myBio').innerText=me.bio||'';document.getElementById('myPic').src=me.photo||'';document.getElementById('myCountry').innerText=flagOf(me.country)+' '+(me.country||'');document.getElementById('myLang').innerText='Language: '+langNameFromCode(me.lang);let myPostsList=posts.filter(p=>p.name==me.name);let myLikes=myPostsList.reduce((s,p)=>s+p.likes,0);let pc=document.getElementById('myPostCount');if(pc) pc.innerText=myPostsList.length;let lc=document.getElementById('myLikeCount');if(lc) lc.innerText=myLikes;let proofBox=document.getElementById('myProofBox');if(proofBox){proofBox.innerHTML=me.proof?`<div class="verifyBox"><b>📸 Your Free Fire Proof — Screenshot showing UID</b><br><img src="${me.proof}" style="width:100%;border-radius:10px;margin-top:6px"></div>`:'';}document.getElementById('statusList').innerHTML=`<div class="status"><img src="${me.photo||''}"><div>You</div></div>`+statuses.map(s=>`<div class="status"><img src="${s.photo||''}"><div>${s.name}</div></div>`).join('');
-document.getElementById('feed').innerHTML=posts.map((p,i)=>`<div class="card"><div class="row" onclick="viewProfile('${p.name}')"><img class="avatar" src="${p.photo||''}"><div style="flex:1"><b>${p.name} ${p.owner?'👑 OWNER':''} ✅</b><div class="muted">${flagOf(p.country)} ${p.country||''} • UID: ${p.uid} ${p.uid && p.uid.length===13?'(13 📸)':''} • ${p.type} • ${langNameFromCode(p.lang)}</div></div><span class="pill purple">${p.type}</span></div><p style="margin:10px 0;font-size:14px;line-height:1.5">${p.text||''}</p><span id="tr-post-${i}" class="translated" style="display:none"></span>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<div class="reactions"><button class="react" onclick="reactPost(${i},'fire')">🔥 ${(p.reactions&&p.reactions.fire)||0}</button><button class="react" onclick="reactPost(${i},'love')">❤️ ${(p.reactions&&p.reactions.love)||0}</button><button class="react" onclick="reactPost(${i},'laugh')">😂 ${(p.reactions&&p.reactions.laugh)||0}</button><button class="react" onclick="reactPost(${i},'wow')">😮 ${(p.reactions&&p.reactions.wow)||0}</button></div><div style="display:flex;gap:6px"><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button><button class="small outline" onclick="openChat('${p.name}')">💬 Chat</button><button class="small outline" onclick="translateText(\`${(p.text||'').replace(/`/g,'')}\`,'tr-post-${i}')">🌍 Translate</button></div><div class="commentBox"><b style="font-size:13px">Comments (${(p.comments||[]).length})</b>${(p.comments||[]).map(c=>`<div class="comment"><b>${c.from}:</b> ${c.text}</div>`).join('')||'<div class="muted" style="font-size:12px">No comment yet.</div>'}<input class="commentInput" id="cmt-${i}" placeholder="Write a comment..."><button class="small" onclick="addComment(${i})">Post Comment</button></div></div>`).join('')||'<p style="text-align:center;color:#888">No post yet.</p>';
-document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.verified?'✅':''} ${u.owner?'<span class="pill">👑 OWNER</span>':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • UID: ${u.uid} ✅ ${u.uid && u.uid.length===13?'(13 📸)':''} • IGN: ${u.ign||''}<br>📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small" onclick="event.stopPropagation();openChat('${u.name}')">Chat →</button></div>`).join('')||'<p class="muted">No other people yet.</p>';
-document.getElementById('allProfiles').innerHTML=users.map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country} • UID: ${u.uid} • 📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small">View</button></div>`).join('');
+document.getElementById('feed').innerHTML=posts.map((p,i)=>`<div class="card"><div class="row" onclick="viewProfile('${p.name}')"><img class="avatar" src="${p.photo||''}"><div style="flex:1"><b class="smallcap">${p.name} ${p.owner?'👑 OWNER':''} ✅</b><div class="muted">${flagOf(p.country)} ${p.country||''} • UID: ${p.uid} ${p.uid && p.uid.length===13?'(13 📸)':''} • ${p.type} • ${langNameFromCode(p.lang)}</div></div><span class="pill purple">${p.type}</span></div><p style="margin:10px 0;font-size:14px;line-height:1.5">${p.text||''}</p><span id="tr-post-${i}" class="translated" style="display:none"></span>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<div class="reactions"><button class="react" onclick="reactPost(${i},'fire')">🔥 ${(p.reactions&&p.reactions.fire)||0}</button><button class="react" onclick="reactPost(${i},'love')">❤️ ${(p.reactions&&p.reactions.love)||0}</button><button class="react" onclick="reactPost(${i},'laugh')">😂 ${(p.reactions&&p.reactions.laugh)||0}</button><button class="react" onclick="reactPost(${i},'wow')">😮 ${(p.reactions&&p.reactions.wow)||0}</button></div><div style="display:flex;gap:6px"><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button><button class="small outline" onclick="openChat('${p.name}')">💬 Chat</button><button class="small outline" onclick="translateText(\`${(p.text||'').replace(/`/g,'')}\`,'tr-post-${i}')">🌍 Translate</button></div><div class="commentBox"><b style="font-size:13px">Comments (${(p.comments||[]).length})</b>${(p.comments||[]).map(c=>`<div class="comment"><b>${c.from}:</b> ${c.text}</div>`).join('')||'<div class="muted" style="font-size:12px">No comment yet.</div>'}<input class="commentInput" id="cmt-${i}" placeholder="Write a comment..."><button class="small" onclick="addComment(${i})">Post Comment</button></div></div>`).join('')||'<p style="text-align:center;color:#888">No post yet.</p>';
+document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'<span class="pill">👑 OWNER</span>':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • UID: ${u.uid} ✅ ${u.uid && u.uid.length===13?'(13 📸)':''} • IGN: ${u.ign||''}<br>📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small" onclick="event.stopPropagation();openChat('${u.name}')">Chat →</button></div>`).join('')||'<p class="muted">No other people yet.</p>';
+document.getElementById('allProfiles').innerHTML=users.map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country} • UID: ${u.uid} • 📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small">View</button></div>`).join('');
 document.getElementById('myPostsGrid').innerHTML=tiktokGridHTML(me.name);
 document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p></div>`).join('')||'<p class="muted">You have not posted yet.</p>';if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
 function likePost(i){posts[i].likes++;save();render()}
