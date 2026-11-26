@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2k reborn - Free Fire Community</title>
+<title>2ᴋ ʀᴇʙᴏʀɴ - Free Fire Community</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif}
 body{background:#f6f7fb;color:#111;max-width:520px;margin:auto;min-height:100vh;padding-bottom:80px}
-.smallcap{font-variant:small-caps;text-transform:lowercase;letter-spacing:1px;font-weight:800}
+.smallcap{font-weight:800;letter-spacing:1px}
 .topbar{background:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(0,0,0,.06);border-bottom:1px solid #eee}
-.logo{font-size:22px;font-weight:800;letter-spacing:-.5px;font-variant:small-caps}.logo span{color:#7c3aed}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888;font-weight:600;font-variant:small-caps}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}.logo span{color:#7c3aed}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888;font-weight:600}
 .topbar select{width:auto;padding:7px 10px;border-radius:20px;border:1px solid #e5e7eb;background:#f9fafb;color:#111;font-size:12px;font-weight:600}
 .page{display:none;padding:14px}.page.active{display:block}
 input,textarea,select{width:100%;padding:13px 14px;margin:8px 0;border-radius:12px;border:1px solid #e5e7eb;background:#fff;color:#111;font-size:14px;outline:none}
@@ -25,7 +25,7 @@ button:active{transform:scale(.98)} button.secondary{background:#111} button.lig
 .pill{display:inline-flex;align-items:center;gap:4px;background:#fef3c7;color:#92400e;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700}
 .pill.purple{background:#ede9fe;color:#5b21b6}.pill.green{background:#dcfce7;color:#166534}.pill.blue{background:#dbeafe;color:#1e40af}
 .hero{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border-radius:20px;padding:18px;text-align:center}
-.hero h3{font-size:20px;font-variant:small-caps}.hero p{font-size:13px;opacity:.9;margin:6px 0}
+.hero h3{font-size:20px}.hero p{font-size:13px;opacity:.9;margin:6px 0}
 .reward{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-radius:18px;padding:16px;text-align:center}
 .statusRow{display:flex;gap:12px;overflow-x:auto;padding:6px 0}
 .status{flex:0 0 68px;text-align:center;font-size:11px;font-weight:600}
@@ -51,7 +51,7 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 .translated{font-size:12px;color:#5b21b6;background:#ede9fe;padding:6px 8px;border-radius:8px;margin-top:6px;display:block}
 .hidden{display:none} audio{width:100%}
 .authHero{background:linear-gradient(180deg,#1a0033,#7c3aed);color:#fff;border-radius:24px;padding:28px 18px;text-align:center;margin-bottom:16px}
-.authHero h1{font-size:38px;letter-spacing:1px;font-variant:small-caps}.authHero p{font-size:13px;opacity:.9;margin-top:8px;line-height:1.6}
+.authHero h1{font-size:38px;letter-spacing:1px}.authHero p{font-size:13px;opacity:.9;margin-top:8px;line-height:1.6}
 .featureList{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
 .featureList span{background:rgba(255,255,255,.15);padding:6px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .countryBox{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:10px;font-size:13px;font-weight:600;color:#5b21b6}
@@ -71,20 +71,19 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <body>
 
 <div id="mainHeader" style="display:none">
-<div class="topbar"><div class="logo"><span class="smallcap">2k reborn</span><small>Free Fire Community</small></div><input class="topSearch" placeholder="Search people..." oninput="searchPeople(this.value)"><select id="uiLang" onchange="changeUILang(this.value)"><option value="en">🌍 English</option><option value="fr">🇫🇷 French</option><option value="es">🇪🇸 Spanish</option><option value="ar">🇸🇦 Arabic</option><option value="pt">🇧🇷 Portuguese</option><option value="de">🇩🇪 German</option><option value="it">🇮🇹 Italian</option><option value="ru">🇷🇺 Russian</option><option value="tr">🇹🇷 Turkish</option><option value="hi">🇮🇳 Hindi</option><option value="ja">🇯🇵 Japanese</option><option value="ko">🇰🇷 Korean</option><option value="zh">🇨🇳 Chinese</option><option value="id">🇮🇩 Indonesian</option><option value="sw">🇰🇪 Swahili</option></select></div>
+<div class="topbar"><div class="logo"><span class="smallcap">2ᴋ ʀᴇʙᴏʀɴ</span><small>Free Fire Community</small></div><input class="topSearch" placeholder="Search people..." oninput="searchPeople(this.value)"><select id="uiLang" onchange="changeUILang(this.value)"><option value="en">🌍 English</option><option value="fr">🇫🇷 French</option><option value="es">🇪🇸 Spanish</option><option value="ar">🇸🇦 Arabic</option><option value="pt">🇧🇷 Portuguese</option><option value="de">🇩🇪 German</option><option value="it">🇮🇹 Italian</option><option value="ru">🇷🇺 Russian</option><option value="tr">🇹🇷 Turkish</option><option value="hi">🇮🇳 Hindi</option><option value="ja">🇯🇵 Japanese</option><option value="ko">🇰🇷 Korean</option><option value="zh">🇨🇳 Chinese</option><option value="id">🇮🇩 Indonesian</option><option value="sw">🇰🇪 Swahili</option></select></div>
 <div style="text-align:center;padding:6px;background:#fff;border-bottom:1px solid #eee;font-size:12px;font-weight:600" id="currentLangLabel">Current Language: English</div>
 </div>
 
 <div id="authPage" class="page active">
-  <div class="authHero"><h1 class="smallcap">🔥 2k reborn</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
+  <div class="authHero"><h1 class="smallcap">🔥 2ᴋ ʀᴇʙᴏʀɴ</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
   <div class="card"><h3 style="font-size:18px">Create your account</h3><p class="muted">You must sign up first. No one can see anything without an account.</p>
-  <input id="regName" placeholder="Your Name">
+  <input id="regName" placeholder="Your Name" oninput="checkOwnerName(this.value)">
   <input id="regUID" placeholder="Your Free Fire UID * 9-12 digits normal, 13 digits needs screenshot *" oninput="liveCheckUID(this.value)">
   <p id="uidLiveCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
   <input id="regIGN" placeholder="Your Free Fire In-Game Name (IGN) * Must match UID *">
   <input id="regPass" type="password" placeholder="Create Password">
-  <input id="ownerCode" type="password" placeholder="Owner Code (First time only)">
-  <p class="muted" style="font-size:11px">Only the owner uses this once. After that, you stay owner forever with just your name + password.</p>
+  <input id="ownerCode" type="password" placeholder="Code" style="display:none" autocomplete="off">
   <select id="regGame"><option>Free Fire</option><option>2K</option><option>2K + Free Fire</option></select>
   <label style="font-size:13px;font-weight:700">🌍 Your Country — Type to search</label>
   <input id="regCountry" list="countryList" placeholder="Type your country..." value="Nigeria" oninput="onCountryChange()" onchange="onCountryChange()">
@@ -94,6 +93,9 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
   <input id="regLangInput" list="langList" placeholder="Language..." value="English" onchange="onLangManualChange()">
   <datalist id="langList"></datalist>
   <input id="regBio" placeholder="Bio — e.g. I live in Lagos, I love gaming">
+  <label style="font-size:13px;font-weight:700">🔢 Type UID as e dey for Screenshot</label>
+  <input id="regUIDConfirm" placeholder="Type the UID you see inside the screenshot" oninput="checkUIDMatch()">
+  <p id="uidMatchCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
   <label style="font-size:13px;font-weight:700">📸 Proof — Upload Free Fire Profile Screenshot (MUST show UID)</label>
   <input type="file" id="regProof" accept="image/*" onchange="onProofUpload()">
   <p id="proofStatus" class="muted" style="font-size:12px">No screenshot yet. If your UID is 13 digits, screenshot is REQUIRED to login.</p>
@@ -135,6 +137,8 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
     <label style="font-size:12px;font-weight:700">Display Name</label><input id="editName" placeholder="Your Name">
     <label style="font-size:12px;font-weight:700">🔄 New Free Fire UID</label><input id="editUID" placeholder="New UID — 9-12 normal, 13 with screenshot" oninput="liveCheckEditUID(this.value)">
     <p id="editUidCheck" style="font-size:12px;font-weight:700"></p>
+    <label style="font-size:12px;font-weight:700">🔢 Type New UID as e dey for Screenshot</label><input id="editUIDConfirm" placeholder="Type UID from new screenshot">
+    <p id="editUidMatchCheck" style="font-size:12px;font-weight:700"></p>
     <label style="font-size:12px;font-weight:700">New IGN — Must match new UID</label><input id="editIGN" placeholder="New In-Game Name">
     <label style="font-size:12px;font-weight:700">Password — Enter your password to confirm</label><input id="editPass" type="password" placeholder="Enter your password to save changes">
     <label style="font-size:12px;font-weight:700">Bio</label><input id="editBio" placeholder="Bio">
@@ -158,14 +162,30 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <nav id="bottomNav"><button onclick="show('feedPage',this)" class="active">🏠<br>Feed</button><button onclick="show('chatPage',this)">💬<br>Chats</button><button onclick="show('leaderPage',this)">🏆<br>Top</button><button onclick="show('profilePage',this)">👤<br>Profile</button></nav>
 
 <script>
-// ===== OWNER - PERMANENT - ONLY ONE - ONLY YOU =====
-// Owner name is "2k reborn" lowercase. CSS .smallcap makes it show as 2K REBORN small cap font.
-// This avoids unicode breaking to "Reba rn" on some phones.
-const OWNER_NAME = "2k reborn";
+// ===== OWNER - HIDDEN =====
+const OWNER_NAME = "2ᴋ ʀᴇʙᴏʀɴ";
 const OWNER_CODE = "2K-REBORN-OWNER-2026";
-// Owner code used ONLY first time. After that, owner stays forever with name + password.
-// No second owner can ever be created.
-// ===================================================
+function normName(s){
+  return (s||"").toLowerCase().replace(/ᴋ/g,"k").replace(/ʀ/g,"r").replace(/ᴇ/g,"e").replace(/ʙ/g,"b").replace(/ᴏ/g,"o").replace(/ɴ/g,"n").replace(/\s+/g," ").trim();
+}
+function checkOwnerName(val){
+  let codeBox=document.getElementById('ownerCode');
+  if(!codeBox) return;
+  if(normName(val)==="2k reborn" || val===OWNER_NAME){
+    codeBox.style.display='block';
+  } else {
+    codeBox.style.display='none';
+  }
+}
+function checkUIDMatch(){
+  let a=document.getElementById('regUID').value.trim();
+  let b=document.getElementById('regUIDConfirm').value.trim();
+  let el=document.getElementById('uidMatchCheck');
+  if(!b){el.innerText='';return;}
+  if(a===b){el.innerText='✅ UID match screenshot UID';el.style.color='#16a34a';}
+  else{el.innerText='❌ UID no match screenshot UID - type same UID';el.style.color='#dc2626';}
+}
+// ==========================
 const ALL_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
 const COUNTRY_LANGUAGES={"Afghanistan":["Pashto","Persian"],"Albania":["Albanian"],"Algeria":["Arabic","French"],"Andorra":["Catalan"],"Angola":["Portuguese"],"Antigua and Barbuda":["English"],"Argentina":["Spanish"],"Armenia":["Armenian"],"Australia":["English"],"Austria":["German"],"Azerbaijan":["Azerbaijani"],"Bahamas":["English"],"Bahrain":["Arabic"],"Bangladesh":["Bengali"],"Barbados":["English"],"Belarus":["Russian"],"Belgium":["Dutch","French"],"Belize":["English"],"Benin":["French"],"Bhutan":["Dzongkha"],"Bolivia":["Spanish"],"Bosnia and Herzegovina":["Bosnian"],"Botswana":["English"],"Brazil":["Portuguese"],"Brunei":["Malay"],"Bulgaria":["Bulgarian"],"Burkina Faso":["French"],"Burundi":["Kirundi"],"Cambodia":["Khmer"],"Cameroon":["French","English"],"Canada":["English","French"],"Cape Verde":["Portuguese"],"Central African Republic":["French"],"Chad":["French","Arabic"],"Chile":["Spanish"],"China":["Chinese"],"Colombia":["Spanish"],"Comoros":["French"],"Congo":["French"],"Costa Rica":["Spanish"],"Croatia":["Croatian"],"Cuba":["Spanish"],"Cyprus":["Greek"],"Czech Republic":["Czech"],"Denmark":["Danish"],"Djibouti":["French"],"Dominica":["English"],"Dominican Republic":["Spanish"],"Ecuador":["Spanish"],"Egypt":["Arabic"],"El Salvador":["Spanish"],"Equatorial Guinea":["Spanish"],"Eritrea":["Tigrinya"],"Estonia":["Estonian"],"Eswatini":["English"],"Ethiopia":["Amharic"],"Fiji":["English"],"Finland":["Finnish"],"France":["French"],"Gabon":["French"],"Gambia":["English"],"Georgia":["Georgian"],"Germany":["German"],"Ghana":["English"],"Greece":["Greek"],"Grenada":["English"],"Guatemala":["Spanish"],"Guinea":["French"],"Guinea-Bissau":["Portuguese"],"Guyana":["English"],"Haiti":["French"],"Honduras":["Spanish"],"Hungary":["Hungarian"],"Iceland":["Icelandic"],"India":["Hindi","English"],"Indonesia":["Indonesian"],"Iran":["Persian"],"Iraq":["Arabic"],"Ireland":["English"],"Israel":["Hebrew"],"Italy":["Italian"],"Ivory Coast":["French"],"Jamaica":["English"],"Japan":["Japanese"],"Jordan":["Arabic"],"Kazakhstan":["Kazakh"],"Kenya":["Swahili","English"],"Kiribati":["English"],"Kuwait":["Arabic"],"Kyrgyzstan":["Kyrgyz"],"Laos":["Lao"],"Latvia":["Latvian"],"Lebanon":["Arabic"],"Lesotho":["English"],"Liberia":["English"],"Libya":["Arabic"],"Liechtenstein":["German"],"Lithuania":["Lithuanian"],"Luxembourg":["French"],"Madagascar":["French"],"Malawi":["English"],"Malaysia":["Malay"],"Maldives":["Dhivehi"],"Mali":["French"],"Malta":["Maltese"],"Marshall Islands":["English"],"Mauritania":["Arabic"],"Mauritius":["English"],"Mexico":["Spanish"],"Micronesia":["English"],"Moldova":["Romanian"],"Monaco":["French"],"Mongolia":["Mongolian"],"Montenegro":["Montenegrin"],"Morocco":["Arabic"],"Mozambique":["Portuguese"],"Myanmar":["Burmese"],"Namibia":["English"],"Nauru":["English"],"Nepal":["Nepali"],"Netherlands":["Dutch"],"New Zealand":["English"],"Nicaragua":["Spanish"],"Niger":["French"],"Nigeria":["English"],"North Korea":["Korean"],"North Macedonia":["Macedonian"],"Norway":["Norwegian"],"Oman":["Arabic"],"Pakistan":["Urdu"],"Palau":["English"],"Palestine":["Arabic"],"Panama":["Spanish"],"Papua New Guinea":["English"],"Paraguay":["Spanish"],"Peru":["Spanish"],"Philippines":["English"],"Poland":["Polish"],"Portugal":["Portuguese"],"Qatar":["Arabic"],"Romania":["Romanian"],"Russia":["Russian"],"Rwanda":["French"],"Saint Kitts and Nevis":["English"],"Saint Lucia":["English"],"Saint Vincent and the Grenadines":["English"],"Samoa":["English"],"San Marino":["Italian"],"Sao Tome and Principe":["Portuguese"],"Saudi Arabia":["Arabic"],"Senegal":["French"],"Serbia":["Serbian"],"Seychelles":["English"],"Sierra Leone":["English"],"Singapore":["English"],"Slovakia":["Slovak"],"Slovenia":["Slovenian"],"Solomon Islands":["English"],"Somalia":["Somali"],"South Africa":["English"],"South Korea":["Korean"],"South Sudan":["English"],"Spain":["Spanish"],"Sri Lanka":["Sinhala"],"Sudan":["Arabic"],"Suriname":["Dutch"],"Sweden":["Swedish"],"Switzerland":["German","French"],"Syria":["Arabic"],"Taiwan":["Chinese"],"Tajikistan":["Tajik"],"Tanzania":["Swahili"],"Thailand":["Thai"],"Togo":["French"],"Tonga":["English"],"Trinidad and Tobago":["English"],"Tunisia":["Arabic"],"Turkey":["Turkish"],"Turkmenistan":["Turkmen"],"Tuvalu":["English"],"Uganda":["English"],"Ukraine":["Ukrainian"],"United Arab Emirates":["Arabic"],"United Kingdom":["English"],"United States":["English"],"Uruguay":["Spanish"],"Uzbekistan":["Uzbek"],"Vanuatu":["English"],"Vatican City":["Italian"],"Venezuela":["Spanish"],"Vietnam":["Vietnamese"],"Yemen":["Arabic"],"Zambia":["English"],"Zimbabwe":["English"]};
 const ALL_LANGUAGES=[{code:"en",name:"English"},{code:"fr",name:"French"},{code:"es",name:"Spanish"},{code:"ar",name:"Arabic"},{code:"pt",name:"Portuguese"},{code:"de",name:"German"},{code:"it",name:"Italian"},{code:"ru",name:"Russian"},{code:"tr",name:"Turkish"},{code:"hi",name:"Hindi"},{code:"ur",name:"Urdu"},{code:"bn",name:"Bengali"},{code:"ja",name:"Japanese"},{code:"ko",name:"Korean"},{code:"zh",name:"Chinese"},{code:"id",name:"Indonesian"},{code:"sw",name:"Swahili"},{code:"am",name:"Amharic"},{code:"nl",name:"Dutch"},{code:"pl",name:"Polish"},{code:"th",name:"Thai"},{code:"vi",name:"Vietnamese"}];
@@ -203,6 +223,7 @@ function liveCheckUID(val){
   let hasProof=document.getElementById('regProof') && document.getElementById('regProof').files.length>0;
   let r=isValidUID(val, hasProof || hasProofUploaded);
   el.innerText=r.msg; el.style.color=r.ok?'#16a34a':(val.length===13?'#b45309':'#dc2626');
+  checkUIDMatch();
 }
 function liveCheckEditUID(val){
   let el=document.getElementById('editUidCheck');if(!val){el.innerText='';return;}
@@ -238,8 +259,9 @@ function openEditProfile(){
 function closeEditProfile(){document.getElementById('editProfileBox').classList.add('hidden');}
 function saveEditProfile(){
   if(!me) return;
-  let newName=document.getElementById('editName').value.trim().toLowerCase();
+  let newName=document.getElementById('editName').value.trim();
   let newUID=document.getElementById('editUID').value.trim();
+  let newUIDConfirm=document.getElementById('editUIDConfirm').value.trim();
   let newIGN=document.getElementById('editIGN').value.trim();
   let pass=document.getElementById('editPass').value.trim();
   let newBio=document.getElementById('editBio').value.trim();
@@ -249,6 +271,7 @@ function saveEditProfile(){
   if(pass!==me.pass){alert('❌ Wrong password. Cannot change UID.');return;}
   if(!newName){alert('Name cannot be empty');return;}
   if(!newUID){alert('UID cannot be empty');return;}
+  if(newUIDConfirm && newUIDConfirm!==newUID){alert('❌ UID no match! UID for top must be SAME as UID wey dey for screenshot.');return;}
   let hasProofForCheck = proofFile ? true : (newUID===me.uid && me.proof ? true : hasEditProofUploaded);
   let check=isValidUID(newUID, hasProofForCheck);
   if(!check.ok){alert(check.msg);return;}
@@ -284,8 +307,11 @@ function saveEditProfile(){
   else doSave('','');
 }
 function signup(){
-  let name=document.getElementById('regName').value.trim().toLowerCase();
+  let rawName=document.getElementById('regName').value.trim();
+  let name=normName(rawName);
+  if(rawName===OWNER_NAME) name=OWNER_NAME;
   let uid=document.getElementById('regUID').value.trim();
+  let uidConfirm=document.getElementById('regUIDConfirm').value.trim();
   let ign=document.getElementById('regIGN').value.trim();
   let pass=document.getElementById('regPass').value.trim();
   let ownerCodeInput=document.getElementById('ownerCode').value.trim();
@@ -296,8 +322,10 @@ function signup(){
   let lang=langCodeFromName(langName);
   let photoFile=document.getElementById('regPhoto').files[0];
   let proofFile=document.getElementById('regProof').files[0];
-  if(!name){alert('Please enter your Name');return;}
+  if(!rawName){alert('Please enter your Name');return;}
   if(!uid){alert('Please enter your Game UID');return;}
+  if(!uidConfirm){alert('Please type UID as e dey for screenshot');return;}
+  if(uidConfirm!==uid){alert('❌ UID no match! UID for top must be SAME as UID wey dey inside your screenshot.');return;}
   let hasProof = proofFile ? true : hasProofUploaded;
   let check=isValidUID(uid, hasProof);
   if(!check.ok){alert(check.msg);return;}
@@ -309,45 +337,45 @@ function signup(){
   if(!country){alert('Please select your country');return;}
   if(country=="Nigeria"){lang="en";langName="English";}
   let existingOwner = users.find(u=>u.owner===true);
-  let ex = users.find(u=>u.name==name);
+  let ex = users.find(u=>u.name==name || normName(u.name)===normName(name));
   let isOwner = false;
   if(ex && ex.owner===true){
     if(ex.pass !== pass){ alert('Wrong password'); return; }
     isOwner = true;
   } else if(ownerCodeInput !== ""){
     if(existingOwner){
-      alert('Owner already exists. Only one owner allowed. You cannot become second owner.');
+      alert('Owner already exists. Only one owner allowed.');
       return;
     }
-    if(name === OWNER_NAME && ownerCodeInput === OWNER_CODE){
+    if(normName(name) === "2k reborn" && ownerCodeInput === OWNER_CODE){
       isOwner = true;
     } else {
-      alert('❌ Wrong Owner Code. Leave it empty if you are not owner.');
+      alert('❌ Wrong Code. Leave it empty if you are not owner.');
       return;
     }
   } else {
-    if(name === OWNER_NAME){
+    if(normName(name) === "2k reborn"){
       if(existingOwner){
-        alert('This name is already taken by the owner. Use another name.');
+        alert('This name is already taken. Use another name.');
         return;
       }
-      alert('To use this name, you must enter the Owner Code first time.');
+      alert('To use this name, you must enter the Code first time.');
       return;
     }
     isOwner = false;
   }
   let done=(photo,proof)=>{
-    let ex2=users.find(u=>u.name==name);
+    let ex2=users.find(u=>u.name==name || normName(u.name)===normName(name));
     if(ex2){
       if(ex2.pass!=pass){alert('Wrong password');return;}
-      me=ex2; me.country=country; me.lang=lang; me.uid=uid; me.ign=ign;
+      me=ex2; me.country=country; me.lang=lang; me.uid=uid; me.ign=ign; me.uidConfirm=uidConfirm;
       if(photo) me.photo=photo; if(proof) me.proof=proof; me.verified=true;
       if(ex2.owner) me.owner=true;
       if(isOwner) me.owner=true;
       me.verifiedNote = uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
-      let idx=users.findIndex(u=>u.name==name); users[idx]=me;
+      let idx=users.findIndex(u=>u.name==name); if(idx>=0) users[idx]=me; else users.push(me);
     } else {
-      me={name,uid,ign,pass,game,bio,photo:photo||'',proof:proof||'',owner:isOwner,country,lang,points:0,verified:true,verifiedNote: uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified', uidHistory:[]};
+      me={name,uid,uidConfirm,ign,pass,game,bio,photo:photo||'',proof:proof||'',owner:isOwner,country,lang,points:0,verified:true,verifiedNote: uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified', uidHistory:[]};
       users.push(me);
     }
     save();showApp();show('feedPage',document.querySelector('nav button'));
@@ -384,12 +412,4 @@ document.getElementById('myPostsGrid').innerHTML=tiktokGridHTML(me.name);
 document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p></div>`).join('')||'<p class="muted">You have not posted yet.</p>';if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
 function likePost(i){posts[i].likes++;save();render()}
 function addComment(i){let el=document.getElementById('cmt-'+i);let t=el.value.trim();if(!t) return;posts[i].comments=posts[i].comments||[];posts[i].comments.push({from:me.name,text:t});el.value='';save();render();}
-function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}currentChat=name;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('chatPage').classList.add('active');document.getElementById('chatArea').classList.remove('hidden');let u=users.find(x=>x.name==name);document.getElementById('chatTitle').innerText=name=='public'?'GENERAL CHAT — Everyone Is Here':'Chat with '+name+(u&&u.owner?' 👑 OWNER':'')+(u?` ${flagOf(u.country)} ${u.country||''}`:'');renderChat();setTimeout(()=>{document.getElementById('chatArea').scrollIntoView({behavior:'smooth'});},100);}
-function getChatKey(){return currentChat=='public'?'public':[me.name,currentChat].sort().join('_')}
-function renderChat(){if(!me) return;let k=getChatKey();let arr=chats[k]||[];document.getElementById('chatBox').innerHTML=arr.map(m=>`<div class="msg ${m.from==me.name?'me':''}"><b>${m.from}</b><div>${m.text||''}</div>${m.voice?`<audio src="${m.voice}" controls></audio>`:''}</div>`).join('')||'<p class="muted" style="text-align:center">No message yet. Say hello! 👋</p>';document.getElementById('chatBox').scrollTop=99999;}
-function sendMsg(){if(!me) return;let t=document.getElementById('chatInput').value.trim();if(!t)return;let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t});document.getElementById('chatInput').value='';save();renderChat();}
-async function toggleRec(){if(!recording){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(s);chunks=[];mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let r=new FileReader();r.onload=e=>{let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,voice:e.target.result});save();renderChat()};r.readAsDataURL(blob)};mediaRecorder.start();recording=true;document.getElementById('recStatus').innerText='Recording... Press again to stop and send';document.getElementById('recBtn').innerText='Stop and Send Voice Note';}catch(e){alert('Please allow microphone access')}}else{mediaRecorder.stop();recording=false;document.getElementById('recStatus').innerText='';document.getElementById('recBtn').innerText='Record Voice Note'}}
-if(me){showApp();show('feedPage',document.querySelector('nav button'));}else{showAuthOnly();}
-</script>
-</body>
-</html>
+function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}
