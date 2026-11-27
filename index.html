@@ -4,115 +4,112 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2ᴋ ʀᴇʙᴏʀɴ - Free Fire Community</title>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif}
 body{background:#f6f7fb;color:#111;max-width:520px;margin:auto;min-height:100vh;padding-bottom:80px}
 .smallcap{font-weight:800;letter-spacing:1px}
 .topbar{background:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(0,0,0,.06);border-bottom:1px solid #eee}
-.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}.logo span{color:#7c3aed}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888;font-weight:600}
-.topbar select{width:auto;padding:7px 10px;border-radius:20px;border:1px solid #e5e7eb;background:#f9fafb;color:#111;font-size:12px;font-weight:600}
+.logo{font-size:22px;font-weight:800}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888;font-weight:600}
+.topbar select{width:auto;padding:7px 10px;border-radius:20px;border:1px solid #e5e7eb;background:#f9fafb;font-size:12px;font-weight:600}
 .page{display:none;padding:14px}.page.active{display:block}
-input,textarea,select{width:100%;padding:13px 14px;margin:8px 0;border-radius:12px;border:1px solid #e5e7eb;background:#fff;color:#111;font-size:14px;outline:none}
-input:focus,textarea:focus,select:focus{border-color:#7c3aed;box-shadow:0 0 0 3px #ede9fe}
-input::placeholder,textarea::placeholder{color:#9ca3af}
+input,textarea,select{width:100%;padding:13px 14px;margin:8px 0;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-size:14px;outline:none}
 button{width:100%;padding:13px;border:0;border-radius:12px;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;margin:7px 0;cursor:pointer}
-button:active{transform:scale(.98)} button.secondary{background:#111} button.light{background:#f3f4f6;color:#111} button.small{width:auto;padding:8px 14px;font-size:12px;border-radius:20px} button.outline{background:#fff;color:#7c3aed;border:1px solid #e5e7eb}
+button.secondary{background:#111} button.light{background:#f3f4f6;color:#111} button.small{width:auto;padding:8px 14px;font-size:12px;border-radius:20px} button.outline{background:#fff;color:#7c3aed;border:1px solid #e5e7eb}
 .card{background:#fff;border:1px solid #eee;border-radius:18px;padding:14px;margin:14px 0;box-shadow:0 2px 12px rgba(0,0,0,.04)}
 .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#ede9fe;border:2px solid #fff;box-shadow:0 0 0 2px #e9d5ff}
-.row{display:flex;gap:10px;align-items:center}
-.muted{color:#6b7280;font-size:12px}
-.pill{display:inline-flex;align-items:center;gap:4px;background:#fef3c7;color:#92400e;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700}
-.pill.purple{background:#ede9fe;color:#5b21b6}.pill.green{background:#dcfce7;color:#166534}.pill.blue{background:#dbeafe;color:#1e40af}
+.row{display:flex;gap:10px;align-items:center}.muted{color:#6b7280;font-size:12px}
+.pill{display:inline-flex;gap:4px;background:#fef3c7;color:#92400e;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700}.pill.purple{background:#ede9fe;color:#5b21b6}.pill.green{background:#dcfce7;color:#166534}
 .hero{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border-radius:20px;padding:18px;text-align:center}
-.hero h3{font-size:20px}.hero p{font-size:13px;opacity:.9;margin:6px 0}
 .reward{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-radius:18px;padding:16px;text-align:center}
-.statusRow{display:flex;gap:12px;overflow-x:auto;padding:6px 0}
-.status{flex:0 0 68px;text-align:center;font-size:11px;font-weight:600}
-.status img{width:62px;height:62px;border-radius:50%;border:3px solid #a78bfa;object-fit:cover}
-.postImg,.postVideo{width:100%;border-radius:14px;margin:10px 0;max-height:420px;object-fit:cover;background:#f3f4f6}
-.reactions{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.react{background:#f9fafb;border:1px solid #eee;padding:7px 12px;border-radius:20px;font-size:13px;width:auto;color:#111}
-.commentBox{background:#f9fafb;border-radius:14px;padding:10px;margin-top:10px}
-.comment{font-size:13px;padding:7px 0;border-bottom:1px solid #eee}.comment b{color:#111}
-.commentInput{background:#fff !important}
+.statusRow{display:flex;gap:12px;overflow-x:auto;padding:6px 0}.status{flex:0 0 68px;text-align:center;font-size:11px;font-weight:600}.status img{width:62px;height:62px;border-radius:50%;border:3px solid #a78bfa;object-fit:cover}
+.postImg,.postVideo{width:100%;border-radius:14px;margin:10px 0;max-height:420px;object-fit:cover}
+.reactions{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.react{background:#f9fafb;border:1px solid #eee;padding:7px 12px;border-radius:20px;font-size:13px;width:auto}
+.commentBox{background:#f9fafb;border-radius:14px;padding:10px;margin-top:10px}.comment{font-size:13px;padding:7px 0;border-bottom:1px solid #eee}
 .chatbox{height:340px;overflow-y:auto;background:#f9fafb;padding:12px;border-radius:16px;border:1px solid #eee}
-.msg{background:#fff;padding:10px 12px;border-radius:16px;border-bottom-left-radius:4px;margin:8px 0;max-width:85%;box-shadow:0 1px 4px rgba(0,0,0,.05);font-size:14px}
-.msg.me{background:#7c3aed;color:#fff;margin-left:auto;border-bottom-right-radius:4px;border-bottom-left-radius:16px}
-.msg b{font-size:11px;display:block;margin-bottom:3px}
-.msg.me b{color:#e9d5ff}
-#chatInput{background:#fff !important}
-.leaderRow{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:8px 0}
-.leaderRow.top1{border:2px solid #f59e0b;background:#fffbeb}
-.leaderRow b{color:#111}
-nav{position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:auto;background:#fff;display:none;border-top:1px solid #eee;padding:8px 10px;gap:4px;z-index:20}
-nav.show{display:flex} nav button{background:none;color:#9ca3af;font-size:11px;font-weight:600;padding:8px 4px;margin:0}
-nav button.active{color:#7c3aed;background:#f5f3ff}
-.translated{font-size:12px;color:#5b21b6;background:#ede9fe;padding:6px 8px;border-radius:8px;margin-top:6px;display:block}
-.hidden{display:none} audio{width:100%}
-.authHero{background:linear-gradient(180deg,#1a0033,#7c3aed);color:#fff;border-radius:24px;padding:28px 18px;text-align:center;margin-bottom:16px}
-.authHero h1{font-size:38px;letter-spacing:1px}.authHero p{font-size:13px;opacity:.9;margin-top:8px;line-height:1.6}
-.featureList{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
-.featureList span{background:rgba(255,255,255,.15);padding:6px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.msg{background:#fff;padding:10px 12px;border-radius:16px;margin:8px 0;max-width:85%;font-size:14px}.msg.me{background:#7c3aed;color:#fff;margin-left:auto}
+.leaderRow{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:8px 0}.leaderRow.top1{border:2px solid #f59e0b;background:#fffbeb}
+nav{position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:auto;background:#fff;display:none;border-top:1px solid #eee;padding:8px 10px;gap:4px;z-index:20}nav.show{display:flex}nav button{background:none;color:#9ca3af;font-size:11px;font-weight:600;padding:8px 4px;margin:0}nav button.active{color:#7c3aed;background:#f5f3ff}
+.translated{font-size:12px;color:#5b21b6;background:#ede9fe;padding:6px 8px;border-radius:8px;margin-top:6px;display:block}.hidden{display:none}audio{width:100%}
+.authHero{background:linear-gradient(180deg,#1a0033,#7c3aed);color:#fff;border-radius:24px;padding:28px 18px;text-align:center;margin-bottom:16px}.authHero h1{font-size:38px}.authHero p{font-size:13px;opacity:.9;margin-top:8px;line-height:1.6}
+.featureList{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}.featureList span{background:rgba(255,255,255,.15);padding:6px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .countryBox{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:10px;font-size:13px;font-weight:600;color:#5b21b6}
 .topSearch{flex:1;margin:0 10px;background:#f3f4f6;border-radius:20px;padding:8px 12px;font-size:13px;border:0}
-.tiktokGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
-.tiktokGrid .tItem{position:relative;border-radius:10px;overflow:hidden;background:#eee;aspect-ratio:3/4}
-.tiktokGrid .tItem img,.tiktokGrid .tItem video{width:100%;height:100%;object-fit:cover}
-.tiktokGrid .tItem .tText{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:10px;padding:14px 6px 6px}
-.tiktokGrid .tItem .tLikes{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:3px 6px;border-radius:10px}
-.profileStats{display:flex;justify-content:center;gap:24px;margin:12px 0;text-align:center}
-.profileStats b{display:block;font-size:18px}.profileStats span{font-size:11px;color:#888}
-.verifyBox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:10px;margin:8px 0;font-size:12px}
-.verifyBox.pending{background:#fffbeb;border-color:#fde68a}
+.tiktokGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}.tiktokGrid .tItem{position:relative;border-radius:10px;overflow:hidden;background:#eee;aspect-ratio:3/4}.tiktokGrid .tItem img,.tiktokGrid .tItem video{width:100%;height:100%;object-fit:cover}.tiktokGrid .tItem .tText{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;font-size:10px;padding:14px 6px 6px}.tiktokGrid .tItem .tLikes{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:3px 6px;border-radius:10px}
+.profileStats{display:flex;justify-content:center;gap:24px;margin:12px 0;text-align:center}.profileStats b{display:block;font-size:18px}.profileStats span{font-size:11px;color:#888}
+.verifyBox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:10px;margin:8px 0;font-size:12px}.verifyBox.pending{background:#fffbeb;border-color:#fde68a}
 .editBox{background:#f5f3ff;border:2px solid #ddd6fe;border-radius:18px;padding:14px;margin:10px 0}
+.liveBox{border:2px solid #ef4444 !important}.welcomeOverlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100}.welcomeCard{background:#fff;border-radius:20px;padding:24px;text-align:center;max-width:340px}
 </style>
 </head>
 <body>
 
+<div id="welcomeOverlay" class="welcomeOverlay hidden"><div class="welcomeCard"><h2 id="welcomeTitle">Welcome to 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community</h2><p id="welcomeText" style="margin:12px 0"></p><button onclick="closeWelcome()">Enter Community →</button></div></div>
+
 <div id="mainHeader" style="display:none">
 <div class="topbar"><div class="logo"><span class="smallcap">2ᴋ ʀᴇʙᴏʀɴ</span><small>Free Fire Community</small></div><input class="topSearch" placeholder="Search people..." oninput="searchPeople(this.value)"><select id="uiLang" onchange="changeUILang(this.value)"><option value="en">🌍 English</option><option value="fr">🇫🇷 French</option><option value="es">🇪🇸 Spanish</option><option value="ar">🇸🇦 Arabic</option><option value="pt">🇧🇷 Portuguese</option><option value="de">🇩🇪 German</option><option value="it">🇮🇹 Italian</option><option value="ru">🇷🇺 Russian</option><option value="tr">🇹🇷 Turkish</option><option value="hi">🇮🇳 Hindi</option><option value="ja">🇯🇵 Japanese</option><option value="ko">🇰🇷 Korean</option><option value="zh">🇨🇳 Chinese</option><option value="id">🇮🇩 Indonesian</option><option value="sw">🇰🇪 Swahili</option></select></div>
 <div style="text-align:center;padding:6px;background:#fff;border-bottom:1px solid #eee;font-size:12px;font-weight:600" id="currentLangLabel">Current Language: English</div>
+<div id="ownerOnlineBanner" class="hidden" style="text-align:center;background:#dcfce7;padding:8px;font-weight:700;font-size:13px">Welcome!!! 🔥 🥳 Owner is now active ✅ 2ᴋ ʀᴇʙᴏʀɴ</div>
 </div>
 
 <div id="authPage" class="page active">
-  <div class="authHero"><h1 class="smallcap">🔥 2ᴋ ʀᴇʙᴏʀɴ</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span></div></div>
-  <div class="card"><h3 style="font-size:18px">Create your account</h3><p class="muted">You must sign up first. No one can see anything without an account.</p>
-  <input id="regName" placeholder="Your Name">
-  <input id="regUID" placeholder="Your Free Fire UID * 9-12 digits normal, 13 digits needs screenshot *" oninput="liveCheckUID(this.value)">
-  <p id="uidLiveCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
-  <input id="regIGN" placeholder="Your Free Fire In-Game Name (IGN) * Must match UID *">
+  <div class="authHero"><h1 class="smallcap">🔥 2ᴋ ʀᴇʙᴏʀɴ</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p><div class="featureList"><span>💬 Chat</span><span>👤 Profile</span><span>🏆 Leaderboard</span><span>🎁 Daily Reward</span><span>🌍 195 Countries</span><span>🔴 Go Live</span><span>🤖 AI Protection</span></div></div>
+  <div class="card"><h3>Create Your Account</h3><p class="muted">You must sign up first. No one can see anything without an account.</p>
+  <label style="font-size:13px;font-weight:700">Username</label>
+  <input id="regName" placeholder="Your Username">
+  <label style="font-size:13px;font-weight:700">Free Fire UID:</label>
+  <input id="regUID" placeholder="Your Free Fire UID" inputmode="numeric" oninput="liveCheckUID(this.value)">
+  <p id="uidLiveCheck" style="font-size:12px;font-weight:700;color:#16a34a"></p>
   <input id="regPass" type="password" placeholder="Create Password">
-  <input id="ownerCode" type="password" placeholder="Code" autocomplete="off">
+  <input id="ownerCode" type="password" placeholder="Code (Only for Owner)" autocomplete="off">
   <select id="regGame"><option>Free Fire</option><option>2K</option><option>2K + Free Fire</option></select>
-  <label style="font-size:13px;font-weight:700">🌍 Your Country — Type to search</label>
+  <label style="font-size:13px;font-weight:700">🌍 Your Country</label>
   <input id="regCountry" list="countryList" placeholder="Type your country..." value="Nigeria" oninput="onCountryChange()" onchange="onCountryChange()">
   <datalist id="countryList"></datalist>
   <div id="countryLangInfo" class="countryBox">🇳🇬 Nigeria • Language: English</div>
-  <label style="font-size:13px;font-weight:700">🗣️ Your Language — Auto changes with country</label>
+  <label style="font-size:13px;font-weight:700">🗣️ Your Language</label>
   <input id="regLangInput" list="langList" placeholder="Language..." value="English" onchange="onLangManualChange()">
   <datalist id="langList"></datalist>
   <input id="regBio" placeholder="Bio — e.g. I live in Lagos, I love gaming">
-  <label style="font-size:13px;font-weight:700">🔢 Type UID as it appears in the screenshot</label>
-  <input id="regUIDConfirm" placeholder="Type the UID you see inside the screenshot" oninput="checkUIDMatch()">
-  <p id="uidMatchCheck" style="font-size:12px;font-weight:700;color:#dc2626"></p>
-  <label style="font-size:13px;font-weight:700">📸 Proof — Upload Free Fire Profile Screenshot (MUST show UID)</label>
+  <label style="font-size:13px;font-weight:700">📸 Proof — Upload Free Fire Profile Screenshot</label>
   <input type="file" id="regProof" accept="image/*" onchange="onProofUpload()">
-  <p id="proofStatus" class="muted" style="font-size:12px">No screenshot yet. If your UID is 13 digits, screenshot is REQUIRED to login.</p>
+  <p id="proofStatus" class="muted" style="font-size:12px">Screenshot is needed to prove your UID. AI will check the numbers in your screenshot.</p>
+  <p id="aiCheckStatus" style="font-size:12px;font-weight:700;color:#7c3aed"></p>
   <label style="font-size:13px;font-weight:700">Your Profile Photo</label>
   <input type="file" id="regPhoto" accept="image/*">
+  <label style="font-size:13px;font-weight:700">TikTok Username (Optional)</label>
+  <input id="regTikTok" placeholder="@yourtiktok - Link your TikTok so people know you">
+  <div class="card" style="background:#f5f3ff;border:1px solid #ddd6fe">
+    <h4>Privacy & Policy - Easy Rules</h4>
+    <p style="font-size:12px;line-height:1.6;margin-top:6px">
+    1. Be kind. No insult, no hate, no bullying.<br>
+    2. No porn, no nude photos or videos. AI will block it.<br>
+    3. No scam, no fake UID, no fake screenshot.<br>
+    4. Your screenshot is private. Only your UID is public so players can add you in Free Fire.<br>
+    5. Your posts follow your privacy setting: Everyone, Friends, or Only Me.<br>
+    6. The Owner can remove anyone who breaks these rules.<br>
+    7. Be yourself and help each other grow.
+    </p>
+    <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;font-weight:600;margin-top:8px"><input type="checkbox" id="agreePrivacy" style="width:auto;margin:0"> I agree to the Privacy and Policy and Rules above.</label>
+  </div>
+  <input type="hidden" id="regIGN" value=""><input type="hidden" id="regUIDConfirm" value="">
   <button onclick="signup()">Create Account →</button>
+  <button class="light" onclick="forgotPassword()">Forgot Password? Reset with UID</button>
+  <button class="light" onclick="showLoginBox()">Already have an account? Login</button>
   </div>
 </div>
 
 <div id="feedPage" class="page">
   <div class="reward"><h3>🎁 Daily Reward</h3><p style="font-size:13px">Come back every day and earn points</p><button style="background:#fff;color:#ef4444" onclick="claimDaily()">Claim +10 Points Today</button></div>
   <div class="card" style="text-align:center;border:2px solid #fde68a"><span class="pill">⭐ SHOUTOUT OF THE DAY</span><h3 id="shoutoutText" style="margin:8px 0;font-size:16px">Top player will appear here</h3><div id="shoutoutBadges"></div><p id="ownerShoutout" class="muted"></p></div>
+  <div class="card liveBox"><b>🔴 Go Live - Play & Let Everyone Watch</b><p class="muted">Requirements: Verified account, Profile Photo, At least 1 Post, Agree to No Porn / No Insult rules.</p><button class="secondary" onclick="goLive()">🔴 Go Live Now</button><div id="liveArea" class="hidden"><video id="liveVideo" autoplay playsinline muted style="width:100%;border-radius:12px;margin-top:8px"></video><p class="muted">You are LIVE now. Everyone in Feed can see you.</p><button class="light" onclick="stopLive()">Stop Live</button></div></div>
   <div class="card"><div class="row"><span style="font-size:22px">🎯</span><div style="flex:1"><b>Daily Challenge</b><div class="muted">Post 1 gameplay today and earn +20 points</div></div><button class="small" onclick="alert('Post a gameplay now!')">Join</button></div></div>
   <div class="card"><b>📊 Poll — Who is the best?</b><p class="muted" style="margin:6px 0">Vote for your favourite player</p><button class="light" onclick="votePoll(this)">🔥 Pro Player A</button><button class="light" onclick="votePoll(this)">⚡ Pro Player B</button><button class="light" onclick="votePoll(this)">👑 Pro Player C</button><p id="pollResult" class="muted"></p></div>
   <div class="hero" onclick="openChat('public')" style="cursor:pointer"><h3>💬 General Chat</h3><p>Everyone is here — Tap to join</p><button class="small" style="background:#fff;color:#4f46e5" onclick="event.stopPropagation();openChat('public')">Enter General Chat →</button></div>
   <div class="statusRow" id="statusList"></div>
   <div class="card"><div class="row"><img id="feedAvatar" class="avatar" src=""><input id="postText" placeholder="Share your gameplay..." style="margin:0"></div><label style="font-size:12px" class="muted">Add Photo / Video</label><input type="file" id="postFile" accept="image/*,video/*"><select id="postType"><option>🎮 Gameplay</option><option>📚 Tutorial</option><option>✨ Just Vibes</option></select><button onclick="addPost()">Post</button><button class="light" onclick="addStatus()">Post as Status (24 hours)</button></div>
+  <div id="newJoinBox"></div>
   <div id="feed"></div>
 </div>
 
@@ -127,27 +124,36 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 </div>
 
 <div id="profilePage" class="page">
-  <div class="card" style="text-align:center"><img id="myPic" class="avatar" style="width:96px;height:96px"><h2 id="myName" class="smallcap" style="margin-top:8px"></h2><p id="myUID" class="muted"></p><p id="myIGN" class="muted"></p><p id="myVerify" class="muted"></p><p id="myGame" class="muted"></p><p id="myCountry" style="font-weight:800;margin:6px 0"></p><p id="myLang" class="muted"></p><p id="myBio" style="font-size:13px;margin:6px 0"></p><div id="myBadges"></div><div class="profileStats"><div><b id="myPostCount">0</b><span>Posts</span></div><div><b id="myLikeCount">0</b><span>Likes</span></div><div><b id="myRank" style="color:#b45309">-</b><span>Rank</span></div></div><p id="myPoints" style="font-weight:700"></p><div id="myProofBox"></div>
+  <div class="card" style="text-align:center"><img id="myPic" class="avatar" style="width:96px;height:96px"><h2 id="myName" class="smallcap" style="margin-top:8px"></h2><p id="myUID" class="muted"></p><p id="myIGN" class="muted"></p><p id="myVerify" class="muted"></p><p id="myGame" class="muted"></p><p id="myCountry" style="font-weight:800;margin:6px 0"></p><p id="myLang" class="muted"></p><p id="myBio" style="font-size:13px;margin:6px 0"></p><p id="myTikTok" style="font-size:13px;font-weight:700"></p><div id="myBadges"></div><div class="profileStats"><div><b id="myPostCount">0</b><span>Posts</span></div><div><b id="myLikeCount">0</b><span>Likes</span></div><div><b id="myRank" style="color:#b45309">-</b><span>Rank</span></div></div><p id="myPoints" style="font-weight:700"></p>
   <button onclick="openEditProfile()">✏️ Edit Profile / Change UID</button>
+  <button onclick="openSettings()">⚙️ Settings - Privacy & Password</button>
   <button class="light" onclick="logout()">Logout</button></div>
+
+  <div id="settingsBox" class="editBox hidden">
+    <h3>⚙️ Settings</h3>
+    <label style="font-size:12px;font-weight:700">Who can see my posts?</label>
+    <select id="postPrivacy"><option value="everyone">Everyone</option><option value="friends">Friends Only</option><option value="onlyme">Only Me</option></select>
+    <label style="font-size:12px;font-weight:700">TikTok Username</label><input id="settingsTikTok" placeholder="@yourtiktok">
+    <label style="font-size:12px;font-weight:700">Password Lock for Privacy (Optional)</label>
+    <select id="passLock"><option value="off">OFF - Enter without password</option><option value="on">ON - Ask password every time</option></select>
+    <input id="settingsPass" type="password" placeholder="Set new password for lock (optional)">
+    <button onclick="saveSettings()">Save Settings</button><button class="light" onclick="closeSettings()">Close</button>
+  </div>
 
   <div id="editProfileBox" class="editBox hidden">
     <h3>✏️ Edit Profile — Change UID / Account</h3>
-    <p class="muted">Changed account? Update UID here. 9-12 digits normal. If new UID is 13 digits, you MUST upload new screenshot showing it.</p>
+    <p class="muted">Changed account? Update UID here. Screenshot must show the same UID. AI will check the numbers.</p>
     <label style="font-size:12px;font-weight:700">Display Name</label><input id="editName" placeholder="Your Name">
-    <label style="font-size:12px;font-weight:700">🔄 New Free Fire UID</label><input id="editUID" placeholder="New UID — 9-12 normal, 13 with screenshot" oninput="liveCheckEditUID(this.value)">
+    <label style="font-size:12px;font-weight:700">🔄 New Free Fire UID</label><input id="editUID" placeholder="New UID" oninput="liveCheckEditUID(this.value)">
     <p id="editUidCheck" style="font-size:12px;font-weight:700"></p>
-    <label style="font-size:12px;font-weight:700">🔢 Type New UID as it appears in the screenshot</label><input id="editUIDConfirm" placeholder="Type UID from new screenshot">
-    <p id="editUidMatchCheck" style="font-size:12px;font-weight:700"></p>
-    <label style="font-size:12px;font-weight:700">New IGN — Must match new UID</label><input id="editIGN" placeholder="New In-Game Name">
+    <label style="font-size:12px;font-weight:700">New IGN</label><input id="editIGN" placeholder="New In-Game Name">
     <label style="font-size:12px;font-weight:700">Password — Enter your password to confirm</label><input id="editPass" type="password" placeholder="Enter your password to save changes">
     <label style="font-size:12px;font-weight:700">Bio</label><input id="editBio" placeholder="Bio">
     <label style="font-size:12px;font-weight:700">Country</label><input id="editCountry" list="countryList" placeholder="Country">
-    <label style="font-size:12px;font-weight:700">New Proof Screenshot — REQUIRED if UID is 13 digits</label><input type="file" id="editProof" accept="image/*" onchange="onEditProofUpload()">
+    <label style="font-size:12px;font-weight:700">New Proof Screenshot</label><input type="file" id="editProof" accept="image/*" onchange="onEditProofUpload()">
     <p id="editProofStatus" class="muted" style="font-size:12px"></p>
     <label style="font-size:12px;font-weight:700">New Profile Photo (optional)</label><input type="file" id="editPhoto" accept="image/*">
-    <button onclick="saveEditProfile()">✅ Save Changes — Update UID</button>
-    <button class="light" onclick="closeEditProfile()">Cancel</button>
+    <button onclick="saveEditProfile()">✅ Save Changes — Update UID</button><button class="light" onclick="closeEditProfile()">Cancel</button>
     <div id="uidHistoryBox" class="muted" style="font-size:12px"></div>
   </div>
 
@@ -164,144 +170,62 @@ nav button.active{color:#7c3aed;background:#f5f3ff}
 <script>
 const OWNER_NAME = "2ᴋ ʀᴇʙᴏʀɴ";
 const OWNER_CODE = "2K-REBORN-OWNER-2026";
-function normName(s){
-  return (s||"").toLowerCase().replace(/ᴋ/g,"k").replace(/ʀ/g,"r").replace(/ᴇ/g,"e").replace(/ʙ/g,"b").replace(/ᴏ/g,"o").replace(/ɴ/g,"n").replace(/\s+/g," ").trim();
-}
-function checkUIDMatch(){
-  let a=document.getElementById('regUID').value.trim();
-  let b=document.getElementById('regUIDConfirm').value.trim();
-  let el=document.getElementById('uidMatchCheck');
-  if(!b){el.innerText='';return;}
-  if(a===b){el.innerText='✅ UID matches screenshot UID';el.style.color='#16a34a';}
-  else{el.innerText='❌ UID does not match screenshot UID - type the same UID';el.style.color='#dc2626';}
-}
+window.onerror = function(msg){ alert("ERROR: " + msg); return true; };
+function normName(s){ return (s||"").toLowerCase().replace(/ᴋ/g,"k").replace(/ʀ/g,"r").replace(/ᴇ/g,"e").replace(/ʙ/g,"b").replace(/ᴏ/g,"o").replace(/ɴ/g,"n").replace(/\s+/g," ").trim(); }
+function checkUIDMatch(){ let a=document.getElementById('regUID').value.trim(); document.getElementById('regUIDConfirm').value=a; }
 const ALL_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
-const COUNTRY_LANGUAGES={"Afghanistan":["Pashto","Persian"],"Albania":["Albanian"],"Algeria":["Arabic","French"],"Andorra":["Catalan"],"Angola":["Portuguese"],"Antigua and Barbuda":["English"],"Argentina":["Spanish"],"Armenia":["Armenian"],"Australia":["English"],"Austria":["German"],"Azerbaijan":["Azerbaijani"],"Bahamas":["English"],"Bahrain":["Arabic"],"Bangladesh":["Bengali"],"Barbados":["English"],"Belarus":["Russian"],"Belgium":["Dutch","French"],"Belize":["English"],"Benin":["French"],"Bhutan":["Dzongkha"],"Bolivia":["Spanish"],"Bosnia and Herzegovina":["Bosnian"],"Botswana":["English"],"Brazil":["Portuguese"],"Brunei":["Malay"],"Bulgaria":["Bulgarian"],"Burkina Faso":["French"],"Burundi":["Kirundi"],"Cambodia":["Khmer"],"Cameroon":["French","English"],"Canada":["English","French"],"Cape Verde":["Portuguese"],"Central African Republic":["French"],"Chad":["French","Arabic"],"Chile":["Spanish"],"China":["Chinese"],"Colombia":["Spanish"],"Comoros":["French"],"Congo":["French"],"Costa Rica":["Spanish"],"Croatia":["Croatian"],"Cuba":["Spanish"],"Cyprus":["Greek"],"Czech Republic":["Czech"],"Denmark":["Danish"],"Djibouti":["French"],"Dominica":["English"],"Dominican Republic":["Spanish"],"Ecuador":["Spanish"],"Egypt":["Arabic"],"El Salvador":["Spanish"],"Equatorial Guinea":["Spanish"],"Eritrea":["Tigrinya"],"Estonia":["Estonian"],"Eswatini":["English"],"Ethiopia":["Amharic"],"Fiji":["English"],"Finland":["Finnish"],"France":["French"],"Gabon":["French"],"Gambia":["English"],"Georgia":["Georgian"],"Germany":["German"],"Ghana":["English"],"Greece":["Greek"],"Grenada":["English"],"Guatemala":["Spanish"],"Guinea":["French"],"Guinea-Bissau":["Portuguese"],"Guyana":["English"],"Haiti":["French"],"Honduras":["Spanish"],"Hungary":["Hungarian"],"Iceland":["Icelandic"],"India":["Hindi","English"],"Indonesia":["Indonesian"],"Iran":["Persian"],"Iraq":["Arabic"],"Ireland":["English"],"Israel":["Hebrew"],"Italy":["Italian"],"Ivory Coast":["French"],"Jamaica":["English"],"Japan":["Japanese"],"Jordan":["Arabic"],"Kazakhstan":["Kazakh"],"Kenya":["Swahili","English"],"Kiribati":["English"],"Kuwait":["Arabic"],"Kyrgyzstan":["Kyrgyz"],"Laos":["Lao"],"Latvia":["Latvian"],"Lebanon":["Arabic"],"Lesotho":["English"],"Liberia":["English"],"Libya":["Arabic"],"Liechtenstein":["German"],"Lithuania":["Lithuanian"],"Luxembourg":["French"],"Madagascar":["French"],"Malawi":["English"],"Malaysia":["Malay"],"Maldives":["Dhivehi"],"Mali":["French"],"Malta":["Maltese"],"Marshall Islands":["English"],"Mauritania":["Arabic"],"Mauritius":["English"],"Mexico":["Spanish"],"Micronesia":["English"],"Moldova":["Romanian"],"Monaco":["French"],"Mongolia":["Mongolian"],"Montenegro":["Montenegrin"],"Morocco":["Arabic"],"Mozambique":["Portuguese"],"Myanmar":["Burmese"],"Namibia":["English"],"Nauru":["English"],"Nepal":["Nepali"],"Netherlands":["Dutch"],"New Zealand":["English"],"Nicaragua":["Spanish"],"Niger":["French"],"Nigeria":["English"],"North Korea":["Korean"],"North Macedonia":["Macedonian"],"Norway":["Norwegian"],"Oman":["Arabic"],"Pakistan":["Urdu"],"Palau":["English"],"Palestine":["Arabic"],"Panama":["Spanish"],"Papua New Guinea":["English"],"Paraguay":["Spanish"],"Peru":["Spanish"],"Philippines":["English"],"Poland":["Polish"],"Portugal":["Portuguese"],"Qatar":["Arabic"],"Romania":["Romanian"],"Russia":["Russian"],"Rwanda":["French"],"Saint Kitts and Nevis":["English"],"Saint Lucia":["English"],"Saint Vincent and the Grenadines":["English"],"Samoa":["English"],"San Marino":["Italian"],"Sao Tome and Principe":["Portuguese"],"Saudi Arabia":["Arabic"],"Senegal":["French"],"Serbia":["Serbian"],"Seychelles":["English"],"Sierra Leone":["English"],"Singapore":["English"],"Slovakia":["Slovak"],"Slovenia":["Slovenian"],"Solomon Islands":["English"],"Somalia":["Somali"],"South Africa":["English"],"South Korea":["Korean"],"South Sudan":["English"],"Spain":["Spanish"],"Sri Lanka":["Sinhala"],"Sudan":["Arabic"],"Suriname":["Dutch"],"Sweden":["Swedish"],"Switzerland":["German","French"],"Syria":["Arabic"],"Taiwan":["Chinese"],"Tajikistan":["Tajik"],"Tanzania":["Swahili"],"Thailand":["Thai"],"Togo":["French"],"Tonga":["English"],"Trinidad and Tobago":["English"],"Tunisia":["Arabic"],"Turkey":["Turkish"],"Turkmenistan":["Turkmen"],"Tuvalu":["English"],"Uganda":["English"],"Ukraine":["Ukrainian"],"United Arab Emirates":["Arabic"],"United Kingdom":["English"],"United States":["English"],"Uruguay":["Spanish"],"Uzbekistan":["Uzbek"],"Vanuatu":["English"],"Vatican City":["Italian"],"Venezuela":["Spanish"],"Vietnam":["Vietnamese"],"Yemen":["Arabic"],"Zambia":["English"],"Zimbabwe":["English"]};
+const COUNTRY_LANGUAGES={"Afghanistan":["Pashto"],"Albania":["Albanian"],"Algeria":["Arabic"],"Argentina":["Spanish"],"Australia":["English"],"Austria":["German"],"Bangladesh":["Bengali"],"Belgium":["Dutch"],"Brazil":["Portuguese"],"Canada":["English"],"China":["Chinese"],"Egypt":["Arabic"],"France":["French"],"Germany":["German"],"Ghana":["English"],"India":["Hindi"],"Indonesia":["Indonesian"],"Italy":["Italian"],"Japan":["Japanese"],"Kenya":["Swahili"],"Mexico":["Spanish"],"Morocco":["Arabic"],"Nigeria":["English"],"Pakistan":["Urdu"],"Philippines":["English"],"Portugal":["Portuguese"],"Russia":["Russian"],"Saudi Arabia":["Arabic"],"South Africa":["English"],"South Korea":["Korean"],"Spain":["Spanish"],"Turkey":["Turkish"],"United Kingdom":["English"],"United States":["English"]};
 const ALL_LANGUAGES=[{code:"en",name:"English"},{code:"fr",name:"French"},{code:"es",name:"Spanish"},{code:"ar",name:"Arabic"},{code:"pt",name:"Portuguese"},{code:"de",name:"German"},{code:"it",name:"Italian"},{code:"ru",name:"Russian"},{code:"tr",name:"Turkish"},{code:"hi",name:"Hindi"},{code:"ur",name:"Urdu"},{code:"bn",name:"Bengali"},{code:"ja",name:"Japanese"},{code:"ko",name:"Korean"},{code:"zh",name:"Chinese"},{code:"id",name:"Indonesian"},{code:"sw",name:"Swahili"},{code:"am",name:"Amharic"},{code:"nl",name:"Dutch"},{code:"pl",name:"Polish"},{code:"th",name:"Thai"},{code:"vi",name:"Vietnamese"}];
 const LANGNAMES={};ALL_LANGUAGES.forEach(l=>LANGNAMES[l.code]=l.name);
+const UI_TEXT={en:{welcome:"Welcome to 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"Feed",chat:"Chats",top:"Top",profile:"Profile",post:"Post",create:"Create Account"},es:{welcome:"Bienvenido a 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"Inicio",chat:"Chats",top:"Mejores",profile:"Perfil",post:"Publicar",create:"Crear cuenta"},fr:{welcome:"Bienvenue sur 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"Fil",chat:"Messages",top:"Top",profile:"Profil",post:"Publier",create:"Créer un compte"},ar:{welcome:"مرحباً بك في 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"الرئيسية",chat:"محادثات",top:"الأفضل",profile:"الملف",post:"نشر",create:"إنشاء حساب"},pt:{welcome:"Bem-vindo ao 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"Feed",chat:"Chats",top:"Top",profile:"Perfil",post:"Postar",create:"Criar conta"},de:{welcome:"Willkommen bei 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community",feed:"Feed",chat:"Chats",top:"Top",profile:"Profil",post:"Posten",create:"Konto erstellen"}};
 function flagOf(c){const m={"Nigeria":"🇳🇬","Ghana":"🇬🇭","Kenya":"🇰🇪","South Africa":"🇿🇦","Cameroon":"🇨🇲","Egypt":"🇪🇬","Morocco":"🇲🇦","Ethiopia":"🇪🇹","United States":"🇺🇸","United Kingdom":"🇬🇧","Canada":"🇨🇦","France":"🇫🇷","Spain":"🇪🇸","Germany":"🇩🇪","Italy":"🇮🇹","Portugal":"🇵🇹","Brazil":"🇧🇷","Mexico":"🇲🇽","Argentina":"🇦🇷","Saudi Arabia":"🇸🇦","United Arab Emirates":"🇦🇪","Turkey":"🇹🇷","India":"🇮🇳","Pakistan":"🇵🇰","Bangladesh":"🇧🇩","Indonesia":"🇮🇩","Philippines":"🇵🇭","Japan":"🇯🇵","South Korea":"🇰🇷","China":"🇨🇳","Australia":"🇦🇺","Russia":"🇷🇺"};return m[c]||"🌍"}
 document.getElementById('countryList').innerHTML=ALL_COUNTRIES.map(c=>`<option value="${c}">${flagOf(c)} ${c}</option>`).join('');
 function buildLangList(country){let langs=COUNTRY_LANGUAGES[country]||["English"];let all=[...langs,...ALL_LANGUAGES.map(l=>l.name)].filter((v,i,a)=>a.indexOf(v)==i);document.getElementById('langList').innerHTML=all.map(n=>`<option value="${n}">${n}</option>`).join('');return langs;}
-function onCountryChange(){let c=document.getElementById('regCountry').value.trim();let found=ALL_COUNTRIES.find(x=>x.toLowerCase()===c.toLowerCase());if(!found){let partial=ALL_COUNTRIES.find(x=>x.toLowerCase().startsWith(c.toLowerCase()));if(partial&&c.length>=2) found=partial;else return;}let langs=buildLangList(found);let newLang=langs[0];document.getElementById('regLangInput').value=newLang;document.getElementById('countryLangInfo').innerText=flagOf(found)+' '+found+' • Language: '+langs.join(', ')+' • Selected: '+newLang;let code=langCodeFromName(newLang);let ui=document.getElementById('uiLang');if(ui) ui.value=code;let label=document.getElementById('currentLangLabel');if(label) label.innerText='Current Language: '+newLang;if(me){me.lang=code;me.country=found;save();render();}}
-function onLangManualChange(){let langName=document.getElementById('regLangInput').value.trim();let code=langCodeFromName(langName);let ui=document.getElementById('uiLang');if(ui) ui.value=code;let label=document.getElementById('currentLangLabel');if(label) label.innerText='Current Language: '+langName;if(me){me.lang=code;save();render();}}
+function onCountryChange(){let c=document.getElementById('regCountry').value.trim();let found=ALL_COUNTRIES.find(x=>x.toLowerCase()===c.toLowerCase());if(!found){let p=ALL_COUNTRIES.find(x=>x.toLowerCase().startsWith(c.toLowerCase()));if(p&&c.length>=2) found=p;else return;}let langs=buildLangList(found);let nl=langs[0];document.getElementById('regLangInput').value=nl;document.getElementById('countryLangInfo').innerText=flagOf(found)+' '+found+' • Language: '+langs.join(', ');let code=langCodeFromName(nl);document.getElementById('uiLang').value=code;document.getElementById('currentLangLabel').innerText='Current Language: '+nl;if(me){me.lang=code;me.country=found;save();render();}}
+function onLangManualChange(){let n=document.getElementById('regLangInput').value.trim();let code=langCodeFromName(n);document.getElementById('uiLang').value=code;document.getElementById('currentLangLabel').innerText='Current Language: '+n;if(me){me.lang=code;save();applyLang();render();}}
 buildLangList("Nigeria");
 function langCodeFromName(name){let f=ALL_LANGUAGES.find(l=>l.name.toLowerCase()===name.toLowerCase());return f?f.code:'en';}
 function langNameFromCode(code){return LANGNAMES[code]||code;}
-let users=[];let posts=[];let chats={};let statuses=[];let me=null;
+let users=[];let posts=[];let chats={};let statuses=[];let me=null;let liveStream=null;
 try{users=JSON.parse(localStorage.getItem('final_users')||'[]');posts=JSON.parse(localStorage.getItem('final_posts')||'[]');chats=JSON.parse(localStorage.getItem('final_chats')||'{}');statuses=JSON.parse(localStorage.getItem('final_status')||'[]');me=JSON.parse(localStorage.getItem('final_me')||'null');}catch(e){users=[];posts=[];chats={};statuses=[];me=null;}
-if(users.filter(u=>u.owner).length>1){ let firstOwner=users.find(u=>u.owner); users.forEach(u=>{ if(u!==firstOwner) u.owner=false; }); }
 let currentChat='public';let mediaRecorder=null,chunks=[],recording=false;
-let hasProofUploaded=false; let hasEditProofUploaded=false;
-function onProofUpload(){hasProofUploaded=true;let el=document.getElementById('proofStatus');if(el) el.innerHTML='<span style="color:#16a34a;font-weight:700">✅ Screenshot uploaded — If your UID is 13 digits, you fit login now.</span>';}
-function onEditProofUpload(){hasEditProofUploaded=true;let el=document.getElementById('editProofStatus');if(el) el.innerHTML='<span style="color:#16a34a;font-weight:700">✅ New screenshot uploaded — 13 digit UID will be allowed.</span>';}
-function isValidUID(uid, hasProof){
-  if(!/^[0-9]+$/.test(uid)) return {ok:false,msg:'❌ Fake UID! Must be ONLY numbers, no letters.'};
-  if(uid.length<9) return {ok:false,msg:'❌ UID too short. Must be at least 9 digits.'};
-  if(uid.length>13) return {ok:false,msg:'❌ UID too long. Max 13 digits.'};
-  const fakeList=["000000000","111111111","222222222","333333333","444444444","555555555","666666666","777777777","888888888","999999999","123456789","1234567890","0123456789","987654321"];
-  if(fakeList.includes(uid)) return {ok:false,msg:'❌ This UID looks fake / too simple.'};
-  if(/^(\d)\1+$/.test(uid)) return {ok:false,msg:'❌ Fake UID — all digits are same.'};
-  if(uid.length===13){
-    if(!hasProof) return {ok:false,msg:'📸 Your UID is 13 digits. Please upload screenshot proof showing the 13 digit UID, then you fit login.'};
-    return {ok:true,msg:'✅ 13-digit UID + Screenshot Proof — You fit login! ✅', needsProof:true};
-  }
-  return {ok:true,msg:'✅ UID format correct — '+uid.length+' digits'};
-}
-function liveCheckUID(val){
-  let el=document.getElementById('uidLiveCheck');if(!val){el.innerText='';return;}
-  let hasProof=document.getElementById('regProof') && document.getElementById('regProof').files.length>0;
-  let r=isValidUID(val, hasProof || hasProofUploaded);
-  el.innerText=r.msg; el.style.color=r.ok?'#16a34a':(val.length===13?'#b45309':'#dc2626');
-  checkUIDMatch();
-}
-function liveCheckEditUID(val){
-  let el=document.getElementById('editUidCheck');if(!val){el.innerText='';return;}
-  let hasProof=document.getElementById('editProof') && document.getElementById('editProof').files.length>0;
-  let r=isValidUID(val, hasProof || hasEditProofUploaded || (me && me.proof));
-  el.innerText=r.msg; el.style.color=r.ok?'#16a34a':'#dc2626';
-}
+let hasProofUploaded=false; let hasEditProofUploaded=false; let aiDetectedUID=""; let aiChecked=false;
+function onProofUpload(){hasProofUploaded=true;document.getElementById('proofStatus').innerHTML='✅ Screenshot uploaded. AI is reading the numbers...';let f=document.getElementById('regProof').files[0];if(f) runAI_UID(f);}
+async function runAI_UID(file){try{document.getElementById('aiCheckStatus').innerText='🤖 AI is reading numbers from your screenshot...';let r=await Tesseract.recognize(file,'eng');let txt=r.data.text||"";let nums=txt.replace(/[^0-9]/g,' ');let all=nums.split(' ').filter(x=>x.length>=8);aiDetectedUID=all.length?all[0]:"";aiChecked=true;if(aiDetectedUID){document.getElementById('aiCheckStatus').innerText='🤖 AI found UID in screenshot: '+aiDetectedUID+' ('+aiDetectedUID.length+' digits). It must match what you typed.';}else{document.getElementById('aiCheckStatus').innerText='🤖 AI could not read numbers clearly. Please upload a clearer screenshot.';}}catch(e){document.getElementById('aiCheckStatus').innerText='AI check failed, please try a clearer screenshot.';}}
+function onEditProofUpload(){hasEditProofUploaded=true;document.getElementById('editProofStatus').innerHTML='✅ New screenshot uploaded.';}
+function isValidUID(uid, hasProof){ if(!/^[0-9]+$/.test(uid)) return {ok:false,msg:'❌ UID must be only numbers.'}; if(uid.length<8) return {ok:false,msg:'❌ UID is too short. Minimum 8 digits.'}; if(uid.length>13) return {ok:false,msg:'❌ UID is too long. Maximum 13 digits.'}; if(/^(\d)\1+$/.test(uid)) return {ok:false,msg:'❌ This UID looks fake.'}; if(!hasProof) return {ok:false,msg:'📸 Please upload a screenshot to prove your UID.'}; return {ok:true,msg:'✅ UID format is correct.'}; }
+function liveCheckUID(val){ let el=document.getElementById('uidLiveCheck'); if(!val){el.innerText='';return;} let r=isValidUID(val, true); el.innerText=r.ok?'✅ UID format looks good':'❌ '+r.msg; el.style.color=r.ok?'#16a34a':'#dc2626'; checkUIDMatch(); }
+function liveCheckEditUID(val){ let el=document.getElementById('editUidCheck'); if(!val){el.innerText='';return;} let r=isValidUID(val,true); el.innerText=r.msg; el.style.color=r.ok?'#16a34a':'#dc2626'; }
 function getBadges(name){let s=getScores().find(x=>x.name==name);let b=[];if(!s) return b;if(s.points>=100) b.push('👑 Game Master');else if(s.points>=50) b.push('⭐ Rising Star');else if(s.points>=10) b.push('🌟 New Star');if(s.posts>=3) b.push('🎬 Creator');if(s.comments>=5) b.push('💬 Chat King');return b;}
 function save(){localStorage.setItem('final_users',JSON.stringify(users));localStorage.setItem('final_posts',JSON.stringify(posts));localStorage.setItem('final_chats',JSON.stringify(chats));localStorage.setItem('final_status',JSON.stringify(statuses));localStorage.setItem('final_me',JSON.stringify(me));}
 function fileToUrl(f,cb){let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f)}
 function show(id,btn){if(!me){showAuthOnly();return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');render();}
 function showAuthOnly(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('authPage').classList.add('active');document.getElementById('mainHeader').style.display='none';document.getElementById('bottomNav').classList.remove('show');}
-function showApp(){document.getElementById('mainHeader').style.display='block';document.getElementById('bottomNav').classList.add('show');}
-function changeUILang(l){let langName=langNameFromCode(l);document.getElementById('regLangInput').value=langName;let label=document.getElementById('currentLangLabel');if(label) label.innerText='Current Language: '+langName;if(me){me.lang=l;save();render();}alert('Language changed to '+langName);}
-function searchPeople(q){if(!me||!q) return;let res=users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase()));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('searchResultsPage').classList.add('active');document.getElementById('searchResults').innerHTML=res.map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.verified?'✅':''}</b><div class="muted">${flagOf(u.country)} ${u.country} • UID: ${u.uid}</div></div><button class="small">View</button></div>`).join('')||'<p class="muted">No person found</p>';}
+function showApp(){document.getElementById('mainHeader').style.display='block';document.getElementById('bottomNav').classList.add('show'); if(me && me.owner){document.getElementById('ownerOnlineBanner').classList.remove('hidden');}}
+function applyLang(){ let code=me?me.lang||'en':'en'; let t=UI_TEXT[code]||UI_TEXT.en; document.getElementById('currentLangLabel').innerText='Current Language: '+(LANGNAMES[code]||code); document.querySelectorAll('nav button').forEach((b,i)=>{let keys=['feed','chat','top','profile']; if(UI_TEXT[code]) b.innerHTML=['🏠<br>','💬<br>','🏆<br>','👤<br>'][i]+t[keys[i]]; }); }
+function changeUILang(l){let n=langNameFromCode(l);document.getElementById('regLangInput').value=n;document.getElementById('currentLangLabel').innerText='Current Language: '+n;if(me){me.lang=l;save();applyLang();render();}alert('Language changed to '+n+' - Your profile, feed and buttons are now in '+n);}
+function searchPeople(q){if(!me||!q) return;let res=users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase()));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('searchResultsPage').classList.add('active');document.getElementById('searchResults').innerHTML=res.map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name} ${u.verified?'✅':''}</b><div class="muted">${flagOf(u.country)} ${u.country} • UID: ${u.uid} • TikTok: ${u.tiktok||'Not linked'}</div></div><button class="small">View</button></div>`).join('')||'<p class="muted">No person found</p>';}
 function claimDaily(){if(!me) return;let today=new Date().toDateString();let last=localStorage.getItem('daily_'+me.name);if(last==today){alert('You have already claimed today.');return}localStorage.setItem('daily_'+me.name,today);me.points=(me.points||0)+10;let u=users.find(x=>x.name==me.name);if(u) u.points=me.points;save();render();alert('Congratulations! You earned +10 points!');}
 function votePoll(btn){document.getElementById('pollResult').innerText='Thank you for voting for '+btn.innerText+'!';}
 async function translateText(text,elId){let target=me?me.lang||'en':'en';let el=document.getElementById(elId);if(!el) return;el.style.display='block';el.innerText='Translating...';try{let res=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=auto|'+target);let data=await res.json();el.innerText='Translated to '+(LANGNAMES[target]||target)+': '+data.responseData.translatedText;}catch(e){el.innerText='No internet connection.'}}
-function openEditProfile(){
-  if(!me) return;
-  hasEditProofUploaded=false;
-  document.getElementById('editProfileBox').classList.remove('hidden');
-  document.getElementById('editName').value=me.name||'';
-  document.getElementById('editUID').value=me.uid||'';
-  document.getElementById('editIGN').value=me.ign||'';
-  document.getElementById('editBio').value=me.bio||'';
-  document.getElementById('editCountry').value=me.country||'';
-  document.getElementById('editPass').value='';
-  let hist=me.uidHistory||[];
-  document.getElementById('uidHistoryBox').innerHTML=hist.length?'<b>UID History:</b><br>'+hist.map(h=>`Old UID: ${h.oldUid} → New UID: ${h.newUid} • ${h.date}`).join('<br>'):'<b>UID History:</b> No change yet.';
-  document.getElementById('editProfileBox').scrollIntoView({behavior:'smooth'});
-}
+function openEditProfile(){ if(!me) return; hasEditProofUploaded=false; document.getElementById('editProfileBox').classList.remove('hidden'); document.getElementById('editName').value=me.name||''; document.getElementById('editUID').value=me.uid||''; document.getElementById('editIGN').value=me.ign||''; document.getElementById('editBio').value=me.bio||''; document.getElementById('editCountry').value=me.country||''; document.getElementById('editPass').value=''; let hist=me.uidHistory||[]; document.getElementById('uidHistoryBox').innerHTML=hist.length?'<b>UID History:</b><br>'+hist.map(h=>`Old UID: ${h.oldUid} → New UID: ${h.newUid} • ${h.date}`).join('<br>'):'<b>UID History:</b> No change yet.'; document.getElementById('editProfileBox').scrollIntoView({behavior:'smooth'}); }
 function closeEditProfile(){document.getElementById('editProfileBox').classList.add('hidden');}
-function saveEditProfile(){
-  if(!me) return;
-  let newName=document.getElementById('editName').value.trim();
-  let newUID=document.getElementById('editUID').value.trim();
-  let newUIDConfirm=document.getElementById('editUIDConfirm').value.trim();
-  let newIGN=document.getElementById('editIGN').value.trim();
-  let pass=document.getElementById('editPass').value.trim();
-  let newBio=document.getElementById('editBio').value.trim();
-  let newCountry=document.getElementById('editCountry').value.trim();
-  let proofFile=document.getElementById('editProof').files[0];
-  if(!pass){alert('Enter your password to confirm change');return;}
-  if(pass!==me.pass){alert('❌ Wrong password. Cannot change UID.');return;}
-  if(!newName){alert('Name cannot be empty');return;}
-  if(!newUID){alert('UID cannot be empty');return;}
-  if(newUIDConfirm && newUIDConfirm!==newUID){alert('❌ UID does not match! UID must be the same as the UID in the screenshot.');return;}
-  let hasProofForCheck = proofFile ? true : (newUID===me.uid && me.proof ? true : hasEditProofUploaded);
-  let check=isValidUID(newUID, hasProofForCheck);
-  if(!check.ok){alert(check.msg);return;}
-  if(newUID!==me.uid){
-    let taken=users.find(u=>u.uid===newUID && u.name!==me.name);
-    if(taken){alert('❌ This new UID is already used by '+taken.name);return;}
-    if(!newIGN){alert('Enter new IGN that matches your new UID');return;}
-    if(newUID.length===13 && !proofFile){alert('📸 Your new UID is 13 digits. You MUST upload new screenshot showing the 13 digit UID to change.');return;}
-  }
-  let oldUID=me.uid; let oldIGN=me.ign;
-  let photoFile=document.getElementById('editPhoto').files[0];
-  let doSave=(newProof,newPhoto)=>{
-    if(newUID!==oldUID){
-      me.uidHistory=me.uidHistory||[];
-      me.uidHistory.push({oldUid:oldUID,oldIgn:oldIGN,newUid:newUID,newIgn:newIGN,date:new Date().toLocaleDateString()});
-      me.uid=newUID; me.ign=newIGN;
-      posts.forEach(p=>{ if(p.name===me.name) p.uid=newUID; });
-    }
-    let wasOwner = me.owner;
-    me.name=newName; if(newIGN) me.ign=newIGN; if(newBio) me.bio=newBio; if(newCountry) me.country=newCountry;
-    if(newProof) me.proof=newProof;
-    if(newPhoto) me.photo=newPhoto;
-    me.verified=true; me.owner=wasOwner;
-    me.verifiedNote = newUID.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
-    let userIdx=users.findIndex(u=>u.uid===oldUID);
-    if(userIdx>=0) users[userIdx]=me; else users.push(me);
-    save(); closeEditProfile(); render();
-    alert(newUID!==oldUID ? `✅ UID Changed!\nOld: ${oldUID} → New: ${newUID}${newUID.length===13?' (13 digits + Screenshot Proof ✅)':''}` : '✅ Profile Updated!');
-  };
-  if(proofFile && photoFile){ fileToUrl(proofFile, proofUrl=>{ fileToUrl(photoFile, photoUrl=> doSave(proofUrl, photoUrl)); }); }
-  else if(proofFile){ fileToUrl(proofFile, proofUrl=> doSave(proofUrl,'')); }
-  else if(photoFile){ fileToUrl(photoFile, photoUrl=> doSave('', photoUrl)); }
-  else doSave('','');
-}
+function openSettings(){ document.getElementById('settingsBox').classList.remove('hidden'); document.getElementById('postPrivacy').value=me.postPrivacy||'everyone'; document.getElementById('settingsTikTok').value=me.tiktok||''; document.getElementById('passLock').value=me.passLock||'off'; }
+function closeSettings(){document.getElementById('settingsBox').classList.add('hidden');}
+function saveSettings(){ me.postPrivacy=document.getElementById('postPrivacy').value; me.tiktok=document.getElementById('settingsTikTok').value.trim(); me.passLock=document.getElementById('passLock').value; let np=document.getElementById('settingsPass').value.trim(); if(np) me.pass=np; let u=users.find(x=>x.uid===me.uid); if(u){u.postPrivacy=me.postPrivacy;u.tiktok=me.tiktok;u.passLock=me.passLock;u.pass=me.pass;} save(); closeSettings(); alert('Settings saved! Your posts are now visible to: '+me.postPrivacy); render(); }
+function saveEditProfile(){ if(!me) return; let newName=document.getElementById('editName').value.trim(); let newUID=document.getElementById('editUID').value.trim(); let newIGN=document.getElementById('editIGN').value.trim(); let pass=document.getElementById('editPass').value.trim(); let newBio=document.getElementById('editBio').value.trim(); let newCountry=document.getElementById('editCountry').value.trim(); let proofFile=document.getElementById('editProof').files[0]; if(!pass){alert('Enter your password to confirm change');return;} if(pass!==me.pass){alert('❌ Wrong password. Cannot change UID.');return;} if(!newName){alert('Name cannot be empty');return;} if(!newUID){alert('UID cannot be empty');return;} let hasProof = proofFile?true:(newUID===me.uid && me.proof?true:hasEditProofUploaded); let check=isValidUID(newUID, hasProof); if(!check.ok){alert(check.msg);return;} if(newUID!==me.uid){ let taken=users.find(u=>u.uid===newUID && u.name!==me.name); if(taken){alert('❌ This UID is already used by '+taken.name);return;} if(!newIGN){alert('Enter new IGN that matches your new UID');return;} } let oldUID=me.uid; let oldIGN=me.ign; let photoFile=document.getElementById('editPhoto').files[0]; let doSave=(newProof,newPhoto)=>{ if(newUID!==oldUID){ me.uidHistory=me.uidHistory||[]; me.uidHistory.push({oldUid:oldUID,oldIgn:oldIGN,newUid:newUID,newIgn:newIGN,date:new Date().toLocaleDateString()}); me.uid=newUID; me.ign=newIGN; posts.forEach(p=>{ if(p.name===me.name) p.uid=newUID; }); } let wasOwner=me.owner; me.name=newName; if(newIGN) me.ign=newIGN; if(newBio) me.bio=newBio; if(newCountry) me.country=newCountry; if(newProof) me.proof=newProof; if(newPhoto) me.photo=newPhoto; me.verified=true; me.owner=wasOwner; let idx=users.findIndex(u=>u.uid===oldUID); if(idx>=0) users[idx]=me; else users.push(me); save(); closeEditProfile(); render(); alert('✅ Profile Updated!'); }; if(proofFile && photoFile){ fileToUrl(proofFile, pu=>{ fileToUrl(photoFile, ph=> doSave(pu,ph)); }); } else if(proofFile){ fileToUrl(proofFile, pu=> doSave(pu,'')); } else if(photoFile){ fileToUrl(photoFile, ph=> doSave('',ph)); } else doSave('',''); }
+function forgotPassword(){ try{ let name=prompt("Enter your Username:"); if(!name) return; let uid=prompt("Enter your Free Fire UID:"); if(!uid) return; let user=users.find(u=>normName(u.name)===normName(name)); if(!user){alert("No account found with that name.");return;} if(user.uid!==uid.trim()){alert("Wrong UID. Password cannot be changed.");return;} let np=prompt("Enter your NEW password:"); if(!np) return; user.pass=np; if(me && normName(me.name)===normName(name)) me.pass=np; save(); alert("Password changed! Now login with your new password."); }catch(e){alert("Reset error: "+e.message);} }
+function showLoginBox(){ try{ let name=prompt("Enter your Username:"); if(!name) return; let pass=prompt("Enter your Password:"); if(!pass) return; let u=users.find(x=>normName(x.name)===normName(name) && x.pass===pass); if(!u){alert("Wrong Username or Password. Use Forgot Password.");return;} me=u; save(); showApp(); show('feedPage',document.querySelector('nav button')); }catch(e){alert("Login error: "+e.message);} }
+function closeWelcome(){ document.getElementById('welcomeOverlay').classList.add('hidden'); }
+function showWelcome(name, isNew){ document.getElementById('welcomeTitle').innerText='Welcome to 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community'; document.getElementById('welcomeText').innerText='Hello '+name+', Welcome to 2ᴋ ʀᴇʙᴏʀɴ Free Fire Community! Chat, post, go live and grow with us.'; document.getElementById('welcomeOverlay').classList.remove('hidden'); }
+function checkAI_Post(text, media){ let bad=["porn","pornhub","xxx","sex","nude","naked","pussy","penis","dick","fuck","bitch"]; let low=(text||"").toLowerCase(); for(let b of bad){ if(low.includes(b)) return true; } return false; }
 function signup(){
+  alert("Button clicked - checking...");
+  try{
   let rawName=document.getElementById('regName').value.trim();
-  let name=normName(rawName);
-  if(rawName===OWNER_NAME) name=OWNER_NAME;
+  let name=normName(rawName); if(rawName===OWNER_NAME) name=OWNER_NAME;
   let uid=document.getElementById('regUID').value.trim();
-  let uidConfirm=document.getElementById('regUIDConfirm').value.trim();
-  let ign=document.getElementById('regIGN').value.trim();
+  let ign=document.getElementById('regIGN').value.trim()||"Player";
   let pass=document.getElementById('regPass').value.trim();
   let ownerCodeInput=document.getElementById('ownerCode').value.trim();
   let game=document.getElementById('regGame').value;
@@ -309,104 +233,62 @@ function signup(){
   let country=document.getElementById('regCountry').value.trim();
   let langName=document.getElementById('regLangInput').value.trim();
   let lang=langCodeFromName(langName);
+  let tiktok=document.getElementById('regTikTok').value.trim();
   let photoFile=document.getElementById('regPhoto').files[0];
   let proofFile=document.getElementById('regProof').files[0];
-  if(!rawName){alert('Please enter your Name');return;}
-  if(!uid){alert('Please enter your Game UID');return;}
-  if(!uidConfirm){alert('Please type UID as it appears in the screenshot');return;}
-  if(uidConfirm!==uid){alert('❌ UID does not match! UID must be the same as the UID in your screenshot.');return;}
-  let hasProof = proofFile ? true : hasProofUploaded;
-  let check=isValidUID(uid, hasProof);
-  if(!check.ok){alert(check.msg);return;}
-  if(uid.length===13 && !proofFile && !hasProofUploaded){alert('📸 Your UID is 13 digits. Upload screenshot showing the 13 digit UID, then you fit login.');return;}
-  let uidTaken=users.find(u=>u.uid===uid && u.name!==name);
-  if(uidTaken){alert('❌ This UID is already used by '+uidTaken.name);return;}
-  if(!ign){alert('Please enter your IGN');return;}
+  if(!document.getElementById('agreePrivacy').checked){ alert('Please agree to Privacy and Policy to continue.'); return; }
+  if(!rawName){alert('Please enter your Username');return;}
+  if(!uid){alert('Please enter your Free Fire UID');return;}
+  let hasProof = proofFile?true:hasProofUploaded;
+  let check=isValidUID(uid, hasProof); if(!check.ok){alert(check.msg);return;}
+  if(aiChecked && aiDetectedUID && aiDetectedUID!==uid){ alert('🤖 AI Check Failed: Your screenshot shows UID '+aiDetectedUID+' ('+aiDetectedUID.length+' digits), but you typed '+uid+' ('+uid.length+' digits). Please upload a screenshot that shows the same UID.'); return; }
+  if(aiChecked && aiDetectedUID && aiDetectedUID.length!==uid.length){ alert('🤖 AI Check Failed: Screenshot shows '+aiDetectedUID.length+' digits, you typed '+uid.length+' digits. They must be the same.'); return; }
+  let uidTaken=users.find(u=>u.uid===uid && u.name!==name); if(uidTaken){alert('❌ This UID is already used by '+uidTaken.name);return;}
   if(!pass){alert('Please enter your Password');return;}
   if(!country){alert('Please select your country');return;}
   if(country=="Nigeria"){lang="en";langName="English";}
-  let existingOwner = users.find(u=>u.owner===true);
-  let ex = users.find(u=>u.name==name || normName(u.name)===normName(name));
-  let isOwner = false;
-  if(ex && ex.owner===true){
-    if(ex.pass !== pass){ alert('Wrong password'); return; }
-    isOwner = true;
-  } else if(ownerCodeInput !== ""){
-    if(existingOwner){
-      alert('Owner already exists. Only one owner allowed.');
-      return;
-    }
-    if(normName(name) === "2k reborn" && ownerCodeInput === OWNER_CODE){
-      isOwner = true;
-    } else {
-      alert('❌ Wrong Code. Leave it empty if you are not owner.');
-      return;
-    }
-  } else {
-    if(normName(name) === "2k reborn"){
-      if(existingOwner){
-        alert('This name is already taken. Use another name.');
-        return;
-      }
-      alert('To use this name, you must enter the Code first time.');
-      return;
-    }
-    isOwner = false;
-  }
+  let existingOwner=users.find(u=>u.owner===true);
+  let ex=users.find(u=>u.name==name || normName(u.name)===normName(name));
+  let isOwner=false;
+  if(ex && ex.owner===true){ if(ex.pass!==pass){alert('Wrong password');return;} isOwner=true; }
+  else if(ownerCodeInput!==""){ if(existingOwner){alert('Owner already exists. Only one owner allowed.');return;} if(normName(name)==="2k reborn" && ownerCodeInput===OWNER_CODE){isOwner=true;} else {alert('❌ Wrong Code. Leave it empty if you are not the owner.');return;} }
+  else { if(normName(name)==="2k reborn"){ if(existingOwner){alert('This name is already taken. Use another name.');return;} alert('To use this name, you must enter the Code first time.'); return; } isOwner=false; }
   let done=(photo,proof)=>{
     let ex2=users.find(u=>u.name==name || normName(u.name)===normName(name));
-    if(ex2){
-      if(ex2.pass!=pass){alert('Wrong password');return;}
-      me=ex2; me.country=country; me.lang=lang; me.uid=uid; me.ign=ign; me.uidConfirm=uidConfirm;
-      if(photo) me.photo=photo; if(proof) me.proof=proof; me.verified=true;
-      if(ex2.owner) me.owner=true;
-      if(isOwner) me.owner=true;
-      me.verifiedNote = uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified';
-      let idx=users.findIndex(u=>u.name==name); if(idx>=0) users[idx]=me; else users.push(me);
-    } else {
-      me={name,uid,uidConfirm,ign,pass,game,bio,photo:photo||'',proof:proof||'',owner:isOwner,country,lang,points:0,verified:true,verifiedNote: uid.length===13 ? '13-digit UID verified with screenshot proof' : 'UID verified', uidHistory:[]};
-      users.push(me);
-    }
-    save();showApp();show('feedPage',document.querySelector('nav button'));
-    if(isOwner) alert('👑 Welcome OWNER! You are now owner PERMANENTLY. Next time, just login with name + password, no code needed again.');
-    else alert(uid.length===13 ? '✅ Verified with Screenshot! Welcome, '+name+'!\nYour 13-digit UID: '+uid+' is accepted because screenshot shows it.' : '✅ Verified! Welcome, '+name+'!\nUID: '+uid+'\nIGN: '+ign);
+    if(ex2){ if(ex2.pass!=pass){alert('Wrong password');return;} me=ex2; me.country=country; me.lang=lang; me.uid=uid; me.ign=ign; me.tiktok=tiktok||me.tiktok; if(photo) me.photo=photo; if(proof) me.proof=proof; me.verified=true; if(ex2.owner) me.owner=true; if(isOwner) me.owner=true; let idx=users.findIndex(u=>u.name==name); if(idx>=0) users[idx]=me; else users.push(me); }
+    else { me={name,uid,ign,pass,game,bio,photo:photo||'',proof:proof||'',owner:isOwner,country,lang,points:0,verified:true,uidHistory:[],tiktok:tiktok,postPrivacy:'everyone',passLock:'off'}; users.push(me); posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text:'🎉 New member joined: '+me.name+' - Welcome to 2ᴋ ʀᴇʙᴏʀɴ! Say hello! 👋',type:'🎮 Gameplay',media:'',mediaType:'',likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country,lang:me.lang}); }
+    save();showApp();show('feedPage',document.querySelector('nav button')); applyLang(); showWelcome(me.name,true);
   };
-  if(photoFile && proofFile){ fileToUrl(photoFile, photoUrl=>{ fileToUrl(proofFile, proofUrl=> done(photoUrl, proofUrl)); }); }
-  else if(photoFile){ fileToUrl(photoFile, photoUrl=> done(photoUrl,'')); }
-  else if(proofFile){ fileToUrl(proofFile, proofUrl=> done('', proofUrl)); }
-  else done('','');
+  if(photoFile && proofFile){ fileToUrl(photoFile, pu=>{ fileToUrl(proofFile, pr=> done(pu,pr)); }); } else if(photoFile){ fileToUrl(photoFile, pu=> done(pu,'')); } else if(proofFile){ fileToUrl(proofFile, pr=> done('',pr)); } else done('','');
+  }catch(e){ alert("Signup crashed: "+e.message); }
 }
-function logout(){me=null;save();showAuthOnly();location.reload();}
-function addPost(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let type=document.getElementById('postType').value;let push=(media,mediaType)=>{posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text,type,media,mediaType,likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country,lang:me.lang});save();render();document.getElementById('postText').value='';alert('Posted! It will now show in your Profile')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
-function addStatus(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let push=(media,mediaType)=>{statuses.push({name:me.name,photo:me.photo,text,media,mediaType,expire:Date.now()+24*60*60*1000});save();render();alert('Status posted!')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
+function logout(){ me=null; save(); showAuthOnly(); location.reload(); }
+function goLive(){ if(!me) return; if(!me.verified){alert('You must be verified to go live.');return;} if(!me.photo){alert('Please add a profile photo to go live.');return;} let myPosts=posts.filter(p=>p.name===me.name && !p.text.includes('New member joined')); if(myPosts.length<1){alert('You need at least 1 post to go live. Post your gameplay first.');return;} if(!confirm('Go Live Rules: No porn, no insult, no hate. Do you agree?')) return; document.getElementById('liveArea').classList.remove('hidden'); navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(s=>{ liveStream=s; document.getElementById('liveVideo').srcObject=s; posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text:'🔴 '+me.name+' is LIVE now! Tap to watch - Playing Free Fire!',type:'🎮 Gameplay',media:'',mediaType:'',likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country,lang:me.lang}); save(); render(); }).catch(()=>alert('Please allow camera and microphone to go live.')); }
+function stopLive(){ if(liveStream){liveStream.getTracks().forEach(t=>t.stop());} document.getElementById('liveArea').classList.add('hidden'); alert('Live ended. Thank you for going live!'); }
+function addPost(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;let type=document.getElementById('postType').value;if(checkAI_Post(text,'')){alert('🚫 Not Allowed - Blocked by AI. This post contains banned content.');return;}let push=(media,mediaType)=>{posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text,type,media,mediaType,likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country,lang:me.lang,privacy:me.postPrivacy||'everyone'});save();render();document.getElementById('postText').value='';alert('Posted! It will now show in your Profile')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
+function addStatus(){if(!me) return;let file=document.getElementById('postFile').files[0];let text=document.getElementById('postText').value;if(checkAI_Post(text,'')){alert('🚫 Not Allowed - Blocked by AI');return;}let push=(media,mediaType)=>{statuses.push({name:me.name,photo:me.photo,text,media,mediaType,expire:Date.now()+24*60*60*1000});save();render();alert('Status posted!')};if(file) fileToUrl(file,url=>push(url,file.type.startsWith('video')?'video':'image')); else push('','');}
 function getScores(){let scores={};users.forEach(u=>scores[u.name]={name:u.name,photo:u.photo,owner:u.owner,verified:u.verified,likes:0,posts:0,comments:0,points:u.points||0,country:u.country});posts.forEach(p=>{if(scores[p.name]){scores[p.name].posts++;scores[p.name].likes+=p.likes;scores[p.name].comments+=(p.comments||[]).length;}});Object.values(scores).forEach(s=>{s.points=(s.points||0)+s.likes*2+s.posts*5+s.comments*1;});return Object.values(scores).sort((a,b)=>b.points-a.points);}
-function renderLeader(){let list=getScores();let el=document.getElementById('leaderList');if(!el) return;el.innerHTML=list.map((u,i)=>`<div class="leaderRow ${i==0?'top1':''}" onclick="viewProfile('${u.name}')"><span style="font-size:20px">${i==0?'🥇':i==1?'🥈':i==2?'🥉':'#'+(i+1)}</span><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • ${u.posts} Posts • ${u.likes} Likes</div><div>${getBadges(u.name).map(b=>`<span class="pill purple">${b}</span>`).join(' ')}</div></div><b>${u.points} pts</b></div>`).join('')||'<p class="muted">No players yet</p>';let myRank=list.findIndex(u=>u.name==me.name);if(myRank>=0){let rankEl=document.getElementById('myRank');if(rankEl) rankEl.innerText='#'+(myRank+1);document.getElementById('myPoints').innerText='Total Points: '+list[myRank].points+' pts';document.getElementById('myBadges').innerHTML=getBadges(me.name).map(b=>`<span class="pill">${b}</span>`).join(' ');}if(list.length>0){document.getElementById('shoutoutText').innerText='⭐ Top 1 Today: '+list[0].name+' ✅ — '+list[0].points+' points!';document.getElementById('ownerShoutout').innerText=list[0].owner?'Owner won because he earned the most points, not because he is owner.':'This person earned Top 1.';document.getElementById('shoutoutBadges').innerHTML=getBadges(list[0].name).map(b=>`<span class="pill">${b}</span>`).join(' ');}}
-function tiktokGridHTML(userName){
-  let userPosts=posts.filter(p=>p.name==userName);
-  if(userPosts.length==0) return '<p class="muted" style="padding:10px">No posts yet.</p>';
-  return '<div class="tiktokGrid">'+userPosts.map(p=>{
-    let origIdx=posts.indexOf(p);
-    let mediaHtml=p.media ? (p.mediaType=='video'?`<video src="${p.media}"></video>`:`<img src="${p.media}">`) : `<div style="width:100%;height:100%;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:24px">📝</div>`;
-    return `<div class="tItem" onclick="viewPostDetail(${origIdx})">${mediaHtml}<span class="tLikes">❤️ ${p.likes} • 💬 ${(p.comments||[]).length}</span><div class="tText">${(p.text||'').substring(0,30)}</div></div>`;
-  }).join('')+'</div>';
-}
-function viewPostDetail(i){let p=posts[i];if(!p) return;alert(p.name+': '+(p.text||'No caption')+'\n❤️ '+p.likes+' Likes');}
-function viewProfile(name){if(!me) return;let u=users.find(x=>x.name==name);if(!u) return;let userPosts=posts.filter(p=>p.name==name);let totalLikes=userPosts.reduce((s,p)=>s+p.likes,0);document.getElementById('viewProfileCard').innerHTML=`<img class="avatar" style="width:90px;height:90px" src="${u.photo||''}"><h3 class="smallcap">${u.name} ${u.verified?'✅ Verified':''} ${u.owner?'👑 OWNER':''}</h3><p class="muted">UID: ${u.uid} ${u.verified?'✅':''} ${u.uid && u.uid.length===13?'<span style="color:#b45309;font-weight:700">(13 digits + Screenshot Proof 📸)</span>':''}</p><p class="muted">IGN: ${u.ign||''}</p><p style="font-size:18px;font-weight:800">${flagOf(u.country)} ${u.country||''}</p><p class="muted">Language: ${langNameFromCode(u.lang)}</p><p>${u.game||''}</p><p style="font-size:13px">${u.bio||''}</p>${u.proof?`<div class="verifyBox"><b>📸 Free Fire Proof — Screenshot showing UID</b><br><img src="${u.proof}" style="width:100%;border-radius:10px;margin-top:6px"></div>`:''}${u.uidHistory&&u.uidHistory.length?`<div class="verifyBox pending"><b>🔄 UID Changed Before:</b><br>${u.uidHistory.map(h=>`Old: ${h.oldUid} → New: ${h.newUid} • ${h.date}`).join('<br>')}</div>`:''}<div>${getBadges(u.name).map(b=>`<span class="pill">${b}</span>`).join(' ')}</div><div class="profileStats"><div><b>${userPosts.length}</b><span>Posts</span></div><div><b>${totalLikes}</b><span>Likes</span></div><div><b>${userPosts.reduce((s,p)=>s+(p.comments||[]).length,0)}</b><span>Comments</span></div></div><button onclick="openChat('${u.name}')">Chat with ${u.name} →</button>`;document.getElementById('viewProfilePosts').innerHTML=`<h4 style="margin:14px 0 6px">📱 ${u.name}'s Posts (${userPosts.length})</h4>`+tiktokGridHTML(name)+`<h4 style="margin:14px 0 6px">Full Posts</h4>`+userPosts.map(p=>{let i=posts.indexOf(p);return `<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button></div>`}).join('');show('viewProfilePage',null);}
+function renderLeader(){let list=getScores();let el=document.getElementById('leaderList');if(!el) return;el.innerHTML=list.map((u,i)=>`<div class="leaderRow ${i==0?'top1':''}" onclick="viewProfile('${u.name}')"><span style="font-size:20px">${i==0?'🥇':i==1?'🥈':i==2?'🥉':'#'+(i+1)}</span><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • UID: ${users.find(x=>x.name==u.name)?.uid||''} • ${u.posts} Posts • ${u.likes} Likes</div><div>${getBadges(u.name).map(b=>`<span class="pill purple">${b}</span>`).join(' ')}</div></div><b>${u.points} pts</b></div>`).join('')||'<p class="muted">No players yet</p>';let myRank=list.findIndex(u=>u.name==me.name);if(myRank>=0){let rankEl=document.getElementById('myRank');if(rankEl) rankEl.innerText='#'+(myRank+1);document.getElementById('myPoints').innerText='Total Points: '+list[myRank].points+' pts';document.getElementById('myBadges').innerHTML=getBadges(me.name).map(b=>`<span class="pill">${b}</span>`).join(' ');}if(list.length>0){document.getElementById('shoutoutText').innerText='⭐ Top 1 Today: '+list[0].name+' ✅ — '+list[0].points+' points!';document.getElementById('ownerShoutout').innerText=list[0].owner?'Owner won because he earned the most points, not because he is owner.':'This person earned Top 1.';document.getElementById('shoutoutBadges').innerHTML=getBadges(list[0].name).map(b=>`<span class="pill">${b}</span>`).join(' ');}}
+function tiktokGridHTML(userName){ let userPosts=posts.filter(p=>p.name==userName); if(userPosts.length==0) return '<p class="muted" style="padding:10px">No posts yet.</p>'; return '<div class="tiktokGrid">'+userPosts.map(p=>{ let origIdx=posts.indexOf(p); let mediaHtml=p.media ? (p.mediaType=='video'?`<video src="${p.media}"></video>`:`<img src="${p.media}">`) : `<div style="width:100%;height:100%;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:24px">📝</div>`; return `<div class="tItem" onclick="viewPostDetail(${origIdx})">${mediaHtml}<span class="tLikes">❤️ ${p.likes} • 💬 ${(p.comments||[]).length}</span><div class="tText">${(p.text||'').substring(0,30)}</div></div>`; }).join('')+'</div>'; }
+function viewPostDetail(i){let p=posts[i];if(!p) return;alert(p.name+' (UID: '+p.uid+'): '+(p.text||'No caption')+'\n❤️ '+p.likes+' Likes');}
+function viewProfile(name){if(!me) return;let u=users.find(x=>x.name==name);if(!u) return;let userPosts=posts.filter(p=>p.name==name);let totalLikes=userPosts.reduce((s,p)=>s+p.likes,0);document.getElementById('viewProfileCard').innerHTML=`<img class="avatar" style="width:90px;height:90px" src="${u.photo||''}"><h3 class="smallcap">${u.name} ${u.verified?'✅ Verified':''} ${u.owner?'👑 OWNER':''}</h3><p class="muted">UID: ${u.uid} ✅</p><p class="muted">IGN: ${u.ign||''}</p><p style="font-size:18px;font-weight:800">${flagOf(u.country)} ${u.country||''}</p><p class="muted">Language: ${langNameFromCode(u.lang)}</p><p>${u.game||''}</p><p style="font-size:13px">${u.bio||''}</p><p style="font-weight:700">TikTok: ${u.tiktok||'Not linked'}</p><p class="muted">Your Free Fire screenshot is private and is not shown to others.</p><div>${getBadges(u.name).map(b=>`<span class="pill">${b}</span>`).join(' ')}</div><div class="profileStats"><div><b>${userPosts.length}</b><span>Posts</span></div><div><b>${totalLikes}</b><span>Likes</span></div><div><b>${userPosts.reduce((s,p)=>s+(p.comments||[]).length,0)}</b><span>Comments</span></div></div><button onclick="openChat('${u.name}')">Chat with ${u.name} →</button>`;document.getElementById('viewProfilePosts').innerHTML=`<h4 style="margin:14px 0 6px">📱 ${u.name}'s Posts (${userPosts.length})</h4>`+tiktokGridHTML(name);show('viewProfilePage',null);}
 function reactPost(i,type){posts[i].reactions=posts[i].reactions||{fire:0,love:0,laugh:0,wow:0};posts[i].reactions[type]++;save();render();}
-function render(){if(!me) return;statuses=statuses.filter(s=>s.expire>Date.now());save();renderLeader();let fa=document.getElementById('feedAvatar');if(fa) fa.src=me.photo||'';document.getElementById('myName').innerText=me.name+(me.owner?' 👑 OWNER':'')+(me.verified?' ✅':'');document.getElementById('myUID').innerText='UID: '+me.uid+(me.verified?' ✅ Verified':'')+(me.uid && me.uid.length===13?' (13 digits + Screenshot 📸)':'');let ignEl=document.getElementById('myIGN');if(ignEl) ignEl.innerText='IGN: '+(me.ign||'');let vEl=document.getElementById('myVerify');if(vEl) vEl.innerHTML=me.verified?(me.uid && me.uid.length===13?'<span style="color:#16a34a;font-weight:700">✅ 13-digit UID Verified With Screenshot Proof</span>':'<span style="color:#16a34a;font-weight:700">✅ UID Verified</span>'):'Not Verified';document.getElementById('myGame').innerText=me.game||'';document.getElementById('myBio').innerText=me.bio||'';document.getElementById('myPic').src=me.photo||'';document.getElementById('myCountry').innerText=flagOf(me.country)+' '+(me.country||'');document.getElementById('myLang').innerText='Language: '+langNameFromCode(me.lang);let myPostsList=posts.filter(p=>p.name==me.name);let myLikes=myPostsList.reduce((s,p)=>s+p.likes,0);let pc=document.getElementById('myPostCount');if(pc) pc.innerText=myPostsList.length;let lc=document.getElementById('myLikeCount');if(lc) lc.innerText=myLikes;let proofBox=document.getElementById('myProofBox');if(proofBox){proofBox.innerHTML=me.proof?`<div class="verifyBox"><b>📸 Your Free Fire Proof — Screenshot showing UID</b><br><img src="${me.proof}" style="width:100%;border-radius:10px;margin-top:6px"></div>`:'';}document.getElementById('statusList').innerHTML=`<div class="status"><img src="${me.photo||''}"><div>You</div></div>`+statuses.map(s=>`<div class="status"><img src="${s.photo||''}"><div>${s.name}</div></div>`).join('');
-document.getElementById('feed').innerHTML=posts.map((p,i)=>`<div class="card"><div class="row" onclick="viewProfile('${p.name}')"><img class="avatar" src="${p.photo||''}"><div style="flex:1"><b class="smallcap">${p.name} ${p.owner?'👑 OWNER':''} ✅</b><div class="muted">${flagOf(p.country)} ${p.country||''} • UID: ${p.uid} ${p.uid && p.uid.length===13?'(13 📸)':''} • ${p.type} • ${langNameFromCode(p.lang)}</div></div><span class="pill purple">${p.type}</span></div><p style="margin:10px 0;font-size:14px;line-height:1.5">${p.text||''}</p><span id="tr-post-${i}" class="translated" style="display:none"></span>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<div class="reactions"><button class="react" onclick="reactPost(${i},'fire')">🔥 ${(p.reactions&&p.reactions.fire)||0}</button><button class="react" onclick="reactPost(${i},'love')">❤️ ${(p.reactions&&p.reactions.love)||0}</button><button class="react" onclick="reactPost(${i},'laugh')">😂 ${(p.reactions&&p.reactions.laugh)||0}</button><button class="react" onclick="reactPost(${i},'wow')">😮 ${(p.reactions&&p.reactions.wow)||0}</button></div><div style="display:flex;gap:6px"><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button><button class="small outline" onclick="openChat('${p.name}')">💬 Chat</button><button class="small outline" onclick="translateText(\`${(p.text||'').replace(/`/g,'')}\`,'tr-post-${i}')">🌍 Translate</button></div><div class="commentBox"><b style="font-size:13px">Comments (${(p.comments||[]).length})</b>${(p.comments||[]).map(c=>`<div class="comment"><b>${c.from}:</b> ${c.text}</div>`).join('')||'<div class="muted" style="font-size:12px">No comment yet.</div>'}<input class="commentInput" id="cmt-${i}" placeholder="Write a comment..."><button class="small" onclick="addComment(${i})">Post Comment</button></div></div>`).join('')||'<p style="text-align:center;color:#888">No post yet.</p>';
-document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'<span class="pill">👑 OWNER</span>':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • UID: ${u.uid} ✅ ${u.uid && u.uid.length===13?'(13 📸)':''} • IGN: ${u.ign||''}<br>📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small" onclick="event.stopPropagation();openChat('${u.name}')">Chat →</button></div>`).join('')||'<p class="muted">No other people yet.</p>';
+function render(){if(!me) return;statuses=statuses.filter(s=>s.expire>Date.now());save();renderLeader();applyLang();let fa=document.getElementById('feedAvatar');if(fa) fa.src=me.photo||'';document.getElementById('myName').innerText=me.name+(me.owner?' 👑 OWNER':'')+(me.verified?' ✅':'');document.getElementById('myUID').innerText='UID: '+me.uid+' ✅ Verified';let ignEl=document.getElementById('myIGN');if(ignEl) ignEl.innerText='IGN: '+(me.ign||'');let vEl=document.getElementById('myVerify');if(vEl) vEl.innerHTML='<span style="color:#16a34a;font-weight:700">✅ UID Verified with Screenshot</span>';document.getElementById('myGame').innerText=me.game||'';document.getElementById('myBio').innerText=me.bio||'';document.getElementById('myPic').src=me.photo||'';document.getElementById('myCountry').innerText=flagOf(me.country)+' '+(me.country||'');document.getElementById('myLang').innerText='Language: '+langNameFromCode(me.lang);document.getElementById('myTikTok').innerText='TikTok: '+(me.tiktok||'Not linked - Add in Settings');let myPostsList=posts.filter(p=>p.name==me.name);let myLikes=myPostsList.reduce((s,p)=>s+p.likes,0);let pc=document.getElementById('myPostCount');if(pc) pc.innerText=myPostsList.length;let lc=document.getElementById('myLikeCount');if(lc) lc.innerText=myLikes;
+let visiblePosts=posts.filter(p=>{ if(p.name===me.name) return true; let owner=users.find(u=>u.name===p.name); let priv=owner?owner.postPrivacy||'everyone':'everyone'; if(priv==='onlyme') return false; if(priv==='friends') return false; return true; });
+document.getElementById('statusList').innerHTML=`<div class="status"><img src="${me.photo||''}"><div>You</div></div>`+statuses.map(s=>`<div class="status"><img src="${s.photo||''}"><div>${s.name}</div></div>`).join('');
+document.getElementById('feed').innerHTML=visiblePosts.map((p)=>{let i=posts.indexOf(p);return `<div class="card"><div class="row" onclick="viewProfile('${p.name}')"><img class="avatar" src="${p.photo||''}"><div style="flex:1"><b class="smallcap">${p.name} ${p.owner?'👑 OWNER':''} ✅</b><div class="muted">${flagOf(p.country)} ${p.country||''} • UID: ${p.uid} • ${p.type}</div></div><span class="pill purple">${p.type}</span></div><p style="margin:10px 0;font-size:14px;line-height:1.5">${p.text||''}</p><span id="tr-post-${i}" class="translated" style="display:none"></span>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<div class="reactions"><button class="react" onclick="reactPost(${i},'fire')">🔥 ${(p.reactions&&p.reactions.fire)||0}</button><button class="react" onclick="reactPost(${i},'love')">❤️ ${(p.reactions&&p.reactions.love)||0}</button><button class="react" onclick="reactPost(${i},'laugh')">😂 ${(p.reactions&&p.reactions.laugh)||0}</button><button class="react" onclick="reactPost(${i},'wow')">😮 ${(p.reactions&&p.reactions.wow)||0}</button></div><div style="display:flex;gap:6px"><button class="small outline" onclick="likePost(${i})">👍 Like (${p.likes})</button><button class="small outline" onclick="openChat('${p.name}')">💬 Chat</button><button class="small outline" onclick="translateText(\`${(p.text||'').replace(/`/g,'')}\`,'tr-post-${i}')">🌍 Translate</button></div><div class="commentBox"><b style="font-size:13px">Comments (${(p.comments||[]).length})</b>${(p.comments||[]).map(c=>`<div class="comment"><b>${c.from}:</b> ${c.text}</div>`).join('')||'<div class="muted" style="font-size:12px">No comment yet.</div>'}<input class="commentInput" id="cmt-${i}" placeholder="Write a comment..."><button class="small" onclick="addComment(${i})">Post Comment</button></div></div>`}).join('')||'<p style="text-align:center;color:#888">No post yet.</p>';
+document.getElementById('peopleList').innerHTML=users.filter(u=>u.name!=me.name).map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'<span class="pill">👑 OWNER</span>':''}</b><div class="muted">${flagOf(u.country)} ${u.country||''} • UID: ${u.uid} ✅ • IGN: ${u.ign||''} • TikTok: ${u.tiktok||'Not linked'}<br>📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small" onclick="event.stopPropagation();openChat('${u.name}')">Chat →</button></div>`).join('')||'<p class="muted">No other people yet.</p>';
 document.getElementById('allProfiles').innerHTML=users.map(u=>`<div class="card row" onclick="viewProfile('${u.name}')"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b class="smallcap">${u.name} ${u.verified?'✅':''} ${u.owner?'👑 OWNER':''}</b><div class="muted">${flagOf(u.country)} ${u.country} • UID: ${u.uid} • 📱 ${posts.filter(p=>p.name==u.name).length} Posts</div></div><button class="small">View</button></div>`).join('');
 document.getElementById('myPostsGrid').innerHTML=tiktokGridHTML(me.name);
-document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">${p.likes} Likes • ${(p.comments||[]).length} Comments</p></div>`).join('')||'<p class="muted">You have not posted yet.</p>';if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
+document.getElementById('myPosts').innerHTML=posts.filter(p=>p.name==me.name).map(p=>`<div class="card"><p>${p.text}</p>${p.media?(p.mediaType=='video'?`<video class="postVideo" src="${p.media}" controls></video>`:`<img class="postImg" src="${p.media}">`):''}<p class="muted">UID: ${p.uid} • ${p.likes} Likes • ${(p.comments||[]).length} Comments</p></div>`).join('')||'<p class="muted">You have not posted yet.</p>';if(document.getElementById('chatArea')&&!document.getElementById('chatArea').classList.contains('hidden')) renderChat();}
 function likePost(i){posts[i].likes++;save();render()}
-function addComment(i){let el=document.getElementById('cmt-'+i);let t=el.value.trim();if(!t) return;posts[i].comments=posts[i].comments||[];posts[i].comments.push({from:me.name,text:t});el.value='';save();render();}
-function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}currentChat=name;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('chatPage').classList.add('active');document.getElementById('chatArea').classList.remove('hidden');let u=users.find(x=>x.name==name);document.getElementById('chatTitle').innerText=name=='public'?'GENERAL CHAT — Everyone Is Here':'Chat with '+name+(u&&u.owner?' 👑 OWNER':'')+(u?` ${flagOf(u.country)} ${u.country||''}`:'');renderChat();setTimeout(()=>{document.getElementById('chatArea').scrollIntoView({behavior:'smooth'});},100);}
+function addComment(i){let el=document.getElementById('cmt-'+i);let t=el.value.trim();if(!t) return;if(checkAI_Post(t,'')){alert('🚫 Not Allowed - Blocked by AI');return;}posts[i].comments=posts[i].comments||[];posts[i].comments.push({from:me.name,text:t});el.value='';save();render();}
+function openChat(name){if(!me){showAuthOnly();alert('Please sign up first!');return;}currentChat=name;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('chatPage').classList.add('active');document.getElementById('chatArea').classList.remove('hidden');let u=users.find(x=>x.name==name);document.getElementById('chatTitle').innerText=name=='public'?'GENERAL CHAT — Everyone Is Here':'Chat with '+name+(u&&u.owner?' 👑 OWNER':'')+(u?` ${flagOf(u.country)} ${u.country||''} UID: ${u.uid}`:'');renderChat();setTimeout(()=>{document.getElementById('chatArea').scrollIntoView({behavior:'smooth'});},100);}
 function getChatKey(){return currentChat=='public'?'public':[me.name,currentChat].sort().join('_')}
 function renderChat(){if(!me) return;let k=getChatKey();let arr=chats[k]||[];document.getElementById('chatBox').innerHTML=arr.map(m=>`<div class="msg ${m.from==me.name?'me':''}"><b>${m.from}</b><div>${m.text||''}</div>${m.voice?`<audio src="${m.voice}" controls></audio>`:''}</div>`).join('')||'<p class="muted" style="text-align:center">No message yet. Say hello! 👋</p>';document.getElementById('chatBox').scrollTop=99999;}
-function sendMsg(){if(!me) return;let t=document.getElementById('chatInput').value.trim();if(!t)return;let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t});document.getElementById('chatInput').value='';save();renderChat();}
+function sendMsg(){if(!me) return;let t=document.getElementById('chatInput').value.trim();if(!t)return;if(checkAI_Post(t,'')){alert('🚫 Not Allowed - Blocked by AI');return;}let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,text:t});document.getElementById('chatInput').value='';save();renderChat();}
 async function toggleRec(){if(!recording){try{let s=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(s);chunks=[];mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(chunks,{type:'audio/webm'});let r=new FileReader();r.onload=e=>{let k=getChatKey();chats[k]=chats[k]||[];chats[k].push({from:me.name,voice:e.target.result});save();renderChat()};r.readAsDataURL(blob)};mediaRecorder.start();recording=true;document.getElementById('recStatus').innerText='Recording... Press again to stop and send';document.getElementById('recBtn').innerText='Stop and Send Voice Note';}catch(e){alert('Please allow microphone access')}}else{mediaRecorder.stop();recording=false;document.getElementById('recStatus').innerText='';document.getElementById('recBtn').innerText='Record Voice Note'}}
-if(me){showApp();show('feedPage',document.querySelector('nav button'));}else{showAuthOnly();}
+if(me){ if(me.passLock==='on'){ let p=prompt('Enter your password to enter your account:'); if(p!==me.pass){ alert('Wrong password. Please login again.'); me=null; save(); showAuthOnly(); } else { showApp(); show('feedPage',document.querySelector('nav button')); if(me.owner) document.getElementById('ownerOnlineBanner').classList.remove('hidden'); } } else { showApp(); show('feedPage',document.querySelector('nav button')); if(me.owner) document.getElementById('ownerOnlineBanner').classList.remove('hidden'); } }else{showAuthOnly();}
 </script>
 </body>
 </html>
