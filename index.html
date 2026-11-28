@@ -310,8 +310,13 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// CORRECT FINAL MERGED - WHATSAPP EXACT
+<script>// =================================================================
+// CORRECT FULL MERGED - WHATSAPP EXACT - COMPLETE VERSION
+// Features: Emoji (200+) + Stickers + Create + Delete + Typing Top + Reaction Count
+// Language: English Only
+// =================================================================
 (function(){
+  // ---------------- USER ----------------
   function getUser(){
     try{ var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null'); if(u) return u; }catch(e){}
     return { name:'2K REBORN', username:'2K REBORN', avatar:'', isOwner:true };
@@ -322,11 +327,13 @@ setInterval(loadPostsFromSupabase, 10000);
   function saveMyStickers(l){ localStorage.setItem(myKey, JSON.stringify(l)); }
   function getMyName(){ return me.username||me.name||'Me'; }
 
+  // ---------------- CLOSE PANELS ----------------
   function closePanels(){
     var p=document.getElementById('waStickerPanel'); if(p) p.style.display='none';
     var b=document.getElementById('waBackdrop'); if(b) b.style.display='none';
     var r=document.getElementById('waReactionPopup'); if(r) r.remove();
     var rp=document.getElementById('waReactionPicker'); if(rp) rp.remove();
+    var rd=document.getElementById('waReactionDetail'); if(rd) rd.remove();
   }
   function getBackdrop(){
     var b=document.getElementById('waBackdrop');
@@ -341,76 +348,121 @@ setInterval(loadPostsFromSupabase, 10000);
   function setActiveTab(id){
     ['tabEmoji','tabMine','tabCreate'].forEach(function(t){
       var el=document.getElementById(t); if(!el) return;
-      if(t===id){ el.style.background='#25D366'; el.style.color='#fff'; }
-      else{ el.style.background='#f0f2f5'; el.style.color='#000'; }
+      if(t===id){ el.style.background='#25D366'; el.style.color='#fff'; el.style.boxShadow='none'; }
+      else{ el.style.background='#f0f2f5'; el.style.color='#000'; el.style.boxShadow='none'; }
     });
   }
 
-  // ===== EMOJI + STICKERS =====
+  // ---------------- EMOJI DATA - MANY EMOJIS ----------------
+  var EMOJI_SMILEYS = Array.from("😀😃😄😁😆😅😂🤣😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊");
+  var EMOJI_HEARTS = Array.from("❤️🧡💛💚💙💜🖤🤍🤎💔❣️💕💞💓💗💖💘💝💟♥️💌💋");
+  var EMOJI_HANDS = Array.from("👍👎👏🙌🙏👋🤚✋👌✌️🤞🤟🤘👊✊🤛🤜👈👉👆👇☝️✋🤲👐🙌👏💪🦾🦿🦵🦶👂👃🧠🦷🦴👀👁️👅👄💋🫀🫁");
+  var EMOJI_OBJECTS = Array.from("✨⭐🌟💫🔥💯🎉🎊🎈🎁🏆🥇🥈🥉🏅🎖️👑💎💍💄👓🕶️👔👗👙👠👟🧢🎩🧦🧤🧣🌂☂️💼🎒👛👜👝🎀🎩🎓📚📖📱💻⌚⏰💡🔑🔒🔓🔨⚒️🧲🔧🔩⚙️🧰🧲");
+  var EMOJI_FOOD = Array.from("🍕🍔🍟🌭🍿🥤🧃🧋🍺🍷🥂🍾🍸🍹🍻🥃🍵☕🧁🍰🎂🍪🍩🍫🍬🍭🍮🍯🥛🍳🥓🥞🧇🧈🍞🥐🥖🥨🧀🥚🥗🥙🌮🌯🥘🍲🍜🍝🍣🍤🍚🍛🍱🥟🍢🍡🍧🍨🍦🥧🍎🍏🍐🍊🍋🍌🍉🍇🍓🫐🍒🍑🥭🍍🥥🥝🍅🥕🌽🌶️🥒🥬🥦🧄🧅🥜🌰");
+  var EMOJI_ANIMALS = Array.from("🐶🐱🐭🐹🐰🦊🐻🐼🐨🐯🦁🐮🐷🐽🐸🐵🙈🙉🙊🐒🐔🐧🐦🐤🐣🐥🦆🦅🦉🦇🐺🐗🐴🦄🐝🪱🐛🦋🐌🐞🐜🦟🦗🕷️🦂🐢🐍🦎🦖🦕🐙🦑🦐🦞🦀🐡🐠🐟🐬🐳🐋🦈🐊🐅🐆🦓🦍🦧🐘🦛🦏🐪🐫🦒🦘🦬🦨🦡🦃🐓🦚🦜🦢🦩🕊️🐇🦝🦮🐕‍🦺🐈‍⬛🐩🐕🐈🐾");
+  var EMOJI_ALL = EMOJI_SMILEYS.concat(EMOJI_HEARTS, EMOJI_HANDS, EMOJI_OBJECTS, EMOJI_FOOD, EMOJI_ANIMALS);
+
+  // ---------------- EMOJI + STICKER PANEL ----------------
   function makePanel(input){
     if(document.getElementById('waStickerPanel')) return document.getElementById('waStickerPanel');
     var p=document.createElement('div'); p.id='waStickerPanel';
-    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -4px 20px rgba(0,0,0,0.15);height:360px;flex-direction:column;overflow:hidden;';
+    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -4px 20px rgba(0,0,0,0.15);height:380px;flex-direction:column;overflow:hidden;';
     p.innerHTML=
-    '<div style="width:40px;height:5px;background:#ddd;border-radius:10px;margin:8px auto 4px;"></div>'+
+    '<div style="width:40px;height:5px;background:#ddd;border-radius:10px;margin:8px auto 4px;flex-shrink:0;"></div>'+
     '<div style="display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid #eee;align-items:center;flex-shrink:0;">'+
       '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">Emoji</button>'+
       '<button id="tabMine" style="border:none;background:#f0f2f5;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">My Stickers</button>'+
       '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">+ Create</button>'+
-      '<button id="waCloseBtn" style="border:none;background:#f0f2f5;width:32px;height:32px;border-radius:50%;cursor:pointer;flex-shrink:0;">X</button></div>'+
+      '<button id="waCloseBtn" style="border:none;background:#f0f2f5;width:32px;height:32px;border-radius:50%;cursor:pointer;flex-shrink:0;font-weight:bold;">X</button></div>'+
+    '<div id="waEmojiCats" style="display:flex;gap:6px;padding:6px 10px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #f0f0f0;">'+
+      '<button data-cat="all" style="border:none;background:#25D366;color:#fff;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">All</button>'+
+      '<button data-cat="smile" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">😀 Smile</button>'+
+      '<button data-cat="heart" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">❤️ Hearts</button>'+
+      '<button data-cat="hand" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">👍 Hands</button>'+
+      '<button data-cat="food" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">🍕 Food</button>'+
+      '<button data-cat="animal" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">🐶 Animals</button>'+
+      '<button data-cat="object" style="border:none;background:#f0f2f5;padding:5px 10px;border-radius:15px;font-size:12px;white-space:nowrap;">🎉 Objects</button></div>'+
     '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px;overflow-y:auto;flex:1;"></div>'+
     '<div id="waCreateArea" style="display:none;padding:16px;text-align:center;overflow-y:auto;flex:1;">'+
       '<div style="font-size:50px;">🎨</div>'+
       '<h3 style="margin:8px 0 4px;">Create Your Own Sticker</h3>'+
-      '<p style="font-size:13px;color:#555;">Pick any photo from your phone and turn it into a sticker.</p>'+
+      '<p style="font-size:13px;color:#555;line-height:1.5;">Pick any photo from your phone and turn it into a sticker.<br>After you create it, it will appear in My Stickers.</p>'+
       '<input type="file" id="waUpload" accept="image/*" style="display:none;">'+
-      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:12px 22px;border-radius:22px;font-size:14px;">Choose Photo</button>'+
+      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:12px 24px;border-radius:22px;font-size:14px;font-weight:bold;">Choose Photo</button>'+
+      '<div id="waPreviewWrap" style="display:none;margin-top:12px;"><img id="waPreviewImg" style="width:120px;height:120px;object-fit:cover;border-radius:14px;"><br><span style="font-size:12px;color:#777;">Preview - This will be your sticker</span></div>'+
       '<br><br><button id="waSharePack" style="background:#111;color:#fff;border:none;padding:9px 18px;border-radius:20px;">Share Sticker Pack</button>'+
       '<p id="waCreateMsg" style="font-size:12px;color:green;"></p></div>';
     document.body.appendChild(p);
+
     p.querySelector('#waCloseBtn').onclick=closePanels;
-    p.querySelector('#tabEmoji').onclick=function(){ setActiveTab('tabEmoji'); showEmoji(); };
-    p.querySelector('#tabMine').onclick=function(){ setActiveTab('tabMine'); showMine(); };
-    p.querySelector('#tabCreate').onclick=function(){ setActiveTab('tabCreate'); document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
+    p.querySelector('#tabEmoji').onclick=function(){ setActiveTab('tabEmoji'); document.getElementById('waEmojiCats').style.display='flex'; showEmoji('all'); };
+    p.querySelector('#tabMine').onclick=function(){ setActiveTab('tabMine'); document.getElementById('waEmojiCats').style.display='none'; showMine(); };
+    p.querySelector('#tabCreate').onclick=function(){ setActiveTab('tabCreate'); document.getElementById('waEmojiCats').style.display='none'; document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
+    p.querySelectorAll('#waEmojiCats button').forEach(function(b){
+      b.onclick=function(){
+        p.querySelectorAll('#waEmojiCats button').forEach(function(x){ x.style.background='#f0f2f5'; x.style.color='#000'; });
+        b.style.background='#25D366'; b.style.color='#fff';
+        showEmoji(b.getAttribute('data-cat'));
+      };
+    });
     p.querySelector('#waUploadBtn').onclick=function(){ p.querySelector('#waUpload').click(); };
     p.querySelector('#waUpload').onchange=function(e){
       var file=e.target.files[0]; if(!file) return;
       var reader=new FileReader();
-      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved. Go to My Stickers to see it.'; setActiveTab('tabMine'); showMine(); };
+      reader.onload=function(ev){
+        document.getElementById('waPreviewWrap').style.display='block';
+        document.getElementById('waPreviewImg').src=ev.target.result;
+        var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list);
+        document.getElementById('waCreateMsg').textContent='Sticker saved. Go to My Stickers to see it.';
+        setTimeout(function(){ setActiveTab('tabMine'); document.getElementById('waEmojiCats').style.display='none'; showMine(); }, 800);
+      };
       reader.readAsDataURL(file);
     };
     p.querySelector('#waSharePack').onclick=function(){ var list=getMyStickers(); if(!list.length){ alert('Create a sticker first'); return; } sendStickerToChat(list[0]); };
     return p;
   }
+
   function openPanel(input, tab){
     var p=makePanel(input);
     getBackdrop().style.display='block';
     p.style.display='flex';
-    if(tab==='mine'){ setActiveTab('tabMine'); showMine(); }
-    else if(tab==='create'){ setActiveTab('tabCreate'); document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; }
-    else{ setActiveTab('tabEmoji'); showEmoji(); }
+    if(tab==='mine'){ setActiveTab('tabMine'); document.getElementById('waEmojiCats').style.display='none'; showMine(); }
+    else if(tab==='create'){ setActiveTab('tabCreate'); document.getElementById('waEmojiCats').style.display='none'; document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; }
+    else{ setActiveTab('tabEmoji'); document.getElementById('waEmojiCats').style.display='flex'; showEmoji('all'); }
   }
-  function showEmoji(){
+
+  function showEmoji(cat){
     setActiveTab('tabEmoji');
     document.getElementById('waCreateArea').style.display='none';
+    document.getElementById('waEmojiCats').style.display='flex';
     var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
-    var emojis = Array.from("😀😃😄😁😆😅😂🤣😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊❤️🧡💛💚💙💜🖤🤍🤎💔❣️💕💞💓💗💖💘💝✨⭐🌟💫🔥💯🎉🎊🎈🎁🏆🥇👑💪👍👎👏🙌🙏👋🤚✋👌✌️🤞🤟🤘👊✊🤛🤜");
-    grid.innerHTML = emojis.map(function(c){ return '<div class="wa-emo" style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
-    grid.querySelectorAll('.wa-emo').forEach(function(el){ el.onclick=function(){ var inp=document.querySelector('input[placeholder*="Message"]'); if(inp){ inp.value+=el.textContent; inp.focus(); } }; });
+    var list = EMOJI_ALL;
+    if(cat==='smile') list=EMOJI_SMILEYS;
+    if(cat==='heart') list=EMOJI_HEARTS;
+    if(cat==='hand') list=EMOJI_HANDS;
+    if(cat==='food') list=EMOJI_FOOD;
+    if(cat==='animal') list=EMOJI_ANIMALS;
+    if(cat==='object') list=EMOJI_OBJECTS;
+    grid.innerHTML = list.map(function(c){ return '<div class="wa-emo" style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
+    grid.querySelectorAll('.wa-emo').forEach(function(el){
+      el.onclick=function(){ var inp=document.querySelector('input[placeholder*="Message"]'); if(inp){ inp.value+=el.textContent; inp.focus(); } };
+    });
   }
+
   function showMine(){
     setActiveTab('tabMine');
     document.getElementById('waCreateArea').style.display='none';
+    document.getElementById('waEmojiCats').style.display='none';
     var grid=document.getElementById('waStickerGrid'); grid.style.display='block';
     var list=getMyStickers();
     if(!list.length){
-      grid.innerHTML='<div style="text-align:center;padding:10px 20px 30px;">'+
+      grid.innerHTML='<div style="text-align:center;padding:8px 20px 30px;">'+
         '<div style="font-size:42px;animation:bounce 1s infinite;">👆</div>'+
         '<div style="font-size:22px;color:#25D366;font-weight:bold;">Tap + Create Above</div>'+
-        '<div style="font-size:22px;margin:10px 0;">🎨</div>'+
+        '<div style="font-size:30px;margin:10px 0;">🎨</div>'+
         '<p style="color:#333;font-size:15px;font-weight:bold;margin:4px 0;">You can create your own stickers!</p>'+
-        '<p style="color:#777;font-size:13px;margin:4px 0;">Tap the <b>+ Create</b> button at the top to pick a photo and make a sticker.</p>'+
-        '<button onclick="document.getElementById(\'tabCreate\').click()" style="background:#25D366;color:#fff;border:none;padding:11px 22px;border-radius:22px;font-size:14px;margin-top:10px;cursor:pointer;">Create My First Sticker →</button>'+
+        '<p style="color:#777;font-size:13px;margin:4px 0;line-height:1.5;">Tap the <b>+ Create</b> button at the top to pick a photo and make a sticker.<br>Your stickers will show here.</p>'+
+        '<button onclick="document.getElementById(\'tabCreate\').click()" style="background:#25D366;color:#fff;border:none;padding:11px 22px;border-radius:22px;font-size:14px;margin-top:12px;cursor:pointer;font-weight:bold;">Create My First Sticker →</button>'+
         '<style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style></div>';
       var cb=document.getElementById('tabCreate');
       if(cb){ cb.style.background='#25D366'; cb.style.color='#fff'; cb.style.boxShadow='0 0 0 3px #b9f5cd'; }
@@ -421,7 +473,9 @@ setInterval(loadPostsFromSupabase, 10000);
     grid.querySelectorAll('img').forEach(function(img){ img.onclick=function(){ sendStickerToChat(img.src); }; });
     grid.querySelectorAll('[data-del]').forEach(function(d){ d.onclick=function(e){ e.stopPropagation(); var l2=getMyStickers(); l2.splice(parseInt(d.getAttribute('data-del')),1); saveMyStickers(l2); showMine(); }; });
   }
+
   function sendStickerToChat(src){ closePanels(); try{ if(window.sendMessage) window.sendMessage(src); }catch(e){} }
+
   function fixBar(){
     var input=document.querySelector('input[placeholder*="Message"]');
     if(!input || input.dataset.fixed) return; input.dataset.fixed='1';
@@ -441,7 +495,7 @@ setInterval(loadPostsFromSupabase, 10000);
     input.addEventListener('input', function(){ showTyping(getUser()); });
   }
 
-  // ===== DELETE =====
+  // ---------------- DELETE ----------------
   var oldPrompt = window.prompt;
   window.prompt = function(msg, def){
     if(msg && msg.toLowerCase().includes('delete')){ showDelete(); return null; }
@@ -471,9 +525,8 @@ setInterval(loadPostsFromSupabase, 10000);
     if(selected && type==='everyone'){ selected.innerHTML='<i style="color:#888;font-size:13px;">This message was deleted</i>'; }
   }
 
-  // ===== TYPING - CORRECT VERSION: VERY SMALL AT TOP, NEVER BLOCKS =====
+  // ---------------- TYPING - VERY SMALL AT TOP, NEVER BLOCKS ----------------
   function showTyping(user){
-    // Remove old bottom bar if it still exists
     var old=document.getElementById('typingBar'); if(old) old.remove();
     var bar=document.getElementById('waTopTyping');
     if(!bar){
@@ -489,7 +542,7 @@ setInterval(loadPostsFromSupabase, 10000);
     clearTimeout(window._topTypingTimer); window._topTypingTimer=setTimeout(function(){ bar.style.display='none'; }, 2500);
   }
 
-  // ===== REACTION - ADD / REMOVE / COUNT =====
+  // ---------------- REACTION - ADD / REMOVE / COUNT ----------------
   function getMsgId(msgEl){ return msgEl.getAttribute('data-message-id') || msgEl.getAttribute('id') || ('msg_' + (msgEl.textContent||'').trim().slice(0,40)); }
   function getReactions(msgId){ try{ return JSON.parse(localStorage.getItem('reactions_'+msgId)||'{}'); }catch(e){ return {}; } }
   function saveReactions(msgId, data){ localStorage.setItem('reactions_'+msgId, JSON.stringify(data)); }
@@ -513,6 +566,17 @@ setInterval(loadPostsFromSupabase, 10000);
     bar.innerHTML=keys.map(function(e){ var count=data[e].length; var isMine=data[e].indexOf(getMyName())>-1; return '<span data-emoji="'+e+'" style="display:flex;gap:3px;align-items:center;'+(isMine?'background:#e7f8ef;border-radius:12px;padding:1px 5px;':'')+'">'+e+'<b style="font-size:12px;">'+count+'</b></span>'; }).join('');
     msgEl.style.position='relative'; msgEl.appendChild(bar);
     bar.querySelectorAll('span').forEach(function(s){ s.onclick=function(ev){ ev.stopPropagation(); toggleReaction(msgEl, s.getAttribute('data-emoji')); }; });
+    bar.onclick=function(ev){ ev.stopPropagation(); showReactionDetail(msgEl, data); };
+  }
+  function showReactionDetail(msgEl, data){
+    var old=document.getElementById('waReactionDetail'); if(old) old.remove();
+    var d=document.createElement('div'); d.id='waReactionDetail';
+    d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:10005;display:flex;align-items:flex-end;justify-content:center;';
+    var listHtml = Object.keys(data).map(function(e){ return '<div style="display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #f0f0f0;"><span>'+e+' '+data[e].join(', ')+'</span><b>'+data[e].length+'</b></div>'; }).join('');
+    d.innerHTML='<div style="background:#fff;width:100%;max-width:420px;border-top-left-radius:18px;border-top-right-radius:18px;padding:14px;max-height:50vh;overflow-y:auto;"><div style="display:flex;justify-content:space-between;"><b>Reactions</b><span id="waCloseDetail" style="cursor:pointer;background:#f0f2f5;width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;">X</span></div>'+listHtml+'</div>';
+    document.body.appendChild(d);
+    d.querySelector('#waCloseDetail').onclick=function(){ d.remove(); };
+    d.onclick=function(e){ if(e.target===d) d.remove(); };
   }
   function makeReactionPopup(targetMsg){
     var old=document.getElementById('waReactionPopup'); if(old) old.remove();
@@ -542,7 +606,7 @@ setInterval(loadPostsFromSupabase, 10000);
     picker.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10003;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;height:320px;padding:12px;overflow-y:auto;';
     picker.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;"><b>Choose a reaction</b><span id="waClosePicker" style="font-size:20px;cursor:pointer;background:#f0f2f5;width:30px;height:30px;border-radius:50%;text-align:center;line-height:30px;">X</span></div><div id="waFullGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px;"></div>';
     document.body.appendChild(picker);
-    var all=Array.from("❤️🧡💛💚💙💜🖤🤍🤎💔💕💞💓💗💖💘💝😂🤣😅😍😘🥰😎😭😡🥺😮😲😳🙏👍👎👏🙌🔥💯🎉✨🌹👑💪😈🥳😋😇🤔😴😀😃😄😁😆😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊");
+    var all=EMOJI_ALL;
     var grid=picker.querySelector('#waFullGrid');
     grid.innerHTML=all.map(function(c){ return '<div style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
     grid.querySelectorAll('div').forEach(function(el){ el.onclick=function(){ toggleReaction(targetMsg, el.textContent); picker.remove(); pop.remove(); }; });
