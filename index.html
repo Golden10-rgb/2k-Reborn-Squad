@@ -310,83 +310,123 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// MAKE CHAT EXACTLY LIKE WHATSAPP SCREENSHOT
+<script>// MAKE CHAT EXACTLY LIKE WHATSAPP + TYPING WITH PROFILE
 (function(){
-  var EMOJIS = Array.from("😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😙😚😋😛😜🤪😝🤑🤗🤭🤫🤔🤐🤨😐😑😶🙄😬😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳😎🤓🧐😕😟🙁☹️😮😯😲😳🥺😢😭😤😡😠🤬😈👿💀☠️🤡👹👺👻👽👾🤖💋💯💥💫💦💨🕳️👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏💪❤️🧡💛💚💙💜🖤🤍🤎💔💕💞💓💗💖💘💝🔥⭐🌟✨⚡🎉🎊🎁🎈🎮🎲🎯🏆🥇⚽🏀🎤🎧🎵🎶👑💎");
-  var stickers = [];
-  try{ stickers = JSON.parse(localStorage.getItem('myStickers')||'[]'); }catch(e){ stickers=[]; }
-  var activeInput = null;
-
-  // Panel for emoji / stickers
-  var panel = document.createElement('div');
-  panel.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:10000;background:#233138;height:360px;display:none;flex-direction:column;border-radius:16px 16px 0 0';
-  panel.innerHTML = '<div style="display:flex;justify-content:center;padding:8px"><div style="width:40px;height:5px;background:#374045;border-radius:10px"></div></div><div style="display:flex;gap:8px;padding:0 12px"><input id="waSearch" placeholder="Search..." style="flex:1;background:#2a3942;color:#fff;border:0;border-radius:20px;padding:10px 14px;outline:none"><button id="waClose" style="background:#2a3942;color:#fff;border:0;border-radius:50%;width:38px;height:38px">✖</button></div><div id="waContent" style="flex:1;overflow:auto;padding:12px;background:#111b21;margin:10px 10px 0;border-radius:12px"></div><div style="display:flex;background:#233138;border-top:1px solid #374045"><button id="tabEmoji" style="flex:1;padding:12px;border:0;background:transparent;font-size:24px;border-bottom:3px solid #00a884">😀</button><button id="tabSticker" style="flex:1;padding:12px;border:0;background:transparent;font-size:22px">🏷️</button></div>';
-  document.body.appendChild(panel);
-
-  function showEmoji(){
-    var c=document.getElementById('waContent'); c.innerHTML='';
-    var grid=document.createElement('div'); grid.style.cssText='display:grid;grid-template-columns:repeat(7,1fr);gap:10px;font-size:28px;text-align:center';
-    EMOJIS.forEach(function(em){ var s=document.createElement('span'); s.textContent=em; s.style.cursor='pointer'; s.onclick=function(){ if(activeInput){ activeInput.value+=em; activeInput.focus(); } }; grid.appendChild(s); });
-    c.appendChild(grid);
-    document.getElementById('tabEmoji').style.borderBottom='3px solid #00a884'; document.getElementById('tabSticker').style.borderBottom='none';
+  function getUser(){
+    // Try to get current user from your app
+    try{
+      var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null');
+      if(u) return u;
+    }catch(e){}
+    return { name: '2K REBORN', username: '2K REBORN', avatar: '', isOwner: true };
   }
-  function showStickers(){
-    var c=document.getElementById('waContent');
-    c.innerHTML='<label style="display:block;background:#00a884;color:#fff;text-align:center;padding:12px;border-radius:12px;cursor:pointer;font-weight:600">+ Create New Sticker<input type="file" id="waStkFile" accept="image/*" style="display:none"></label><div id="waStkGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px"></div>';
-    var grid=document.getElementById('waStkGrid');
-    if(stickers.length===0) grid.innerHTML='<span style="color:#8696a0;font-size:13px;grid-column:1/5;text-align:center">No sticker yet. Create one above.</span>';
-    stickers.forEach(function(src){ var img=document.createElement('img'); img.src=src; img.style.cssText='width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:pointer'; img.onclick=function(){ if(activeInput){ activeInput.value+=' [sticker] '; activeInput.focus(); } }; grid.appendChild(img); });
-    document.getElementById('waStkFile').onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ var img=new Image(); img.onload=function(){ var cv=document.createElement('canvas'); cv.width=200; cv.height=200; var ctx=cv.getContext('2d'); ctx.beginPath(); ctx.arc(100,100,100,0,Math.PI*2); ctx.clip(); ctx.drawImage(img,0,0,200,200); var data=cv.toDataURL('image/png'); stickers.push(data); localStorage.setItem('myStickers', JSON.stringify(stickers)); showStickers(); }; img.src=ev.target.result; }; r.readAsDataURL(f); };
-    document.getElementById('tabSticker').style.borderBottom='3px solid #00a884'; document.getElementById('tabEmoji').style.borderBottom='none';
+  function isOwnerUser(u){
+    if(!u) return false;
+    var n = (u.username||u.name||'').toLowerCase();
+    return u.isOwner || u.role==='owner' || n.includes('2k reborn') || n.includes('eligencymah');
   }
-  function openPanel(tab){ panel.style.display='flex'; if(tab==='sticker') showStickers(); else showEmoji(); }
-  document.getElementById('tabEmoji').onclick=showEmoji;
-  document.getElementById('tabSticker').onclick=showStickers;
-  document.getElementById('waClose').onclick=function(){ panel.style.display='none'; };
+  function makeTypingBar(){
+    var old = document.getElementById('typingBar');
+    if(old) return old;
+    var bar = document.createElement('div');
+    bar.id = 'typingBar';
+    bar.style.cssText = 'display:none;align-items:center;gap:8px;padding:6px 12px;font-size:13px;color:#555;background:#f0f2f5;';
+    bar.innerHTML = '<img id="typingAvatar" src="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;background:#ddd;"><span id="typingText"></span>';
+    return bar;
+  }
+  function showTyping(user){
+    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
+    if(!input) return;
+    var container = input.closest('div');
+    // Find chat bottom container
+    var parent = input.parentElement;
+    if(!parent) return;
+    var bar = makeTypingBar();
+    var av = bar.querySelector('#typingAvatar');
+    var tx = bar.querySelector('#typingText');
+    av.src = user.avatar || 'https://via.placeholder.com/28';
+    var badge = isOwnerUser(user) ? ' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>' : '';
+    tx.innerHTML = '<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
+    bar.style.display = 'flex';
+    if(!document.getElementById('typingBar')){
+      parent.parentElement.insertBefore(bar, parent);
+    }
+    clearTimeout(window._typingTimer);
+    window._typingTimer = setTimeout(function(){ bar.style.display='none'; }, 3000);
+  }
+  function hideTyping(){ var b=document.getElementById('typingBar'); if(b) b.style.display='none'; }
 
-  // Make REAL chat input look exactly like WhatsApp screenshot
+  // --- 1. WHATSAPP STYLE (same as before) ---
   function makeChatWhatsApp(){
-    document.querySelectorAll('textarea, input[type="text"]').forEach(function(inp){
-      if(inp.dataset.whatsappDone) return;
-      // Only do it for chat boxes - the ones near a Send button or at bottom
-      // We will style all chat/post inputs the same way so they all look like WhatsApp
-      inp.dataset.whatsappDone='1';
-      inp.addEventListener('focus', function(){ activeInput = inp; });
-      var parent = inp.parentNode;
-      // Style the parent like WhatsApp dark bar
-      parent.style.cssText = 'display:flex;align-items:center;gap:8px;background:#1f2c34;padding:8px;border-radius:0';
-      // Create + button on left if not there
-      if(!parent.querySelector('.wa-plus')){
-        var plus = document.createElement('button'); plus.className='wa-plus'; plus.textContent='+'; plus.type='button';
-        plus.style.cssText='font-size:30px;color:#8696a0;background:transparent;border:0';
-        plus.onclick=function(e){ e.preventDefault(); activeInput=inp; openPanel('emoji'); };
-        parent.insertBefore(plus, inp);
+    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
+    if(!input) return;
+    if(input.dataset.waDone) return;
+    input.dataset.waDone = '1';
+    input.placeholder = 'Message...';
+    input.style.cssText += ';flex:1;border-radius:25px;background:#fff;padding:10px 14px;border:1px solid #ddd;';
+    var wrap = input.parentElement;
+    if(wrap){
+      wrap.style.cssText += ';display:flex;align-items:center;gap:8px;padding:8px;background:#f0f2f5;';
+      // Sticker button inside input area
+      if(!document.getElementById('waStickerBtn')){
+        var st = document.createElement('button');
+        st.id = 'waStickerBtn';
+        st.textContent = '😀';
+        st.style.cssText = 'font-size:22px;background:none;border:none;cursor:pointer;';
+        st.onclick = function(){ alert('Stickers coming'); };
+        wrap.insertBefore(st, input.nextSibling);
       }
-      // Wrap input to put sticker icon INSIDE it like your picture
-      var wrap = document.createElement('div');
-      wrap.style.cssText='flex:1;background:#2a3942;border-radius:22px;display:flex;align-items:center;padding:2px 6px 2px 12px';
-      parent.insertBefore(wrap, inp);
-      wrap.appendChild(inp);
-      inp.style.cssText='flex:1;background:transparent;border:0;outline:none;color:#fff;font-size:16px;padding:10px 0;box-shadow:none';
-      inp.placeholder = inp.placeholder || '';
-      // Sticker icon INSIDE input - exactly like arrow in picture
-      var stkBtn = document.createElement('button'); stkBtn.type='button'; stkBtn.textContent='🏷️';
-      stkBtn.style.cssText='font-size:20px;background:transparent;border:0';
-      stkBtn.onclick=function(e){ e.preventDefault(); activeInput=inp; openPanel('sticker'); };
-      wrap.appendChild(stkBtn);
-      var emoBtn = document.createElement('button'); emoBtn.type='button'; emoBtn.textContent='😀';
-      emoBtn.style.cssText='font-size:22px;background:transparent;border:0;margin-left:4px';
-      emoBtn.onclick=function(e){ e.preventDefault(); activeInput=inp; openPanel('emoji'); };
-      wrap.appendChild(emoBtn);
-      // Camera + Mic on right if not there
-      if(!parent.querySelector('.wa-cam')){
-        var cam = document.createElement('button'); cam.className='wa-cam'; cam.type='button'; cam.textContent='📷'; cam.style.cssText='font-size:24px;background:transparent;border:0';
-        parent.appendChild(cam);
-      }
-    });
+    }
   }
-  makeChatWhatsApp();
-  setInterval(makeChatWhatsApp, 2000);
+
+  // --- 2. TYPING LISTENER ---
+  function bindTyping(){
+    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
+    if(!input || input.dataset.typingBound) return;
+    input.dataset.typingBound = '1';
+    var me = getUser();
+    input.addEventListener('input', function(){
+      // Show for me locally (so you see OWNER badge)
+      showTyping(me);
+      // Broadcast to others via Supabase if available, else via localStorage
+      try{
+        if(window.supabase){
+          window.supabase.channel('typing').send({type:'broadcast', event:'typing', payload: me});
+        } else {
+          localStorage.setItem('typingUser', JSON.stringify({user: me, time: Date.now()}));
+        }
+      }catch(e){}
+    });
+    input.addEventListener('blur', hideTyping);
+  }
+
+  // --- 3. LISTEN FOR OTHERS TYPING ---
+  try{
+    if(window.supabase){
+      window.supabase.channel('typing').on('broadcast',{event:'typing'}, function(payload){
+        var other = payload.payload;
+        var me = getUser();
+        if((other.username||other.name) !== (me.username||me.name)){
+          showTyping(other);
+        }
+      }).subscribe();
+    }
+  }catch(e){}
+
+  // Fallback for testing on same browser / localStorage
+  window.addEventListener('storage', function(e){
+    if(e.key==='typingUser' && e.newValue){
+      try{
+        var d = JSON.parse(e.newValue);
+        var me = getUser();
+        if(d.user && (d.user.username||d.user.name) !== (me.username||me.name)){
+          showTyping(d.user);
+        }
+      }catch(err){}
+    }
+  });
+
+  setInterval(function(){ makeChatWhatsApp(); bindTyping(); }, 1000);
 })();
 </script>
 </body>
