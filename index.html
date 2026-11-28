@@ -310,121 +310,126 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// MAKE CHAT EXACTLY LIKE WHATSAPP + TYPING WITH PROFILE
+<script>// WHATSAPP GROUP EXACT - FIXED EMOJI + STICKERS
 (function(){
   function getUser(){
-    // Try to get current user from your app
-    try{
-      var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null');
-      if(u) return u;
-    }catch(e){}
-    return { name: '2K REBORN', username: '2K REBORN', avatar: '', isOwner: true };
+    try{ var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null'); if(u) return u; }catch(e){}
+    return { name:'2K REBORN', username:'2K REBORN', avatar:'', isOwner:true };
   }
-  function isOwnerUser(u){
-    if(!u) return false;
-    var n = (u.username||u.name||'').toLowerCase();
-    return u.isOwner || u.role==='owner' || n.includes('2k reborn') || n.includes('eligencymah');
+  function isOwner(u){
+    var n=(u.username||u.name||'').toLowerCase();
+    return u.isOwner||u.role==='owner'||n.includes('2k reborn')||n.includes('eligencymah');
   }
-  function makeTypingBar(){
-    var old = document.getElementById('typingBar');
-    if(old) return old;
-    var bar = document.createElement('div');
-    bar.id = 'typingBar';
-    bar.style.cssText = 'display:none;align-items:center;gap:8px;padding:6px 12px;font-size:13px;color:#555;background:#f0f2f5;';
-    bar.innerHTML = '<img id="typingAvatar" src="" style="width:28px;height:28px;border-radius:50%;object-fit:cover;background:#ddd;"><span id="typingText"></span>';
-    return bar;
-  }
-  function showTyping(user){
-    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
-    if(!input) return;
-    var container = input.closest('div');
-    // Find chat bottom container
-    var parent = input.parentElement;
-    if(!parent) return;
-    var bar = makeTypingBar();
-    var av = bar.querySelector('#typingAvatar');
-    var tx = bar.querySelector('#typingText');
-    av.src = user.avatar || 'https://via.placeholder.com/28';
-    var badge = isOwnerUser(user) ? ' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>' : '';
-    tx.innerHTML = '<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
-    bar.style.display = 'flex';
-    if(!document.getElementById('typingBar')){
-      parent.parentElement.insertBefore(bar, parent);
-    }
-    clearTimeout(window._typingTimer);
-    window._typingTimer = setTimeout(function(){ bar.style.display='none'; }, 3000);
-  }
-  function hideTyping(){ var b=document.getElementById('typingBar'); if(b) b.style.display='none'; }
 
-  // --- 1. WHATSAPP STYLE (same as before) ---
+  // --- STICKER PANEL LIKE WHATSAPP ---
+  function makeStickerPanel(input){
+    if(document.getElementById('waStickerPanel')) return document.getElementById('waStickerPanel');
+    var panel = document.createElement('div');
+    panel.id = 'waStickerPanel';
+    panel.style.cssText = 'display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid #ddd;height:280px;flex-direction:column;';
+    panel.innerHTML =
+      '<div style="display:flex;gap:8px;padding:10px;overflow-x:auto;border-bottom:1px solid #eee;">'+
+      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers1\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">😂 Stickers</button>'+
+      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers2\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">🔥 Hot</button>'+
+      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers3\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">❤️ Love</button>'+
+      '<span style="margin-left:auto;cursor:pointer;font-size:20px;" onclick="document.getElementById(\'waStickerPanel\').style.display=\'none\'">✕</span></div>'+
+      '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;overflow-y:auto;font-size:38px;"></div>'+
+      '<div id="waStickers1" style="display:none;">😂🤣😅😍😎🥳🔥💯👍👏🙏😭😡🥺</div>'+
+      '<div id="waStickers2" style="display:none;">🔥💥⚡🎉🎊🏆👑💪😈🤘</div>'+
+      '<div id="waStickers3" style="display:none;">❤️😍🥰😘💋💖💘🌹✨</div>';
+    document.body.appendChild(panel);
+    // Click sticker = put am for input
+    panel.addEventListener('click', function(e){
+      if(e.target.id==='waStickerGrid' || e.target.tagName==='BUTTON' || e.target.tagName==='SPAN') return;
+      var txt = e.target.textContent;
+      if(txt && txt.length<5){ input.value += txt; input.focus(); }
+    });
+    return panel;
+  }
+
   function makeChatWhatsApp(){
     var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
-    if(!input) return;
-    if(input.dataset.waDone) return;
-    input.dataset.waDone = '1';
-    input.placeholder = 'Message...';
-    input.style.cssText += ';flex:1;border-radius:25px;background:#fff;padding:10px 14px;border:1px solid #ddd;';
-    var wrap = input.parentElement;
-    if(wrap){
-      wrap.style.cssText += ';display:flex;align-items:center;gap:8px;padding:8px;background:#f0f2f5;';
-      // Sticker button inside input area
-      if(!document.getElementById('waStickerBtn')){
-        var st = document.createElement('button');
-        st.id = 'waStickerBtn';
-        st.textContent = '😀';
-        st.style.cssText = 'font-size:22px;background:none;border:none;cursor:pointer;';
-        st.onclick = function(){ alert('Stickers coming'); };
-        wrap.insertBefore(st, input.nextSibling);
-      }
-    }
+    if(!input || input.dataset.waDone2) return;
+    input.dataset.waDone2='1';
+
+    // FIX: Make the whole bottom bar like WhatsApp
+    var bar = input.parentElement;
+    if(!bar) return;
+    bar.style.cssText = 'display:flex !important;align-items:center !important;gap:6px !important;padding:6px 8px !important;background:#f0f2f5 !important;position:sticky;bottom:0;z-index:100;';
+
+    // Wrap input inside a white pill - this stops emoji from blocking
+    var pill = document.createElement('div');
+    pill.style.cssText = 'display:flex;align-items:center;flex:1;background:#fff;border-radius:25px;padding:2px 6px;gap:4px;min-width:0;';
+    input.parentNode.insertBefore(pill, input);
+    pill.appendChild(input);
+    input.style.cssText = 'flex:1 !important;border:none !important;outline:none !important;background:transparent !important;padding:10px 4px !important;font-size:15px !important;min-width:0 !important;';
+    input.placeholder = 'Message';
+
+    // Emoji INSIDE pill left
+    var emo = document.createElement('span');
+    emo.textContent='😀';
+    emo.style.cssText='font-size:24px;cursor:pointer;flex-shrink:0;';
+    emo.onclick=function(){
+      var p = makeStickerPanel(input);
+      p.style.display = p.style.display==='flex'?'none':'flex';
+      document.getElementById('waStickerGrid').innerHTML = document.getElementById('waStickers1').innerHTML.split('').map(function(c){return '<div style="text-align:center;cursor:pointer;">'+c+'</div>'}).join('');
+    };
+    pill.insertBefore(emo, input);
+
+    // Sticker INSIDE pill right
+    var stick = document.createElement('span');
+    stick.textContent='🎁';
+    stick.style.cssText='font-size:22px;cursor:pointer;flex-shrink:0;';
+    stick.onclick=function(){
+      var p = makeStickerPanel(input);
+      p.style.display = p.style.display==='flex'?'none':'flex';
+      document.getElementById('waStickerGrid').innerHTML = document.getElementById('waStickers1').innerHTML.split('').map(function(c){return '<div style="text-align:center;cursor:pointer;">'+c+'</div>'}).join('');
+    };
+    pill.appendChild(stick);
+
+    // Fix mic / send - make them not too big
+    var btns = bar.querySelectorAll('button');
+    btns.forEach(function(b){ b.style.cssText+=';flex-shrink:0;width:42px;height:42px;'; });
   }
 
-  // --- 2. TYPING LISTENER ---
+  function showTyping(user){
+    var input = document.querySelector('input[placeholder*="Message"]');
+    if(!input) return;
+    var bar = document.getElementById('typingBar');
+    if(!bar){
+      bar=document.createElement('div'); bar.id='typingBar';
+      bar.style.cssText='display:none;align-items:center;gap:8px;padding:6px 12px;font-size:13px;color:#555;background:#f0f2f5;';
+      bar.innerHTML='<img id="typingAvatar" style="width:28px;height:28px;border-radius:50%;background:#ddd;object-fit:cover;"><span id="typingText"></span>';
+      input.closest('div').parentElement.insertBefore(bar, input.closest('div'));
+    }
+    bar.querySelector('#typingAvatar').src = user.avatar||'https://via.placeholder.com/28';
+    var badge = isOwner(user)?' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>':'';
+    bar.querySelector('#typingText').innerHTML='<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
+    bar.style.display='flex';
+    clearTimeout(window._tt); window._tt=setTimeout(function(){bar.style.display='none';},3000);
+  }
+
   function bindTyping(){
-    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
-    if(!input || input.dataset.typingBound) return;
-    input.dataset.typingBound = '1';
-    var me = getUser();
+    var input = document.querySelector('input[placeholder*="Message"]');
+    if(!input || input.dataset.tb) return; input.dataset.tb='1';
+    var me=getUser();
     input.addEventListener('input', function(){
-      // Show for me locally (so you see OWNER badge)
       showTyping(me);
-      // Broadcast to others via Supabase if available, else via localStorage
       try{
-        if(window.supabase){
-          window.supabase.channel('typing').send({type:'broadcast', event:'typing', payload: me});
-        } else {
-          localStorage.setItem('typingUser', JSON.stringify({user: me, time: Date.now()}));
-        }
+        if(window.supabase) window.supabase.channel('typing').send({type:'broadcast',event:'typing',payload:me});
+        else localStorage.setItem('typingUser', JSON.stringify({user:me,time:Date.now()}));
       }catch(e){}
     });
-    input.addEventListener('blur', hideTyping);
   }
 
-  // --- 3. LISTEN FOR OTHERS TYPING ---
   try{
     if(window.supabase){
-      window.supabase.channel('typing').on('broadcast',{event:'typing'}, function(payload){
-        var other = payload.payload;
-        var me = getUser();
-        if((other.username||other.name) !== (me.username||me.name)){
-          showTyping(other);
-        }
+      window.supabase.channel('typing').on('broadcast',{event:'typing'},function(p){
+        var o=p.payload; var me=getUser();
+        if((o.username||o.name)!==(me.username||me.name)) showTyping(o);
       }).subscribe();
     }
   }catch(e){}
-
-  // Fallback for testing on same browser / localStorage
-  window.addEventListener('storage', function(e){
-    if(e.key==='typingUser' && e.newValue){
-      try{
-        var d = JSON.parse(e.newValue);
-        var me = getUser();
-        if(d.user && (d.user.username||d.user.name) !== (me.username||me.name)){
-          showTyping(d.user);
-        }
-      }catch(err){}
-    }
-  });
 
   setInterval(function(){ makeChatWhatsApp(); bindTyping(); }, 1000);
 })();
