@@ -346,4 +346,44 @@ function ownerQuickLogin(){
   setTimeout(()=>{let b=document.createElement('button');b.innerText='👑 Owner Quick Login';b.style.cssText='background:#111;color:#fff;padding:14px;width:100%;border-radius:12px;font-weight:700;margin:10px 0';b.onclick=()=>ownerQuickLogin();document.body.prepend(b);},1000);
 </script>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                     
+</html>      
+<script>
+function ownerQuickLogin2(){
+  var code=prompt('Enter Owner Code');
+  if(code!=='2K-OWNER-2026-SECRET-99'){alert('Wrong Owner Code');return;}
+  var all=[]; try{all=JSON.parse(localStorage.getItem('users')||'[]');}catch(e){}
+  var found=null; for(var i=0;i<all.length;i++){if((all[i].name||'').toLowerCase().trim()==='2k reborn'){found=all[i];break;}}
+  if(found){
+    var p=prompt('Enter your password (leave empty if you forgot)');
+    if(p && found.pass!==p){alert('Wrong password');return;}
+    found.owner=true; found.verified=true;
+    for(var j=0;j<all.length;j++){if(all[j].name===found.name) all[j]=found;}
+    localStorage.setItem('users', JSON.stringify(all));
+    localStorage.setItem('me', JSON.stringify(found));
+  } else {
+    var np2=prompt('No owner account found. Create NEW owner password:');
+    if(!np2) return;
+    var uid2=prompt('Enter your Free Fire UID:')||'12345678';
+    var me2={name:'2K REBORN', uid:uid2, ign:'Player', pass:np2, game:'Free Fire', bio:'', photo:'', proof:'', owner:true, country:'Nigeria', lang:'en', points:0, verified:true, uidHistory:[], postPrivacy:'everyone', passLock:'off', blockedUsers:[], about:'Hey!'};
+    all.push(me2); localStorage.setItem('users', JSON.stringify(all)); localStorage.setItem('me', JSON.stringify(me2));
+  }
+  var btn=document.getElementById('ownerFixBtn'); if(btn) btn.remove();
+  localStorage.setItem('ownerLoggedIn','yes');
+  alert('Welcome Owner! Reloading...'); location.reload();
+}
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    try{
+      var me=JSON.parse(localStorage.getItem('me')||'null');
+      if(me && me.owner){ return; }
+      if(localStorage.getItem('ownerLoggedIn')==='yes'){ return; }
+    }catch(e){}
+    if(document.getElementById('ownerFixBtn')) return;
+    var b=document.createElement('button');
+    b.id='ownerFixBtn'; b.innerText='👑 Owner Quick Login - No Proof Needed';
+    b.style.cssText='background:#111;color:#fff;padding:16px;width:calc(100% - 20px);margin:10px;border-radius:12px;font-weight:800;font-size:16px;display:block;border:2px solid #fff';
+    b.onclick=function(){ ownerQuickLogin2(); };
+    document.body.prepend(b);
+  }, 500);
+});
+</script>
