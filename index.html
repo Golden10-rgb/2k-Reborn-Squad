@@ -149,7 +149,12 @@ function langCodeFromName(name){let f=ALL_LANGUAGES.find(l=>l.name.toLowerCase()
 function langNameFromCode(code){return LANGNAMES[code]||code;}
 let users=[];let posts=[];let chats={};let statuses=[];let me=null;let liveStream=null;let liveSessions=[];let currentLiveHost='';let ownerEarnings=0;
 try{ownerEarnings=parseInt(localStorage.getItem('owner_earnings')||'0');}catch(e){}
-try{users=JSON.parse(localStorage.getItem('final_users')||'[]');posts=JSON.parse(localStorage.getItem('final_posts')||'[]');chats=JSON.parse(localStorage.getItem('final_chats')||'{}');statuses=JSON.parse(localStorage.getItem('final_status')||'[]');me=JSON.parse(localStorage.getItem('final_me')||'null');liveSessions=JSON.parse(localStorage.getItem('live_sessions')||'[]');}catch(e){}
+try{users=JSON.parse(localStorage.getItem('final_users')||'[]');}catch(e){users=[];}
+try{posts=JSON.parse(localStorage.getItem('final_posts')||'[]');}catch(e){posts=[];}
+try{chats=JSON.parse(localStorage.getItem('final_chats')||'{}');}catch(e){chats={};}
+try{statuses=JSON.parse(localStorage.getItem('final_status')||'[]');}catch(e){statuses=[];}
+try{me=JSON.parse(localStorage.getItem('final_me')||'null');}catch(e){me=null;}
+try{liveSessions=JSON.parse(localStorage.getItem('live_sessions')||'[]');}catch(e){liveSessions=[];}
 let currentChat='public';let mediaRecorder=null,chunks=[],recording=false;let replyToMsg=null;let waTypingTimer=null;let currentStatusList=[],currentStatusIdx=0,currentStatusName='';let reactMsgIdx=-1;let deletedMsgIds=[];try{deletedMsgIds=JSON.parse(localStorage.getItem('deleted_msg_ids')||'[]');}catch(e){}
 function saveDeletedIds(){try{localStorage.setItem('deleted_msg_ids',JSON.stringify(deletedMsgIds));}catch(e){}}
 function makeMsgId(){return 'msg_'+Date.now()+'_'+Math.floor(Math.random()*1000000);}
