@@ -310,92 +310,129 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// WHATSAPP GROUP EXACT - FIXED EMOJI + STICKERS
+<script>// FINAL MERGED - WHATSAPP EXACT: EMOJI + STICKERS + DELETE + TYPING + REACTION
 (function(){
   function getUser(){
     try{ var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null'); if(u) return u; }catch(e){}
     return { name:'2K REBORN', username:'2K REBORN', avatar:'', isOwner:true };
   }
-  function isOwner(u){
-    var n=(u.username||u.name||'').toLowerCase();
-    return u.isOwner||u.role==='owner'||n.includes('2k reborn')||n.includes('eligencymah');
-  }
+  var me = getUser();
+  var myKey = 'myStickers_' + (me.username||me.name);
+  function getMyStickers(){ try{ return JSON.parse(localStorage.getItem(myKey)||'[]'); }catch(e){ return []; } }
+  function saveMyStickers(l){ localStorage.setItem(myKey, JSON.stringify(l)); }
 
-  // --- STICKER PANEL LIKE WHATSAPP ---
-  function makeStickerPanel(input){
+  // ===== 1+2. EMOJI + STICKER PANEL =====
+  function makePanel(input){
     if(document.getElementById('waStickerPanel')) return document.getElementById('waStickerPanel');
-    var panel = document.createElement('div');
-    panel.id = 'waStickerPanel';
-    panel.style.cssText = 'display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid #ddd;height:280px;flex-direction:column;';
-    panel.innerHTML =
-      '<div style="display:flex;gap:8px;padding:10px;overflow-x:auto;border-bottom:1px solid #eee;">'+
-      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers1\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">😂 Stickers</button>'+
-      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers2\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">🔥 Hot</button>'+
-      '<button onclick="document.getElementById(\'waStickerGrid\').innerHTML=document.getElementById(\'waStickers3\').innerHTML" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;">❤️ Love</button>'+
-      '<span style="margin-left:auto;cursor:pointer;font-size:20px;" onclick="document.getElementById(\'waStickerPanel\').style.display=\'none\'">✕</span></div>'+
-      '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;overflow-y:auto;font-size:38px;"></div>'+
-      '<div id="waStickers1" style="display:none;">😂🤣😅😍😎🥳🔥💯👍👏🙏😭😡🥺</div>'+
-      '<div id="waStickers2" style="display:none;">🔥💥⚡🎉🎊🏆👑💪😈🤘</div>'+
-      '<div id="waStickers3" style="display:none;">❤️😍🥰😘💋💖💘🌹✨</div>';
-    document.body.appendChild(panel);
-    // Click sticker = put am for input
-    panel.addEventListener('click', function(e){
-      if(e.target.id==='waStickerGrid' || e.target.tagName==='BUTTON' || e.target.tagName==='SPAN') return;
-      var txt = e.target.textContent;
-      if(txt && txt.length<5){ input.value += txt; input.focus(); }
-    });
-    return panel;
-  }
-
-  function makeChatWhatsApp(){
-    var input = document.querySelector('input[placeholder*="Message"], textarea[placeholder*="Message"]');
-    if(!input || input.dataset.waDone2) return;
-    input.dataset.waDone2='1';
-
-    // FIX: Make the whole bottom bar like WhatsApp
-    var bar = input.parentElement;
-    if(!bar) return;
-    bar.style.cssText = 'display:flex !important;align-items:center !important;gap:6px !important;padding:6px 8px !important;background:#f0f2f5 !important;position:sticky;bottom:0;z-index:100;';
-
-    // Wrap input inside a white pill - this stops emoji from blocking
-    var pill = document.createElement('div');
-    pill.style.cssText = 'display:flex;align-items:center;flex:1;background:#fff;border-radius:25px;padding:2px 6px;gap:4px;min-width:0;';
-    input.parentNode.insertBefore(pill, input);
-    pill.appendChild(input);
-    input.style.cssText = 'flex:1 !important;border:none !important;outline:none !important;background:transparent !important;padding:10px 4px !important;font-size:15px !important;min-width:0 !important;';
-    input.placeholder = 'Message';
-
-    // Emoji INSIDE pill left
-    var emo = document.createElement('span');
-    emo.textContent='😀';
-    emo.style.cssText='font-size:24px;cursor:pointer;flex-shrink:0;';
-    emo.onclick=function(){
-      var p = makeStickerPanel(input);
-      p.style.display = p.style.display==='flex'?'none':'flex';
-      document.getElementById('waStickerGrid').innerHTML = document.getElementById('waStickers1').innerHTML.split('').map(function(c){return '<div style="text-align:center;cursor:pointer;">'+c+'</div>'}).join('');
+    var p=document.createElement('div'); p.id='waStickerPanel';
+    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid #ddd;height:320px;flex-direction:column;';
+    p.innerHTML='<div style="display:flex;gap:6px;padding:10px;overflow-x:auto;border-bottom:1px solid #eee;align-items:center;">'+
+      '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:6px 12px;border-radius:20px;flex-shrink:0;">😀 Emoji</button>'+
+      '<button id="tabMine" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;flex-shrink:0;">My Stickers (Private)</button>'+
+      '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;flex-shrink:0;">+ Create</button>'+
+      '<span style="margin-left:auto;font-size:20px;cursor:pointer;" onclick="document.getElementById(\'waStickerPanel\').style.display=\'none\'">✕</span></div>'+
+    '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;overflow-y:auto;"></div>'+
+    '<div id="waCreateArea" style="display:none;padding:14px;text-align:center;">'+
+      '<p style="font-size:13px;color:#555;">Your stickers are PRIVATE. Nobody go see am until you send am to chat or share pack.</p>'+
+      '<input type="file" id="waUpload" accept="image/*" style="display:none;">'+
+      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:10px 18px;border-radius:20px;">Choose Picture To Make Sticker</button>'+
+      '<br><br><button id="waSharePack" style="background:#111;color:#fff;border:none;padding:8px 16px;border-radius:20px;">Share My Sticker Pack</button>'+
+      '<p id="waCreateMsg" style="font-size:12px;color:green;"></p></div>';
+    document.body.appendChild(p);
+    p.querySelector('#tabEmoji').onclick=function(){ showEmoji(); };
+    p.querySelector('#tabMine').onclick=function(){ showMine(); };
+    p.querySelector('#tabCreate').onclick=function(){ document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
+    p.querySelector('#waUploadBtn').onclick=function(){ p.querySelector('#waUpload').click(); };
+    p.querySelector('#waUpload').onchange=function(e){
+      var file=e.target.files[0]; if(!file) return;
+      var reader=new FileReader();
+      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved! Only you go see am.'; showMine(); };
+      reader.readAsDataURL(file);
     };
+    p.querySelector('#waSharePack').onclick=function(){ var list=getMyStickers(); if(!list.length){ alert('You never create sticker yet'); return; } sendStickerToChat(list[0], true); };
+    return p;
+  }
+  function showEmoji(){
+    document.getElementById('waCreateArea').style.display='none';
+    var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
+    var emojis = Array.from("😂🤣😅😍😎🥳🔥💯👍👏🙏😭😡🥺❤️😘🌹🎉👑💪😈✨🥰😋😊🤔😇🙌");
+    grid.innerHTML = emojis.map(function(c){ return '<div class="wa-emo" style="font-size:34px;text-align:center;cursor:pointer;">'+c+'</div>'; }).join('');
+    grid.querySelectorAll('.wa-emo').forEach(function(el){ el.onclick=function(){ var inp=document.querySelector('input[placeholder*="Message"]'); if(inp){ inp.value+=el.textContent; inp.focus(); } }; });
+  }
+  function showMine(){
+    document.getElementById('waCreateArea').style.display='none';
+    var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
+    var list=getMyStickers();
+    if(!list.length){ grid.innerHTML='<p style="grid-column:1/5;text-align:center;color:#777;font-size:13px;">You never create sticker yet.<br>Go Create tab.<br><b>Private - nobody fit see am.</b></p>'; return; }
+    grid.innerHTML = list.map(function(src,i){ return '<div style="position:relative;"><img src="'+src+'" style="width:100%;height:80px;object-fit:cover;border-radius:10px;cursor:pointer;"><span data-del="'+i+'" style="position:absolute;top:2px;right:2px;background:red;color:#fff;border-radius:50%;width:18px;height:18px;text-align:center;font-size:12px;cursor:pointer;">x</span></div>'; }).join('');
+    grid.querySelectorAll('img').forEach(function(img){ img.onclick=function(){ sendStickerToChat(img.src, false); }; });
+    grid.querySelectorAll('[data-del]').forEach(function(d){ d.onclick=function(e){ e.stopPropagation(); var l2=getMyStickers(); l2.splice(parseInt(d.getAttribute('data-del')),1); saveMyStickers(l2); showMine(); }; });
+  }
+  function sendStickerToChat(src, isPack){
+    alert(isPack ? 'Sticker Pack sent! Now others fit see am.' : 'Sticker sent! Now others fit see am. Before, only you see am.');
+    document.getElementById('waStickerPanel').style.display='none';
+    try{ if(window.sendMessage) window.sendMessage(src); }catch(e){}
+  }
+  function fixBar(){
+    var input=document.querySelector('input[placeholder*="Message"]');
+    if(!input || input.dataset.fixed) return; input.dataset.fixed='1';
+    var bar=input.parentElement; if(!bar) return;
+    bar.style.cssText='display:flex !important;align-items:center !important;gap:6px !important;padding:6px 8px !important;background:#f0f2f5 !important;';
+    var pill=document.createElement('div');
+    pill.style.cssText='display:flex;align-items:center;flex:1;background:#fff;border-radius:25px;padding:2px 6px;gap:4px;min-width:0;';
+    input.parentNode.insertBefore(pill, input); pill.appendChild(input);
+    input.style.cssText='flex:1 !important;border:none !important;outline:none !important;background:transparent !important;padding:10px 4px !important;min-width:0 !important;';
+    input.placeholder='Message';
+    var emo=document.createElement('span'); emo.textContent='😀'; emo.style.cssText='font-size:24px;cursor:pointer;flex-shrink:0;';
+    emo.onclick=function(){ var p=makePanel(input); p.style.display='flex'; showEmoji(); };
     pill.insertBefore(emo, input);
-
-    // Sticker INSIDE pill right
-    var stick = document.createElement('span');
-    stick.textContent='🎁';
-    stick.style.cssText='font-size:22px;cursor:pointer;flex-shrink:0;';
-    stick.onclick=function(){
-      var p = makeStickerPanel(input);
-      p.style.display = p.style.display==='flex'?'none':'flex';
-      document.getElementById('waStickerGrid').innerHTML = document.getElementById('waStickers1').innerHTML.split('').map(function(c){return '<div style="text-align:center;cursor:pointer;">'+c+'</div>'}).join('');
-    };
-    pill.appendChild(stick);
-
-    // Fix mic / send - make them not too big
-    var btns = bar.querySelectorAll('button');
-    btns.forEach(function(b){ b.style.cssText+=';flex-shrink:0;width:42px;height:42px;'; });
+    var st=document.createElement('span'); st.textContent='🎁'; st.style.cssText='font-size:22px;cursor:pointer;flex-shrink:0;';
+    st.onclick=function(){ var p=makePanel(input); p.style.display='flex'; showMine(); };
+    pill.appendChild(st);
+    // Typing listener
+    input.addEventListener('input', function(){ showTyping(getUser()); });
   }
 
+  // ===== 3. DELETE LIKE WHATSAPP =====
+  var oldPrompt = window.prompt;
+  window.prompt = function(msg, def){
+    if(msg && msg.toLowerCase().includes('delete')){ showWhatsAppDelete(); return null; }
+    return oldPrompt(msg, def);
+  };
+  function showWhatsAppDelete(){
+    if(document.getElementById('waDeleteModal')){ document.getElementById('waDeleteModal').style.display='flex'; return; }
+    var m=document.createElement('div'); m.id='waDeleteModal';
+    m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;';
+    m.innerHTML='<div style="background:#fff;width:100%;max-width:320px;border-radius:14px;overflow:hidden;">'+
+      '<div style="padding:16px;text-align:center;font-size:15px;color:#333;border-bottom:1px solid #eee;">Delete this message?</div>'+
+      '<div id="waDelMe" style="padding:14px;text-align:center;color:#25D366;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">🗑️ Delete for me</div>'+
+      '<div style="padding:4px 16px;text-align:center;font-size:11px;color:#888;">Only you go no see am again</div>'+
+      '<div id="waDelAll" style="padding:14px;text-align:center;color:#ff3b30;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">🗑️ Delete for everyone</div>'+
+      '<div style="padding:4px 16px;text-align:center;font-size:11px;color:#888;">Everybody for group go no see am</div>'+
+      '<div id="waDelCancel" style="padding:14px;text-align:center;color:#333;font-size:16px;cursor:pointer;background:#f0f2f5;">Cancel</div></div>';
+    document.body.appendChild(m);
+    m.querySelector('#waDelMe').onclick=function(){ doDelete('me'); };
+    m.querySelector('#waDelAll').onclick=function(){ doDelete('everyone'); };
+    m.querySelector('#waDelCancel').onclick=function(){ m.style.display='none'; };
+    m.onclick=function(e){ if(e.target===m) m.style.display='none'; };
+  }
+  function doDelete(type){
+    var modal=document.getElementById('waDeleteModal'); if(modal) modal.style.display='none';
+    window.lastDeleteChoice = type;
+    try{ if(window.deleteMessage) window.deleteMessage(type); else if(window.handleDelete) window.handleDelete(type); }catch(e){}
+    var toast=document.createElement('div');
+    toast.textContent = type==='me' ? 'Message deleted for you' : 'Message deleted for everyone';
+    toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;z-index:10001;';
+    document.body.appendChild(toast); setTimeout(function(){ toast.remove(); }, 2000);
+    var selected=document.querySelector('[data-selected="true"], .selected-message');
+    if(selected && type==='me'){ selected.style.display='none'; }
+    if(selected && type==='everyone'){ selected.innerHTML='<i style="color:#888;font-size:13px;">🚫 This message was deleted</i>'; }
+  }
+
+  // ===== 4. TYPING =====
   function showTyping(user){
-    var input = document.querySelector('input[placeholder*="Message"]');
-    if(!input) return;
-    var bar = document.getElementById('typingBar');
+    var input=document.querySelector('input[placeholder*="Message"]'); if(!input) return;
+    var bar=document.getElementById('typingBar');
     if(!bar){
       bar=document.createElement('div'); bar.id='typingBar';
       bar.style.cssText='display:none;align-items:center;gap:8px;padding:6px 12px;font-size:13px;color:#555;background:#f0f2f5;';
@@ -403,35 +440,79 @@ setInterval(loadPostsFromSupabase, 10000);
       input.closest('div').parentElement.insertBefore(bar, input.closest('div'));
     }
     bar.querySelector('#typingAvatar').src = user.avatar||'https://via.placeholder.com/28';
-    var badge = isOwner(user)?' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>':'';
+    var isOw = user.isOwner || (user.username||'').toLowerCase().includes('2k reborn');
+    var badge = isOw ? ' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>' : '';
     bar.querySelector('#typingText').innerHTML='<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
     bar.style.display='flex';
-    clearTimeout(window._tt); window._tt=setTimeout(function(){bar.style.display='none';},3000);
+    clearTimeout(window._tt); window._tt=setTimeout(function(){ bar.style.display='none'; },3000);
   }
 
-  function bindTyping(){
-    var input = document.querySelector('input[placeholder*="Message"]');
-    if(!input || input.dataset.tb) return; input.dataset.tb='1';
-    var me=getUser();
-    input.addEventListener('input', function(){
-      showTyping(me);
-      try{
-        if(window.supabase) window.supabase.channel('typing').send({type:'broadcast',event:'typing',payload:me});
-        else localStorage.setItem('typingUser', JSON.stringify({user:me,time:Date.now()}));
-      }catch(e){}
+  // ===== 5. REACTION - HOLD + POPUP + PLUS =====
+  function makeReactionPopup(targetMsg){
+    var old=document.getElementById('waReactionPopup'); if(old) old.remove();
+    var oldP=document.getElementById('waReactionPicker'); if(oldP) oldP.remove();
+    var pop=document.createElement('div'); pop.id='waReactionPopup';
+    pop.style.cssText='position:fixed;z-index:10002;background:#fff;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,0.25);padding:8px 10px;display:flex;gap:4px;align-items:center;';
+    var quick=Array.from("❤️😂😮😢🙏👍🔥");
+    quick.forEach(function(e){
+      var s=document.createElement('span'); s.textContent=e;
+      s.style.cssText='font-size:28px;cursor:pointer;padding:2px;';
+      s.onclick=function(){ addReaction(targetMsg, e); pop.remove(); };
+      pop.appendChild(s);
+    });
+    var plus=document.createElement('span'); plus.textContent='+';
+    plus.style.cssText='width:32px;height:32px;background:#f0f2f5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;';
+    plus.onclick=function(){ showFullPicker(targetMsg, pop); };
+    pop.appendChild(plus);
+    document.body.appendChild(pop);
+    var r=targetMsg.getBoundingClientRect();
+    var top=r.top-55; if(top<10) top=r.bottom+10;
+    pop.style.left=Math.max(10, Math.min(window.innerWidth-pop.offsetWidth-10, r.left+10))+'px';
+    pop.style.top=top+'px';
+    setTimeout(function(){
+      document.addEventListener('click', function close(e){
+        if(!pop.contains(e.target) && !document.getElementById('waReactionPicker')?.contains(e.target)){ pop.remove(); document.removeEventListener('click', close); }
+      });
+    },100);
+  }
+  function showFullPicker(targetMsg, pop){
+    if(document.getElementById('waReactionPicker')) return;
+    var picker=document.createElement('div'); picker.id='waReactionPicker';
+    picker.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10003;background:#fff;border-top:1px solid #ddd;height:300px;padding:12px;overflow-y:auto;';
+    picker.innerHTML='<div style="display:flex;justify-content:space-between;"><b>Choose reaction</b><span id="waClosePicker" style="font-size:20px;cursor:pointer;">✕</span></div><div id="waFullGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px;"></div>';
+    document.body.appendChild(picker);
+    var all=Array.from("❤️🧡💛💚💙💜🖤🤍🤎😂🤣😅😍😘🥰😎😭😡🥺😮😲😳🙏👍👎👏🙌🔥💯🎉✨🌹👑💪😈🥳😋😇🤔😴");
+    var grid=picker.querySelector('#waFullGrid');
+    grid.innerHTML=all.map(function(c){ return '<div style="font-size:32px;text-align:center;cursor:pointer;">'+c+'</div>'; }).join('');
+    grid.querySelectorAll('div').forEach(function(el){ el.onclick=function(){ addReaction(targetMsg, el.textContent); picker.remove(); pop.remove(); }; });
+    picker.querySelector('#waClosePicker').onclick=function(){ picker.remove(); };
+  }
+  function addReaction(msgEl, emoji){
+    var old=msgEl.querySelector('.wa-my-reaction'); if(old) old.remove();
+    var badge=document.createElement('div'); badge.className='wa-my-reaction'; badge.textContent=emoji;
+    badge.style.cssText='position:absolute;bottom:-10px;left:10px;background:#fff;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,0.2);padding:2px 6px;font-size:16px;z-index:5;';
+    msgEl.style.position='relative'; msgEl.appendChild(badge);
+    try{ if(window.supabase) window.supabase.channel('reactions').send({type:'broadcast',event:'reaction',payload:{emoji:emoji}}); }catch(e){}
+  }
+  function bindReactions(){
+    var msgs=document.querySelectorAll('div');
+    msgs.forEach(function(m){
+      if(m.dataset.reactionBound) return;
+      if(m.textContent && m.textContent.length>1 && m.textContent.length<500 && m.children.length<5){
+        var s=getComputedStyle(m);
+        if(s.backgroundColor!=='rgba(0, 0, 0, 0)' || m.className.toLowerCase().includes('message') || m.className.toLowerCase().includes('bubble')){
+          m.dataset.reactionBound='1'; var timer=null;
+          m.addEventListener('touchstart', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); }, {passive:true});
+          m.addEventListener('touchend', function(){ clearTimeout(timer); });
+          m.addEventListener('mousedown', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); });
+          m.addEventListener('mouseup', function(){ clearTimeout(timer); });
+          m.addEventListener('dblclick', function(e){ e.preventDefault(); makeReactionPopup(m); });
+        }
+      }
     });
   }
 
-  try{
-    if(window.supabase){
-      window.supabase.channel('typing').on('broadcast',{event:'typing'},function(p){
-        var o=p.payload; var me=getUser();
-        if((o.username||o.name)!==(me.username||me.name)) showTyping(o);
-      }).subscribe();
-    }
-  }catch(e){}
-
-  setInterval(function(){ makeChatWhatsApp(); bindTyping(); }, 1000);
+  setInterval(function(){ fixBar(); bindReactions(); }, 1000);
 })();
 </script>
 </body>
