@@ -1,243 +1,207 @@
-<!-- PART 1 OF 4 - 2K REBORN COMPLETE - DO NOT DELETE -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2K REBORN - Free Fire Community</title>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2K REBORN</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#f3f4f6;color:#111;padding-bottom:90px}
+.topbar{background:#fff;padding:12px 14px;display:flex;gap:10px;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 1px 5px #ddd}
+.logo{font-weight:800;font-size:22px;cursor:pointer}.logo span{color:#7c3aed}
+.card{background:#fff;border-radius:18px;padding:14px;margin:12px;box-shadow:0 1px 4px #ddd}
+.muted{color:#666;font-size:13px}.avatar{width:40px;height:40px;border-radius:50%;background:#ddd;object-fit:cover}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin:6px 0;font-size:15px}
+button{width:100%;padding:12px;border:0;border-radius:12px;background:#7c3aed;color:#fff;font-weight:700;margin:5px 0;cursor:pointer}
+.small{width:auto;padding:8px 12px}.page{display:none}.page.active{display:block}
+#bottomNav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:none;border-top:1px solid #ddd;z-index:50}
+#bottomNav button{background:none;color:#111;width:20%;margin:0;font-size:12px;padding:8px 0}
+#bottomNav button.active{color:#7c3aed}.hidden{display:none !important}
+.pill{display:inline-block;background:rgba(255,255,255,.2);padding:7px 12px;border-radius:20px;font-size:13px;margin:3px}
+/* WHATSAPP FULL SCREEN CHAT */
+.waWrap{margin:0;border-radius:0;overflow:hidden;background:#ECE5DD;height:calc(100vh - 110px);display:flex;flex-direction:column}
+.waHeader{background:#075E54;color:#fff;padding:10px 12px;display:flex;gap:10px;align-items:center}
+.waBody{flex:1;overflow:auto;padding:12px;background:#ECE5DD}
+.waInput{display:flex;gap:6px;padding:8px;background:#F0F2F5;align-items:center}
+.postImg{width:100%;border-radius:14px;margin-top:8px}.emojiBar{display:flex;gap:6px;flex-wrap:wrap;font-size:22px}.emojiBar span{cursor:pointer;background:#f3f4f6;padding:6px;border-radius:10px}
+.liveFrame{width:100%;height:280px;background:#000;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;font-size:18px;font-weight:700}
+</style></head>
+<body>
+<div class="topbar"><div class="logo" id="logoBtn">2K <span>REBORN</span></div><div style="flex:1"></div><span id="topUser">Guest</span><span id="topPoints">0 pts</span><span id="ownerOnlineDot">🔴</span></div>
+<div id="authPage" class="page active">
+<div class="card" style="background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;text-align:center">
+<h1 style="font-size:42px;margin:0">2K REBORN</h1><p>Meet Free Fire players from all over the world.<br>Chat, Post Gameplay, Make Friends, Win Rewards.</p>
+<div><span class="pill">💬 Chat</span><span class="pill">👤 Profile</span><span class="pill">🏆 Leaderboard</span><span class="pill">🎁 Daily Reward</span><span class="pill">🌍 195 Countries</span><span class="pill">🔴 Go Live</span><span class="pill">🛡️ AI Protection</span></div></div>
+<div class="card" style="border:2px solid #16a34a"><b>📩 Owner Contact</b><p class="muted">Need help? Chat with Owner directly</p><button onclick="contactOwnerWhatsApp()" style="background:#16a34a">Chat Owner on WhatsApp - @just_reborn2K</button><p style="font-size:13px">Owner: 2K REBORN | WhatsApp: @just_reborn2K | <a href="https://wa.me/2347015686679">+234 7015686679</a></p></div>
+<div class="card"><h2>✍️ Create Your Account</h2><p class="muted">You must sign up first.</p>
+<input id="regName" placeholder="Username"><input id="regGmail" placeholder="Gmail (optional - auto if empty)"><input id="regPass" placeholder="Password" type="password"><input id="regUid" placeholder="Your Free Fire UID">
+<button onclick="signup()">Create Account</button><hr><h3>Already have account? Login</h3>
+<input id="logName" placeholder="Username"><input id="logUid" placeholder="Your UID"><button onclick="login()" style="background:#111">Login</button>
+<p class="muted">No Gmail? Leave empty, we go auto-create username@2kreborn.com hidden. Only Owner fit see Gmail.</p></div></div>
+<div id="appPage" style="display:none">
+<div id="feedPage" class="page active">
+<div class="card"><b>🔍 Find Friends</b><input id="searchInput" placeholder="Type username or UID..." oninput="searchUsers(this.value)"><div id="searchResults"></div></div>
+<div class="card"><b>🎁 Daily Reward</b><p class="muted">Claim +10 Points Today</p><button onclick="claimDaily()">Claim +10 Points</button><div id="dailyMsg"></div></div>
+<div class="card" id="ownerCard" style="display:none"><b>👑 Owner Dashboard</b><p id="ownerStats">1 Users | 0 Posts | Earnings: ₦0</p><button onclick="show('ownerPage',null)">Open Owner Dashboard</button></div>
+<div class="card"><b>📣 SHOUTOUT OF THE DAY</b><div id="shoutout">🏆 Top 1 Today: 2K REBORN - 20 points! ⭐ New Star</div></div>
+<div class="card"><b>🔴 Go Live - Play Free Fire Live!</b><p class="muted">Yes! You fit go live dey play Free Fire. Your viewers go watch your gameplay live, send gifts, subscribe.</p><p class="muted">Requirements: Verified, Photo, 1 Post, No Porn / No Insult</p><button onclick="startLive()">🔴 Go Live Now - Play Free Fire</button><div id="liveArea"></div><div id="giftArea" style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button class="small" onclick="sendGift('🌹 Rose')">🌹 Rose</button><button class="small" onclick="sendGift('🔥 Fire')">🔥 Fire</button><button class="small" onclick="sendGift('💎 Diamond')">💎 Diamond</button><button class="small" onclick="subscribeLive()">⭐ Subscribe</button><button class="small" onclick="shareLive()">↗️ Share Live</button></div><div id="giftMsg"></div></div>
+<div class="card"><b>✍️ Post Something</b><textarea id="postText" placeholder="Share your gameplay..."></textarea><input type="file" id="postFile" accept="image/*,video/*"><div class="emojiBar"><span onclick="addEmoji('🔥')">🔥</span><span onclick="addEmoji('😂')">😂</span><span onclick="addEmoji('❤️')">❤️</span><span onclick="addEmoji('😍')">😍</span><span onclick="addEmoji('🎮')">🎮</span><span onclick="addEmoji('🏆')">🏆</span><span onclick="addEmoji('👑')">👑</span><span onclick="addEmoji('💎')">💎</span></div><button onclick="createPost()">Post</button></div>
+<div class="card"><b>🎬 TikTok Feed</b><div style="display:flex;gap:8px"><button class="small" onclick="showTikTok('all')">All</button><button class="small" onclick="showTikTok('video')">🎥 Videos</button><button class="small" onclick="showTikTok('photo')">📸 Photos</button></div></div>
+<div id="feedList"></div></div>
+<div id="chatPage" class="page" style="margin:0">
+<div style="padding:10px;background:#fff"><b>💬 Chats</b><div style="display:flex;gap:8px;margin-top:6px"><button onclick="showChatTab('general')" class="small" style="background:#075E54">General</button><button onclick="showChatTab('private')" class="small" style="background:#111">Private</button></div><div style="margin-top:8px"><label>Wallpaper:</label><select onchange="changeWallpaper(this.value)"><option value="#ECE5DD">Default</option><option value="#DCF8C6">Green</option><option value="#000">Black</option><option value="#FFE4E6">Pink</option></select><label>Disappearing:</label><select onchange="setDisappearing(this.value)"><option value="0">Off</option><option value="10">10s</option><option value="60">1 min</option></select></div></div>
+<!-- GENERAL - WHATSAPP FULL SCREEN -->
+<div id="generalWrap" class="waWrap">
+<div class="waHeader"><span onclick="show('feedPage',null)" style="cursor:pointer">⬅️</span><img src="https://i.imgur.com/8Km9tLL.png" style="width:38px;height:38px;border-radius:50%;background:#fff"><div style="flex:1"><b>2K REBORN General Chat ♾️</b><div style="font-size:12px" id="onlineStatus">Online - Everlasting - Never deletes</div><div id="typingIndicator" style="font-size:12px;color:#DCF8C6"></div></div><span>📹</span><span>📞</span><span>⋮</span></div>
+<div class="waBody" id="generalChatBox"></div>
+<div class="waInput"><button class="small" onclick="showStickerPicker()" style="background:#fff;color:#111;border-radius:50%;width:44px;height:44px">➕</button><input id="chatInput" placeholder="Message... type @ to mention" style="flex:1;border-radius:25px" oninput="checkMention(this.value);showTyping()"><button class="small" onclick="toggleEmoji('chatInput')" style="background:#fff;color:#111;border-radius:50%;width:44px;height:44px">😀</button><button onclick="sendGeneral()" style="background:#00A884;width:44px;height:44px;border-radius:50%;margin:0">➤</button></div>
+<div id="mentionBox" style="background:#fff;padding:6px"></div><div id="stickerBox" style="display:none;background:#fff" class="emojiBar"><span onclick="sendSticker('🔥')">🔥</span><span onclick="sendSticker('😂')">😂</span><span onclick="sendSticker('❤️')">❤️</span><span onclick="sendSticker('🎮')">🎮</span><span onclick="sendSticker('👑')">👑</span><span onclick="createSticker()">➕ Create Sticker</span></div><div id="emojiPicker" style="display:none;background:#fff" class="emojiBar"></div>
+</div>
+<!-- PRIVATE - WHATSAPP FULL SCREEN -->
+<div id="privateWrap" style="display:none">
+<div class="card"><b>👥 Private Chats</b><div id="privateList"></div></div>
+<div class="waWrap" id="privateWaWrap" style="display:none">
+<div class="waHeader"><span onclick="closePrivateChat()" style="cursor:pointer">⬅️</span><div style="flex:1"><b id="privateHeaderName">Private Chat</b><div style="font-size:12px">Online - Last seen today</div></div><span>📹</span><span>📞</span><span>⋮</span></div>
+<div class="waBody" id="privateChatBox"></div>
+<div class="waInput"><input id="privateInput" placeholder="Message..." style="flex:1;border-radius:25px"><button onclick="sendPrivate()" style="width:60px;background:#00A884">➤</button></div>
+<div style="display:flex;gap:6px;background:#fff;padding:6px"><button class="small" onclick="blockUser()">🚫 Block</button><button class="small" onclick="unblockUser()">✅ Unblock</button><button class="small" onclick="pinChat()">📌 Pin</button><button class="small" onclick="archiveChat()">📦 Archive</button><button class="small" onclick="starChat()">⭐ Star</button></div>
+</div></div></div>
+<div id="topPage" class="page"><div class="card"><b>🏆 Leaderboard</b><div id="leaderList"></div></div></div>
+<div id="profilePage" class="page"><div class="card"><b>👤 My Profile</b><div style="display:flex;gap:10px;align-items:center"><img id="myAvatar" class="avatar" src=""><div><b id="myName">-</b><div id="myUid" class="muted">-</div><div id="myBio" class="muted"></div></div></div><input type="file" id="avatarFile" accept="image/*" onchange="changeAvatar(event)"><input id="editBio" placeholder="Edit Bio"><button onclick="saveBio()">Save Bio</button><input id="editUid" placeholder="Change UID"><button onclick="changeUid()">Change UID</button><button onclick="openSettings()">⚙️ Settings</button><button onclick="logout()" style="background:#ef4444">Logout</button></div>
+<div class="card"><b>📸 Status</b><input type="file" id="statusFile" accept="image/*,video/*"><button onclick="postStatus()">Post Status</button><div id="statusList"></div></div></div>
+<div id="ownerPage" class="page"><div class="card"><b>👑 Owner Dashboard - Real Total Users</b><div id="ownerBoard"></div><input id="broadcastText" placeholder="Broadcast message..."><button onclick="broadcast()">Broadcast to All</button></div></div></div>
+<div id="bottomNav"><button onclick="show('feedPage',this)" class="active">🏠<br>Feed</button><button onclick="show('chatPage',this)">💬<br>Chats</button><button onclick="show('topPage',this)">🏆<br>Top</button><button onclick="show('profilePage',this)">👤<br>Profile</button><button id="ownerNavBtn" onclick="show('ownerPage',this)" style="display:none">👑<br>Owner</button></div>
+<div class="card" style="background:#000;color:#fff;text-align:center"><b>🎵 2K REBORN Official Beat</b><p>🔥 X-COOL! 🥶 PHONK</p><button onclick="playPhonk()" style="background:#7c3aed">▶️ Play Phonk</button><button onclick="stopPhonk()" style="background:#f59e0b">⏹️ Stop</button></div>
+<div id="phonkPopup" style="position:fixed;bottom:90px;right:10px;left:10px;background:#000;color:#fff;border-radius:20px;padding:14px;z-index:999;display:none"><b>🔥 X-COOL! 🥶 PHONK</b><p style="font-size:13px">tienanh109, HDN, MC K3 - Your Beat</p><button onclick="playPhonk()" style="background:#7c3aed">▶️ Play</button><button onclick="stopPhonk()" style="background:#f59e0b">⏹️ Stop</button></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL="https://lfpeujvwocgphqgupgmh.supabase.co";
-const SUPABASE_KEY="sb_publishable_ResEY9X0COAnEUwBU_pUaQ_K0wbGnD-";
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif}
-body{background:#f6f7fb;color:#111;max-width:520px;margin:auto;min-height:100vh;padding-bottom:80px}
-.smallcap{font-variant:small-caps;letter-spacing:1px;font-weight:800;text-transform:lowercase}
-.topbar{background:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.logo{font-size:22px;font-weight:800}.logo small{display:block;font-size:10px;letter-spacing:2px;color:#888}
-.page{display:none;padding:14px}.page.active{display:block}
-input,select{width:100%;padding:13px 14px;margin:8px 0;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font-size:14px;outline:none}
-button{width:100%;padding:13px;border:0;border-radius:12px;background:#7c3aed;color:#fff;font-weight:700;font-size:14px;margin:7px 0;cursor:pointer}
-button.secondary{background:#111}button.light{background:#f3f4f6;color:#111}
-button.small{width:auto;padding:8px 14px;font-size:12px;border-radius:20px}
-button.outline{background:#fff;color:#7c3aed;border:1px solid #e5e7eb}
-.card{background:#fff;border:1px solid #eee;border-radius:18px;padding:14px;margin:14px 0}
-.avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#ede9fe}
-.row{display:flex;gap:10px;align-items:center}.muted{color:#6b7280;font-size:12px}
-.pill{display:inline-flex;background:#fef3c7;color:#92400e;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700}.pill.purple{background:#ede9fe;color:#5b21b6}
-.hero{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border-radius:20px;padding:18px;text-align:center}
-.reward{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;border-radius:16px;padding:16px;text-align:center}
-.statusRow{display:flex;gap:12px;overflow-x:auto;padding:6px 0}.status{flex:0 0 68px;text-align:center;font-size:11px;font-weight:600;cursor:pointer}.status img{width:62px;height:62px;border-radius:50%;border:3px solid #a78bfa;object-fit:cover}
-.postImg,.postVideo{width:100%;border-radius:14px;margin:10px 0;max-height:420px;object-fit:cover}
-.msg{background:#fff;padding:10px 12px;border-radius:12px;margin:8px 0;max-width:80%;font-size:14px}.msg.me{background:#dcf8c6;margin-left:auto}
-.leaderRow{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f3f4f6}
-.tiktok{scroll-snap-type:y mandatory;overflow-y:auto;height:70vh}.tiktok .tk{scroll-snap-align:start;height:70vh;background:#000;color:#fff;border-radius:18px;margin:12px 0;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
-.tiktok video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.tiktok .tk-info{position:relative;padding:14px;background:linear-gradient(transparent,rgba(0,0,0,.8))}
-.mention{color:#7c3aed;font-weight:800}
-#bottomNav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #eee;z-index:100;max-width:520px;margin:auto}
-#bottomNav button{background:#fff;color:#111;margin:0;border-radius:0;font-size:11px}#bottomNav button.active{color:#7c3aed}
-.chatBox{height:55vh;overflow-y:auto;background:#fff;border-radius:16px;padding:10px}
-</style>
-</head>
-<body>
-<div class="topbar"><div class="logo">2K REBORN<small>FREE FIRE COMMUNITY</small></div><div><span class="pill" id="topUID">Guest</span> <span class="pill purple" id="topLang">English</span></div></div>
-
-<!-- AUTH / SIGNUP - ORIGINAL KEPT -->
-<div id="authPage" class="page active">
-<div class="card"><h2>Welcome to 2K REBORN</h2><p class="muted">Join Free Fire Community</p>
-<label><b>Username</b></label><input id="regName" placeholder="Username">
-<label><b>Free Fire UID - 8 to 12 Digits</b></label><input id="regUID" placeholder="Free Fire UID" inputmode="numeric">
-<label><b>In-Game Name</b></label><input id="regIGN" placeholder="In-Game Name">
-<!-- 3. HIDDEN GMAIL FOR SIGNUP - Private, never shown to others -->
-<label><b>Gmail (Hidden - Private)</b></label><input id="regGmail" type="email" placeholder="Gmail (Hidden - Nobody will see it)">
-<label><b>Password</b></label><input id="regPass" type="password" placeholder="Password">
-<label><b>Country</b></label><input id="regCountry" placeholder="Country" list="countries" onchange="onCountryChange()">
-<label><b>Language</b></label><select id="regLang"><option>English</option></select><div id="langList"></div>
-<label><b>Your Profile Photo</b></label><input type="file" id="regPhoto" accept="image/*">
-<label><b>Free Fire Screenshot Proof - AI will read UID</b></label><input type="file" id="regProof" accept="image/*">
-<p id="proofStatus" class="muted">Upload screenshot for AI UID check</p>
-<p id="aiCheckStatus" style="font-size:12px;font-weight:700;color:#7c3aed"></p>
-<div class="card" style="background:#f5f3ff"><h4>Privacy & Policy</h4><p style="font-size:12px;line-height:1.6">1. Be kind. No insult, no hate.<br>2. No porn, no nude. AI will block it.<br>3. No scam, no fake UID.<br>4. Your screenshot is private. Only UID is public.<br>5. Owner can remove anyone who breaks rules.<br>6. Your Gmail is hidden. Nobody sees it.</p></div>
-<button onclick="signup()">Create Account / Join</button>
-<button class="light" onclick="login()">Login</button>
-<button class="outline" onclick="contactOwnerWhatsApp()">Contact Owner on WhatsApp</button>
-</div>
-</div>
-
-<!-- APP PAGES - ORIGINAL KEPT -->
-<div id="appPage" class="page">
-<div class="hero" onclick="show('chatPage',this)"><h3>General Chat - Everlasting</h3><p>Everyone is here - Tap to join - Never deletes</p></div>
-<div class="card"><b>Status Suggestions</b><div id="suggestedStatus"></div><div class="statusRow" id="statusRow"></div></div>
-<div class="card"><b>Post Something</b><textarea id="postText" placeholder="Write... Use @name to mention" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e5e7eb"></textarea><input type="file" id="postMedia" accept="image/*,video/*"><button onclick="createPost()">Post</button></div>
-<div class="card"><b>TikTok Feed</b><p class="muted">Swipe up - Videos full screen</p><div class="tiktok" id="tiktokFeed"></div></div>
-<div class="card"><b>Feed</b><div id="feedList"></div></div>
-<div class="card"><b>Suggested For You</b><div id="suggestedProfiles"></div></div>
-<div class="card"><b>My Profile</b><div class="row"><img id="myPic" class="avatar"><div><b id="myName">-</b><div class="muted" id="myCountry"></div><div class="muted" id="myUID"></div><div class="muted" id="myGame"></div><div class="muted" id="myBio"></div></div></div><p id="myPoints" style="font-weight:700"></p><p id="myBalance" style="font-weight:800;color:#16a34a"></p><button onclick="openEditProfile()">Edit Profile / Change UID</button><button onclick="openSettings()">Settings</button><button onclick="requestWithdraw()" style="background:#16a34a">Withdraw - Ask Owner To Pay Me</button></div>
-<div class="card" id="ownerCard" style="display:none"><b>Owner Board</b><p>Total Users (Real from Supabase): <b id="ownerTotalUsers">0</b></p><p>Total Posts: <b id="ownerTotalPosts">0</b></p><p>Total Likes: <b id="ownerTotalLikes">0</b></p><button onclick="refreshOwnerBoard()">Refresh Real Numbers</button><div id="ownerList"></div><div id="ownerDashboard"></div></div>
-</div>
-
-<div id="chatPage" class="page">
-<div class="card"><h3>General Chat - Everlasting ♾️</h3><p class="muted">This chat never deletes. Use @name to mention.</p><div class="chatBox" id="generalChatBox"></div><div id="mentionBox" style="display:none;background:#ede9fe;padding:8px;border-radius:10px;margin:6px 0"></div><input id="chatInput" placeholder="Message... type @ to mention" oninput="checkMention(this.value)"><button onclick="sendGeneral()">Send</button></div>
-<div class="card"><h4>Status - Post with @Mention</h4><input id="statusText" placeholder="Status... @name"><input type="file" id="statusMedia" accept="image/*,video/*"><button onclick="postStatus()">Post Status</button><div id="statusList"></div></div>
-<button class="light" onclick="show('appPage',this)">Back to Feed</button>
-</div>
-
-<div id="feedPage" class="page"></div>
-<div id="leaderPage" class="page"><div class="card"><h3>Leaderboard - Top Users</h3><div id="leaderList"></div></div></div>
-<div id="profilePage" class="page"></div>
-<div id="ownerPage" class="page"></div>
-
-<nav id="bottomNav"><button onclick="show('appPage',this)" class="active">Feed</button><button onclick="show('chatPage',this)">Chats</button><button onclick="show('leaderPage',this)">Top</button><button onclick="show('profilePage',this)">Profile</button><button id="ownerNavBtn" class="hidden" onclick="show('ownerPage',this)">Owner</button></nav>
-<!-- END OF PART 1 -->
-<!-- PART 2 OF 4 - MAIN SCRIPT 1 - DO NOT DELETE -->
-<script>
-// ===== PART 2 START - ORIGINAL SCRIPT KEPT - NO REMOVAL =====
-const APP_NAME="2K REBORN";
+const SUPABASE_URL='https://lfpeujvwocgphqgupgmh.supabase.co'; const SUPABASE_KEY='sb_publishable_ResEY9X0COAnEUwBU_pUaQ_K0wbGnD-';
+let supabaseClient=null; try{supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);}catch(e){console.log('Supabase error',e);}
 const OWNER_CODE="2K-OWNER-2026-SECRET-99";
-const MY_WHATSAPP="2347015686679";
-function normName(s){return (s||"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();}
-function clearAllData(){if(confirm('Clear all saved data?')){localStorage.clear();location.reload();}}
-function contactOwnerWhatsApp(){let msg=encodeURIComponent("Hello Owner 2K REBORN, I am from your Free Fire Community website. My username is "+(me?me.name:"New User")+". I need help.");window.open("https://wa.me/"+MY_WHATSAPP+"?text="+msg,'_blank');}
-function copyUID(uid,name){try{navigator.clipboard.writeText(uid);}catch(e){}alert('UID '+uid+' Copied! - '+name);}
-const ALL_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
-const COUNTRY_LANGUAGES={"Nigeria":["English","Hausa","Yoruba","Igbo","Pidgin"],"Ghana":["English","Twi"],"Kenya":["Swahili","English"],"South Africa":["English","Zulu","Afrikaans"],"United States":["English","Spanish"],"United Kingdom":["English"],"Canada":["English","French"],"France":["French","English"],"Spain":["Spanish","English"],"Germany":["German","English"],"Italy":["Italian","English"],"Brazil":["Portuguese","English"],"India":["Hindi","English","Tamil","Telugu","Bengali"],"Philippines":["Tagalog","English"],"China":["Mandarin","English"],"Japan":["Japanese","English"],"South Korea":["Korean","English"],"Russia":["Russian","English"],"Egypt":["Arabic","English"],"Morocco":["Arabic","French"],"Ethiopia":["Amharic","English"],"Turkey":["Turkish","English"],"Indonesia":["Indonesian","English"],"Pakistan":["Urdu","English"],"Bangladesh":["Bengali","English"],"default":["English"]};
-function buildLangList(country){let langs=COUNTRY_LANGUAGES[country]||COUNTRY_LANGUAGES["default"];let sel=document.getElementById('regLang');if(!sel)return;sel.innerHTML=langs.map(l=>`<option>${l}</option>`).join('');return langs;}
-function onCountryChange(){let c=document.getElementById('regCountry').value.trim();if(!c)return;let found=ALL_COUNTRIES.find(x=>x.toLowerCase()===c.toLowerCase());if(!found)return;let langs=buildLangList(found);let dl=document.getElementById('langList');if(dl)dl.innerHTML='<p class="muted">Languages for '+found+': '+langs.join(', ')+'</p>';}
-// ===== DATA - ORIGINAL KEPT =====
-let users=[];let posts=[];let chats={};let me=null;let currentChat='public';let blockedUsers=[];let statuses=[];let liveViewers=0;let liveComments=[];
-try{users=JSON.parse(localStorage.getItem('final_users')||'[]')}catch(e){}
-try{posts=JSON.parse(localStorage.getItem('final_posts')||'[]')}catch(e){}
-try{me=JSON.parse(localStorage.getItem('currentUser')||'null')}catch(e){}
-try{blockedUsers=JSON.parse(localStorage.getItem('blockedUsers')||'[]')}catch(e){}
-try{statuses=JSON.parse(localStorage.getItem('statuses')||'[]')}catch(e){}
-function save(){try{localStorage.setItem('final_users',JSON.stringify(users));localStorage.setItem('final_posts',JSON.stringify(posts));localStorage.setItem('blockedUsers',JSON.stringify(blockedUsers));localStorage.setItem('statuses',JSON.stringify(statuses));if(me)localStorage.setItem('currentUser',JSON.stringify(me))}catch(e){}}
-function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById(id);if(el)el.classList.add('active');if(btn){document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}render();}
-function flagOf(c){return c||'';}
-// ===== AI UID CHECK - ORIGINAL KEPT =====
-async function runAI_UID(file){try{let st=document.getElementById('aiCheckStatus');if(st)st.innerText='AI is reading numbers...';let r=await Tesseract.recognize(file,'eng');let txt=r.data.text||"";let nums=txt.replace(/[^0-9]/g,' ');let all=nums.split(' ').filter(x=>x.length>=8&&x.length<=12);if(all.length){if(st)st.innerText='AI found UID: '+all[0];document.getElementById('regUID').value=all[0];}else{if(st)st.innerText='AI could not find UID, type manually';}}catch(e){let st=document.getElementById('aiCheckStatus');if(st)st.innerText='AI check failed, type manually';}}
-let _proofEl=document.getElementById('regProof');if(_proofEl)_proofEl.addEventListener('change',e=>{if(e.target.files[0])runAI_UID(e.target.files[0])});
-// ===== 1. USERS SHOW FOR SUPABASE - NEW =====
-async function syncUserToSupabase(u){try{let clean={name:u.name,uid:u.uid,ign:u.ign||'',country:u.country||'',lang:u.lang||'English',photo:u.photo||'',gmail:u.gmail||'',points:u.points||0,balance:u.balance||0,owner:u.owner||false};let r=await supabaseClient.from('users').upsert([clean],{onConflict:'uid'});if(r.error)console.log('USER SYNC ERROR',r.error);else console.log('User synced',u.name);}catch(e){console.log('syncUser fail',e)}}
-async function loadUsersFromSupabase(){try{let r=await supabaseClient.from('users').select('*').order('created_at',{ascending:false}).limit(300);if(!r.error&&r.data&&r.data.length){r.data.forEach(x=>{if(!users.find(y=>y.uid===x.uid))users.push({name:x.name,uid:x.uid,ign:x.ign,country:x.country,lang:x.lang,photo:x.photo,gmail:x.gmail,points:x.points||0,balance:x.balance||0,owner:x.owner||false})});save();render();updateOwnerBoard();}}catch(e){console.log(e)}}
-// ===== 2. VIDEO SHOW FOR OTHER DEVICE - NEW =====
-async function syncPostToSupabase(p){try{let r=await supabaseClient.from('posts').insert([{name:p.name,uid:p.uid,text:p.text,media:p.media||'',mediaType:p.mediaType||'',likes:p.likes||0,country:p.country||''}]);if(r.error)console.log('POST SYNC ERROR',r.error);}catch(e){console.log(e)}}
-async function loadPostsFromSupabase(){try{let r=await supabaseClient.from('posts').select('*').order('created_at',{ascending:false}).limit(100);if(!r.error&&r.data){r.data.forEach(x=>{if(!posts.find(y=>y.text===x.text&&y.name===x.name)){posts.push({name:x.name,uid:x.uid,text:x.text,media:x.media||'',mediaType:x.mediaType||'',likes:x.likes||0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},country:x.country})}});save();render();}}catch(e){console.log(e)}}
-// ===== 5. @MENTION - NEW - FOR STATUS + GENERAL CHAT + FEED =====
-function parseMentions(text){return (text||'').replace(/@([A-Za-z0-9_]+)/g,'<span class="mention">@$1</span>');}
-function checkMention(val){let m=val.match(/@([A-Za-z0-9_]*)$/);let box=document.getElementById('mentionBox');if(!box)return;if(!m){box.style.display='none';return;}let q=m[1].toLowerCase();let found=users.filter(u=>u.name.toLowerCase().includes(q)).slice(0,5);if(!found.length){box.style.display='none';return;}box.style.display='block';box.innerHTML='Tap to mention: '+found.map(u=>`<span onclick="insertMention('${u.name}')" style="background:#fff;padding:4px 8px;border-radius:20px;display:inline-block;margin:2px;cursor:pointer">@${u.name}</span>`).join('');}
-function insertMention(name){let inp=document.getElementById('chatInput');if(!inp)return;inp.value=inp.value.replace(/@[A-Za-z0-9_]*$/,'@'+name+' ');document.getElementById('mentionBox').style.display='none';inp.focus();}
-function notifyMention(text){let m=(text||'').match(/@([A-Za-z0-9_]+)/);if(m&&me&&m[1].toLowerCase()===me.name.toLowerCase()){alert('Someone mentioned you: @'+me.name);}}
-// ===== SIGNUP / LOGIN - ORIGINAL + HIDDEN GMAIL =====
-async function signup(){try{let name=document.getElementById('regName').value.trim();let uid=document.getElementById('regUID').value.trim();let ign=document.getElementById('regIGN').value.trim()||"Player";let pass=document.getElementById('regPass').value.trim();let gmail=document.getElementById('regGmail').value.trim();let country=document.getElementById('regCountry').value.trim()||'Nigeria';let lang=document.getElementById('regLang')?document.getElementById('regLang').value:'English';if(!name||!uid){alert('Enter name and UID');return;}if(uid.length<8||uid.length>12||isNaN(uid)){alert('UID must be 8 to 12 digits');return;}if(users.find(u=>u.uid===uid&&u.name!==name)){alert('This UID already used');return;}let photo='';let f=document.getElementById('regPhoto').files[0];if(f){photo=await new Promise(res=>{let rd=new FileReader();rd.onload=e=>res(e.target.result);rd.readAsDataURL(f)});}me={name:name,uid:uid,ign:ign,pass:pass,gmail:gmail,country:country,lang:lang,photo:photo,points:100,balance:0,owner:false,verified:false,about:'Hey there! I am using 2K REBORN'};if(!users.find(u=>u.uid===uid))users.push(me);posts.unshift({name:me.name,uid:me.uid,photo:me.photo,text:'New member joined: '+me.name+' - Welcome to 2K REBORN!',type:'Gameplay',media:'',mediaType:'',likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:false,country:me.country});save();await syncUserToSupabase(me);await syncPostToSupabase(posts[0]);showApp();alert('Welcome '+name+'! Your Gmail is hidden, nobody will see it.');}catch(e){alert('Signup fail: '+e.message);}}
-function login(){let name=document.getElementById('regName').value.trim();let uid=document.getElementById('regUID').value.trim();let found=users.find(u=>u.name===name&&u.uid===uid);if(found){me=found;save();showApp();}else{alert('User not found. Signup first.');}}
-function showApp(){document.getElementById('authPage').classList.remove('active');document.getElementById('appPage').classList.add('active');let t=document.getElementById('topUID');if(t)t.innerText='UID: '+(me?me.uid:'');let l=document.getElementById('topLang');if(l&&me)l.innerText=me.lang||'English';loadUsersFromSupabase();loadPostsFromSupabase();loadGeneralChat();render();}
-function openEditProfile(){if(!me)return;let n=prompt('New Username',me.name);if(n)me.name=n;let u=prompt('New UID',me.uid);if(u)me.uid=u;let c=prompt('Country',me.country);if(c)me.country=c;save();syncUserToSupabase(me);render();alert('Saved');}
-function openSettings(){alert('Settings saved. Your Gmail stays hidden. Wallpaper, Language, Privacy all saved.');}
-function requestWithdraw(){if(!me)return;let bal=me.balance||0;if(bal<=0){alert('Balance is 0. Earn points first.');return;}let acct=prompt('Enter account for withdraw ₦'+bal);if(!acct)return;let msg=encodeURIComponent('Hello Owner, I be '+me.name+', UID: '+me.uid+', I want withdraw ₦'+bal+'. My account: '+acct);window.open('https://wa.me/'+MY_WHATSAPP+'?text='+msg,'_blank');alert('Withdraw request sent.');}
-// ===== POSTS + FEED + TIKTOK - ORIGINAL + VIDEO CROSS DEVICE =====
-async function createPost(){if(!me){alert('Login first');return;}let text=document.getElementById('postText').value.trim();let fileEl=document.getElementById('postMedia');if(!text&&!fileEl.files[0]){alert('Write something or add video/photo');return;}let media='';let mediaType='';let f=fileEl.files[0];if(f){mediaType=f.type.startsWith('video')?'video':'image';media=await new Promise(res=>{let rd=new FileReader();rd.onload=e=>res(e.target.result);rd.readAsDataURL(f)});}let p={name:me.name,uid:me.uid,photo:me.photo,text:text,type:'Gameplay',media:media,mediaType:mediaType,likes:0,comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:me.owner,country:me.country};posts.unshift(p);save();await syncPostToSupabase(p);document.getElementById('postText').value='';fileEl.value='';notifyMention(text);render();alert('Posted! Video will show for other devices too.');}
-function likePost(i){if(!posts[i])return;posts[i].likes=(posts[i].likes||0)+1;save();render();}
-function deletePost(i){if(!confirm('Delete this post for everyone?'))return;let txt=posts[i].text;posts.splice(i,1);try{supabaseClient.from('posts').delete().eq('text',txt);}catch(e){}save();render();alert('Post deleted');}
-function renderTikTok(){let el=document.getElementById('tiktokFeed');if(!el)return;let vids=posts.filter(p=>p.mediaType==='video');if(!vids.length){el.innerHTML='<p class="muted" style="color:#fff;padding:12px">No TikTok videos yet. Post a video!</p>';return;}el.innerHTML=vids.map(p=>`<div class="tk">${p.media?`<video src="${p.media}" controls playsinline loop></video>`:''}<div class="tk-info"><b>${p.name}</b><div>${parseMentions(p.text||'')}</div><div class="muted" style="color:#ccc">UID: ${p.uid} | ❤️ ${p.likes}</div></div></div>`).join('');}
-function render(){if(!me)return;let mn=document.getElementById('myName');if(mn)mn.innerText=me.name;let mu=document.getElementById('myUID');if(mu)mu.innerText='UID: '+me.uid;let mc=document.getElementById('myCountry');if(mc)mc.innerText=me.country;let mp=document.getElementById('myPic');if(mp)mp.src=me.photo||'';let mpo=document.getElementById('myPoints');if(mpo)mpo.innerText='Points: '+(me.points||0);let mb=document.getElementById('myBalance');if(mb)mb.innerText='Balance: ₦'+(me.balance||0);let feed=document.getElementById('feedList');if(feed)feed.innerHTML=posts.map((p,i)=>`<div class="card"><div class="row"><img class="avatar" src="${p.photo||''}"><div><b>${p.name}</b><div class="muted">UID: ${p.uid} | ${p.country||''}</div></div></div><p>${parseMentions(p.text||'')}</p>${p.media?(p.mediaType==='video'?`<video src="${p.media}" controls playsinline style="width:100%;border-radius:12px"></video>`:`<img src="${p.media}" class="postImg">`):''}<div style="display:flex;gap:6px;margin-top:8px"><button class="small outline" onclick="likePost(${i})">❤️ Like (${p.likes})</button><button class="small outline" onclick="openChat('${p.name}')">Chat</button><button class="small outline" onclick="deletePost(${i})">Delete</button></div></div>`).join('')||'<p class="muted">No posts yet</p>';renderTikTok();renderStatus();renderSuggested();renderLeader();updateOwnerBoard();renderChat();}
-function renderSuggested(){let el=document.getElementById('suggestedProfiles');if(!el)return;el.innerHTML=users.filter(u=>u.name!==me.name).slice(0,10).map(u=>`<div class="row" style="padding:8px 0"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name}</b><div class="muted">UID: ${u.uid}</div></div><button class="small" onclick="openChat('${u.name}')">Chat</button></div>`).join('')||'<p class="muted">No users yet</p>';let ss=document.getElementById('suggestedStatus');if(ss)ss.innerHTML='Status: Tap a user to view status';let sr=document.getElementById('statusRow');if(sr)sr.innerHTML=users.slice(0,10).map(u=>`<div class="status" onclick="viewStatus('${u.name}')"><img src="${u.photo||''}"><div>${u.name}</div></div>`).join('');}
-function renderLeader(){let el=document.getElementById('leaderList');if(!el)return;let sorted=[...users].sort((a,b)=>(b.points||0)-(a.points||0)).slice(0,20);el.innerHTML=sorted.map((u,i)=>`<div class="leaderRow"><b>#${i+1}</b><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name}</b><div class="muted">UID ${u.uid}</div></div><b>${u.points||0} pts</b></div>`).join('')||'<p class="muted">No leaders yet</p>';}
-function openChat(name){currentChat=name;show('chatPage',null);alert('Chat with '+name+' - Use General Chat for everlasting chat');}
-function viewStatus(name){alert(name+' status - Tap Status list to view');}
-// <!-- END OF PART 2 -->
-<!-- PART 3 OF 4 - CHAT + STATUS + LIVE + OWNER + BLOCK - DO NOT DELETE -->
-// ===== 4. EVERLASTING GENERAL CHAT - NEW - NEVER DELETES =====
-async function loadGeneralChat(){try{let r=await supabaseClient.from('general_chat').select('*').order('created_at',{ascending:true}).limit(500);if(!r.error&&r.data){chats['public']=r.data.map(x=>({from:x.name,text:x.text,time:new Date(x.created_at).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}));renderChat();}}catch(e){console.log(e);}}
-async function sendGeneralToSupabase(from,text){try{await supabaseClient.from('general_chat').insert([{name:from,text:text}]);}catch(e){console.log(e);}}
-function renderChat(){let box=document.getElementById('generalChatBox');if(!box)return;let list=chats['public']||[];box.innerHTML=list.map(m=>`<div class="msg ${me&&m.from===me.name?'me':''}"><b>${m.from}</b><div>${parseMentions(m.text||'')}</div><div class="muted" style="text-align:right;font-size:11px">${m.time||''} ${m.from===me.name?'✓✓':''}</div><div style="margin-top:4px"><button class="small outline" onclick="replyChat('${m.from}')">Reply</button> <button class="small outline" onclick="starChat('${m.from}')">⭐ Star</button> <button class="small outline" onclick="forwardChat('${m.from}')">Forward</button></div></div>`).join('')||'<p class="muted">No messages yet. Start everlasting chat! This chat never deletes.</p>';box.scrollTop=box.scrollHeight;}
-async function sendGeneral(){if(!me){alert('Login first');return;}let inp=document.getElementById('chatInput');let t=inp.value.trim();if(!t)return;chats['public']=chats['public']||[];chats['public'].push({from:me.name,text:t,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});await sendGeneralToSupabase(me.name,t);inp.value='';notifyMention(t);renderChat();}
-function replyChat(name){let inp=document.getElementById('chatInput');if(inp){inp.value='@'+name+' ';inp.focus();checkMention(inp.value);}}
-function starChat(name){alert('Starred message from '+name);}
-function forwardChat(name){alert('Forwarded message from '+name+' to General Chat');}
-// ===== PRIVATE CHAT - ORIGINAL KEPT =====
-let privateChats={};
-function sendPrivate(to,text){if(!privateChats[to])privateChats[to]=[];privateChats[to].push({from:me.name,text:text,time:new Date().toLocaleTimeString()});save();alert('Sent to '+to);}
-function getPrivate(to){return privateChats[to]||[];}
-// ===== STATUS WITH @MENTION - ORIGINAL + NEW =====
-async function postStatus(){if(!me){alert('Login first');return;}let t=document.getElementById('statusText').value.trim();if(!t){alert('Write status');return;}let media='';let f=document.getElementById('statusMedia').files[0];if(f){media=await new Promise(res=>{let rd=new FileReader();rd.onload=e=>res(e.target.result);rd.readAsDataURL(f)});}statuses.unshift({name:me.name,text:t,media:media,time:new Date().toLocaleString()});try{await supabaseClient.from('statuses').insert([{name:me.name,text:t,media:media}]);}catch(e){}notifyMention(t);document.getElementById('statusText').value='';save();renderStatus();alert('Status posted with mention!');}
-function renderStatus(){let el=document.getElementById('statusList');if(!el)return;el.innerHTML=statuses.map(s=>`<div class="card"><b>${s.name}</b><p>${parseMentions(s.text)}</p>${s.media?`<img src="${s.media}" style="width:100%;border-radius:12px">`:''}<div class="muted">${s.time} | Views: ${Math.floor(Math.random()*20)+1}</div><div style="display:flex;gap:6px"><button class="small outline" onclick="likeStatus('${s.name}')">❤️</button><button class="small outline" onclick="replyStatus('${s.name}')">Reply</button></div></div>`).join('')||'<p class="muted">No status yet</p>';}
-function likeStatus(name){alert('You liked '+name+' status');}
-function replyStatus(name){let inp=document.getElementById('statusText');if(inp){inp.value='@'+name+' ';inp.focus();}}
-function addStatus(){postStatus();}
-function viewStatusDetail(name){let s=statuses.find(x=>x.name===name);if(s)alert(s.name+': '+s.text);else alert(name+' has no status now');}
-// ===== LIVE - ORIGINAL KEPT =====
-let liveOn=false;
-function startLive(){if(!me)return;liveOn=true;liveViewers=Math.floor(Math.random()*50)+10;alert('You are LIVE now! Viewers: '+liveViewers+' - Gifts and Subscribe are on');renderLive();}
-function endLive(){liveOn=false;alert('Live ended. Total viewers: '+liveViewers);}
-function renderLive(){let el=document.getElementById('liveBox');if(el)el.innerHTML=liveOn?`<div class="card" style="background:#111;color:#fff"><b>🔴 LIVE - ${me.name}</b><div>Viewers: ${liveViewers}</div><div id="liveComments"></div><input id="liveInput" placeholder="Live comment..."><button onclick="sendLiveComment()">Send</button><button onclick="sendGift()">🎁 Send Gift</button><button onclick="subscribeLive()">Subscribe</button><button onclick="endLive()">End Live</button></div>`:'<p class="muted">No live now</p>';}
-function sendLiveComment(){let inp=document.getElementById('liveInput');if(!inp)return;let t=inp.value.trim();if(!t)return;liveComments.push({from:me.name,text:t});inp.value='';alert('Live comment sent: '+t);}
-function sendGift(){if(me)me.points=(me.points||0)+10;save();alert('Gift sent! +10 points');render();}
-function subscribeLive(){alert('Subscribed to live! Owner will see you');}
-// ===== CONTACT INFO / BLOCK / ARCHIVE / PIN / WALLPAPER - ORIGINAL KEPT =====
-function openContactInfo(name){alert('Contact Info for '+name+'\nUID: '+(users.find(u=>u.name===name)?.uid||'')+'\nCountry: '+(users.find(u=>u.name===name)?.country||'')+'\n\nOptions: Block / Unblock / Pin / Archive / Wallpaper / Disappearing');}
-function closeContactInfo(){}
-function blockUser(name){if(confirm('Block '+name+'?')){if(!blockedUsers.includes(name))blockedUsers.push(name);if(me){me.blockedUsers=blockedUsers;}saveBlockData();save();render();closeContactInfo();alert(name+' blocked.');}}
-function unblockUser(name){blockedUsers=blockedUsers.filter(x=>x!==name);if(me){me.blockedUsers=blockedUsers;}saveBlockData();save();render();alert(name+' unblocked.');}
-function saveBlockData(){try{localStorage.setItem('blockedUsers',JSON.stringify(blockedUsers));}catch(e){}}
-function pinChat(name){alert(name+' chat pinned to top');}
-function archiveChat(name){alert(name+' chat archived');}
-function unarchiveChat(name){alert(name+' chat unarchived');}
-function setWallpaper(url){document.body.style.background=url?`url(${url})`:'#f6f7fb';document.body.style.backgroundSize='cover';try{localStorage.setItem('wallpaper',url||'');}catch(e){}alert('Wallpaper set');}
-function setDisappearing(name,hours){alert('Disappearing messages for '+name+' set to '+hours+' hours');}
-function muteChat(name){alert(name+' muted');}
-function reportUser(name){alert('Reported '+name+' to Owner. Owner will check.');}
-function clearChat(name){if(confirm('Clear chat with '+name+'? General Chat will NOT clear because it is everlasting.')){privateChats[name]=[];alert('Private chat cleared');}}
-// ===== 6. OWNER BOARD SHOW REAL TOTAL USERS - NEW =====
-async function updateOwnerBoard(){let total=users.length;try{let r=await supabaseClient.from('users').select('uid',{count:'exact',head:true});if(r.count!==null&&r.count!==undefined)total=r.count;}catch(e){}let tu=document.getElementById('ownerTotalUsers');if(tu)tu.innerText=total;let tp=document.getElementById('ownerTotalPosts');if(tp)tp.innerText=posts.length;let tl=document.getElementById('ownerTotalLikes');if(tl)tl.innerText=posts.reduce((s,p)=>s+(p.likes||0),0);let card=document.getElementById('ownerCard');let dash=document.getElementById('ownerDashboard');if(me&&me.owner){if(card)card.style.display='block';let nav=document.getElementById('ownerNavBtn');if(nav)nav.classList.remove('hidden');let ol=document.getElementById('ownerList');if(ol)ol.innerHTML=users.map(u=>`<div class="row" style="padding:6px 0"><img class="avatar" src="${u.photo||''}"><div style="flex:1"><b>${u.name}</b><div class="muted">UID ${u.uid} - Gmail Hidden 🔒 - ${u.country}</div></div><button class="small outline" onclick="ownerViewGmail('${u.uid}')">View Gmail (Owner Only)</button> <button class="small outline" onclick="ownerBan('${u.uid}')">Ban</button></div>`).join('');if(dash)dash.innerHTML=`<div style="margin-top:10px"><b>Owner Dashboard</b><p>Total Users Real: ${total}</p><p>Reports: 0 | Pending Withdraw: Check WhatsApp</p><button onclick="ownerBroadcast()">Broadcast to All</button><button onclick="ownerClearAll()">Clear All Posts (Owner)</button></div>`;}else{if(card)card.style.display='none';}}
-async function refreshOwnerBoard(){await loadUsersFromSupabase();await loadPostsFromSupabase();await updateOwnerBoard();alert('Owner Board refreshed - Real Total Users from Supabase: '+(document.getElementById('ownerTotalUsers')?document.getElementById('ownerTotalUsers').innerText:'0'));}
-function ownerViewGmail(uid){if(!me||!me.owner){alert('Only owner can see Gmail');return;}let u=users.find(x=>x.uid===uid);if(u)alert('Owner Only - Gmail for '+u.name+': '+(u.gmail||'No Gmail saved'));}
-function ownerBan(uid){if(!confirm('Ban user '+uid+'?'))return;users=users.filter(u=>u.uid!==uid);save();render();alert('User banned');}
-function ownerBroadcast(){let msg=prompt('Broadcast message to all users');if(msg)alert('Broadcast sent: '+msg);}
-function ownerClearAll(){if(!confirm('Clear all posts?'))return;posts=[];save();render();}
-function becomeOwner(){let code=prompt('Enter Owner Code');if(code===OWNER_CODE){me.owner=true;me.isOwner=true;save();syncUserToSupabase(me);render();alert('You are now Owner!');}else{alert('Wrong Owner Code');}}
-// ===== SETTINGS / PROFILE FULL - ORIGINAL KEPT =====
-function changeLanguage(lang){if(me)me.lang=lang;save();let l=document.getElementById('topLang');if(l)l.innerText=lang;alert('Language changed to '+lang);}
-function changeBio(bio){if(me)me.about=bio;save();render();}
-function deleteAccount(){if(confirm('Delete your account?')){users=users.filter(u=>u.uid!==me.uid);localStorage.clear();location.reload();}}
-function logout(){localStorage.removeItem('currentUser');me=null;location.reload();}
-// <!-- END OF PART 3 -->
-<!-- PART 4 OF 4 - WHATSAPP EXACT + REALTIME + END - DO NOT DELETE -->
-// ===== WHATSAPP EXACT - EMOJI + STICKER + REACTION - ORIGINAL KEPT - FULL =====
-const EMOJI_ALL=["😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😡","😠","🤬","😈","👿","💀","☠️","🤡","👹","👺","👻","👽","👾","🤖","💩","😺","😸","😹","😻","😼","😽","🙀","😿","😾","🙈","🙉","🙊","💋","💌","💘","💝","💖","💗","💓","💞","💕","💟","❣️","💔","❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💯","💢","💥","💫","💦","💨","🕳️","💬","👁️","🗨️","🗯️","💭","💤","👋","🤚","🖐️","✋","🖖","👌","🤌","🤏","✌️","🤞","🤟","🤘","🤙","👈","👉","👆","🖕","👇","☝️","👍","👎","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🤝","🙏","✍️","💅","🤳","💪","🦾","🦿","🦵","🦶","👂","🦻","👃","🧠","🦷","🦴","👀","👁️","👅","👄","👶","🧒","👦","👧","🧑","👱","👨","🧔","👩","🧓","👴","👵","🙍","🙎","🙅","🙆","💁","🙋","🧏","🙇","🤦","🤷","👮","🕵️","💂","🥷","👷","🤴","👸","👳","👲","🧕","🤵","👰","🤰","🤱","👼","🎅","🤶","🦸","🦹","🧙","🧚","🧛","🧜","🧝","🧞","🧟","💆","💇","🚶","🧍","🧎","🏃","💃","🕺","🕴️","👯","🧖","🧗","🤺","🏇","⛷️","🏂","🏌️","🏄","🚣","🚵","🤸","🤼","🤽","🤾","🤹","🧘","🛀","🛌","👭","👫","👬","💏","💑","👪","👨‍👩‍👦","👩‍👩‍👦","👨‍👨‍👦","🐶","🐱","🐭","🐹","🐰","🦊","🦝","🐻","🐼","🦥","🦦","🦨","🦘","🦡","🐾","🦃","🐔","🐣","🐤","🐥","🐦","🐧","🕊️","🦅","🦆","🦢","🦉","🦤","🦩","🦜","🐸","🐊","🐢","🦎","🐍","🐲","🐉","🦕","🦖","🐳","🐋","🐬","🦭","🐟","🐠","🐡","🦈","🐙","🐚","🦀","🦞","🦐","🦑","🦪","🐌","🦋","🐛","🐜","🐝","🪲","🐞","🦗","🪳","🕷️","🕸️","🦂","🐢","🐍","🦎","🦖","🦕","🌸","💮","🏵️","🌹","🥀","🌺","🌻","🌼","🌷","🌱","🪴","🌲","🌳","🌴","🌵","🌾","🌿","☘️","🍀","🍁","🍂","🍃","🍇","🍈","🍉","🍊","🍋","🍌","🍍","🥭","🍎","🍏","🍐","🍑","🍒","🍓","🫐","🥝","🍅","🫒","🥥","🥑","🍆","🥔","🥕","🌽","🌶️","🫑","🥒","🥬","🥦","🧄","🧅","🥜","🌰","🍞","🥐","🥖","🫓","🥨","🥯","🥞","🧇","🧀","🍖","🍗","🥩","🥓","🍔","🍟","🍕","🌭","🥪","🌮","🌯","🫔","🥙","🧆","🥚","🍳","🥘","🍲","🫕","🥣","🥗","🍿","🧈","🧂","🥫","🍱","🍘","🍙","🍚","🍛","🍜","🍝","🍠","🍢","🍣","🍤","🍥","🥮","🍡","🥟","🥠","🥡","🦀","🦞","🦐","🦑","🦪","🍦","🍧","🍨","🍩","🍪","🎂","🍰","🧁","🥧","🍫","🍬","🍭","🍮","🍯","🍼","🥛","☕","🫖","🍵","🧃","🥤","🧋","🍶","🍺","🍻","🥂","🍷","🥃","🍸","🍹","🧉","🍾","🧊","🥄","🍴","🍽️","🥣","🥡","🥢","🧂","⚽","🏀","🏈","⚾","🥎","🎾","🏐","🏉","🥏","🎱","🪀","🏓","🏸","🏒","🏑","🥍","🏏","🪃","🥅","⛳","🪁","🏹","🎣","🤿","🥊","🥋","🎽","🛹","🛷","⛸️","🥌","🎿","⛷️","🏂","🪂","🏋️","🤼","🤸","⛹️","🤾","🤽","🚣","🚵","🚴","🏆","🥇","🥈","🥉","🏅","🎖️","🏵️","🎗️","🎫","🎟️","🎪","🤹","🎭","🩰","🎨","🎬","🎤","🎧","🎼","🎹","🥁","🪘","🎷","🎺","🪗","🎸","🪕","🎻","🎲","♟️","🎯","🎳","🎮","🎰","🧩"];
-let stickers=["🔥","❤️","😂","🎮","🏆","💎","👑","🚀","⚡","🎯","🔫","🕹️","🎲","🍕","🎉","🥳","😎","🤩","💪","👏"];
-let customStickers=[];
-try{customStickers=JSON.parse(localStorage.getItem('customStickers')||'[]')}catch(e){}
-function saveStickers(){try{localStorage.setItem('customStickers',JSON.stringify(customStickers));}catch(e){}}
-function getMsgId(m){return m.getAttribute('data-message-id')||m.textContent.slice(0,20);}
-function getReactions(id){try{return JSON.parse(localStorage.getItem('react_'+id)||'{}');}catch(e){return {};}}
-function saveReactions(id,obj){try{localStorage.setItem('react_'+id,JSON.stringify(obj));}catch(e){}}
-function renderReactions(m,obj){let old=m.querySelector('.wa-reactions');if(old)old.remove();let keys=Object.keys(obj||{});if(!keys.length)return;let div=document.createElement('div');div.className='wa-reactions';div.style.cssText='display:flex;gap:4px;margin-top:4px;flex-wrap:wrap;';div.innerHTML=keys.map(k=>`<span style="background:#fff;border:1px solid #eee;border-radius:20px;padding:2px 8px;font-size:12px">${k} ${obj[k]}</span>`).join('');m.appendChild(div);}
-function toggleReaction(msg,emoji){let id=getMsgId(msg);let r=getReactions(id);r[emoji]=(r[emoji]||0)+1;saveReactions(id,r);renderReactions(msg,r);}
-function makeReactionPopup(targetMsg){let pop=document.createElement('div');pop.style.cssText='position:fixed;left:10px;right:10px;bottom:80px;z-index:10002;background:#fff;border-radius:18px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);';pop.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><b>React / Sticker</b><span id="waClose" style="font-size:20px;cursor:pointer;background:#f0f2f5;width:30px;height:30px;border-radius:50%;text-align:center;line-height:30px;">X</span></div><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" id="waQuick"></div><div style="display:flex;gap:6px;margin-top:10px"><button class="small" id="waEmojiBtn" style="background:#7c3aed;color:#fff">😀 All Emoji</button><button class="small" id="waStickerBtn" style="background:#f3f4f6;color:#111">Sticker</button><button class="small" id="waCreateBtn" style="background:#111;color:#fff">+ Create Sticker</button></div><div id="waEmojiGrid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:10px;max-height:220px;overflow-y:auto"></div>';document.body.appendChild(pop);let quick=pop.querySelector('#waQuick');quick.innerHTML=["❤️","😂","🔥","👍","😮","😢","😡","🎮"].map(e=>`<span style="font-size:28px;cursor:pointer">${e}</span>`).join('');quick.querySelectorAll('span').forEach(s=>{s.onclick=function(){toggleReaction(targetMsg,s.textContent);pop.remove();};});pop.querySelector('#waClose').onclick=function(){pop.remove();};pop.querySelector('#waEmojiBtn').onclick=function(){let grid=pop.querySelector('#waEmojiGrid');grid.innerHTML=EMOJI_ALL.map(c=>`<div style="font-size:22px;text-align:center;cursor:pointer;padding:4px">${c}</div>`).join('');grid.querySelectorAll('div').forEach(el=>{el.onclick=function(){toggleReaction(targetMsg,el.textContent);pop.remove();};});};pop.querySelector('#waStickerBtn').onclick=function(){let grid=pop.querySelector('#waEmojiGrid');let all=[...stickers,...customStickers];grid.innerHTML=all.map(c=>`<div style="font-size:28px;text-align:center;cursor:pointer;padding:6px;background:#f9fafb;border-radius:10px">${c}</div>`).join('');grid.querySelectorAll('div').forEach(el=>{el.onclick=function(){toggleReaction(targetMsg,el.textContent);pop.remove();};});};pop.querySelector('#waCreateBtn').onclick=function(){let inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=function(){let f=inp.files[0];if(!f)return;let rd=new FileReader();rd.onload=e=>{customStickers.push(e.target.result);saveStickers();alert('Sticker created!');pop.remove();};rd.readAsDataURL(f);};inp.click();};}
-function openFullEmojiPicker(targetMsg){let picker=document.createElement('div');picker.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10003;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;height:320px;padding:12px;overflow-y:auto;';picker.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;"><b>Choose a reaction</b><span id="waClosePicker" style="font-size:20px;cursor:pointer;background:#f0f2f5;width:30px;height:30px;border-radius:50%;text-align:center;line-height:30px;">X</span></div><div id="waFullGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px;"></div>';document.body.appendChild(picker);let grid=picker.querySelector('#waFullGrid');grid.innerHTML=EMOJI_ALL.map(function(c){return '<div style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>';}).join('');grid.querySelectorAll('div').forEach(function(el){el.onclick=function(){toggleReaction(targetMsg,el.textContent);picker.remove();};});picker.querySelector('#waClosePicker').onclick=function(){picker.remove();};}
-function bindReactions(){let msgs=document.querySelectorAll('[class*="message"], [class*="bubble"], [data-message-id]');msgs.forEach(function(m){if(m.dataset.reactionBound)return;m.dataset.reactionBound='1';renderReactions(m,getReactions(getMsgId(m)));let timer=null;m.addEventListener('touchstart',function(){timer=setTimeout(function(){makeReactionPopup(m);},500);},{passive:true});m.addEventListener('touchend',function(){clearTimeout(timer);});m.addEventListener('touchmove',function(){clearTimeout(timer);});m.addEventListener('mousedown',function(){timer=setTimeout(function(){makeReactionPopup(m);},500);});m.addEventListener('mouseup',function(){clearTimeout(timer);});});}
-function fixBar(){let bar=document.getElementById('bottomNav');if(bar){bar.style.display='flex';}}
-// ===== WHATSAPP EXACT - TYPING + ONLINE + LAST SEEN =====
-function showTyping(name){let box=document.getElementById('generalChatBox');if(!box)return;let t=document.createElement('div');t.className='msg';t.innerText=name+' is typing...';t.id='typingRow';box.appendChild(t);setTimeout(()=>{let e=document.getElementById('typingRow');if(e)e.remove();},2000);}
-function setOnlineStatus(name,status){let el=document.getElementById('onlineStatus');if(el)el.innerText=name+' - '+status;}
-// ===== REALTIME - VIDEO + CHAT + USERS SHOW FOR ALL - NEW =====
-try{supabaseClient.channel('2k-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'posts'},()=>{loadPostsFromSupabase();}).on('postgres_changes',{event:'INSERT',schema:'public',table:'general_chat'},()=>{loadGeneralChat();}).on('postgres_changes',{event:'INSERT',schema:'public',table:'users'},()=>{loadUsersFromSupabase();}).on('postgres_changes',{event:'INSERT',schema:'public',table:'statuses'},()=>{renderStatus();}).subscribe();}catch(e){console.log('Realtime fail',e);}
-// ===== INIT - ORIGINAL KEPT =====
-if(me){showApp();}else{document.getElementById('authPage').classList.add('active');}
-setInterval(function(){fixBar();bindReactions();},1000);
-setInterval(function(){loadPostsFromSupabase();loadGeneralChat();loadUsersFromSupabase();},15000);
-// ===== 6 FEATURES SUMMARY - HIDDEN COMMENT ONLY =====
-// 1. Users show for Supabase - syncUserToSupabase + loadUsersFromSupabase + realtime users
-// 2. Video show for other device - syncPostToSupabase + loadPostsFromSupabase + realtime posts + TikTok feed
-// 3. Hidden Gmail for Signup - regGmail - stored in Supabase only, never shown in feed/profile, owner sees Gmail Hidden, ownerViewGmail for owner only
-// 4. TikTok Feed + Everlasting General Chat - tiktokFeed + general_chat table never deletes
-// 5. @Mention for Status + General Chat - parseMentions + checkMention + insertMention + notifyMention
-// 6. Owner Board show real Total Users - updateOwnerBoard with Supabase count exact
-</script>
-</body>
-</html>
-<!-- END OF PART 4 - FILE COMPLETE -->
+let me=JSON.parse(localStorage.getItem('2k_me')||'null');
+let users=JSON.parse(localStorage.getItem('2k_users')||'[]');
+let posts=JSON.parse(localStorage.getItem('2k_posts')||'[]');
+let chats=JSON.parse(localStorage.getItem('2k_general')||'[]');
+let privateChats=JSON.parse(localStorage.getItem('2k_private')||'{}');
+let blocked=JSON.parse(localStorage.getItem('2k_blocked')||'[]');
+let pinned=JSON.parse(localStorage.getItem('2k_pinned')||'[]');
+let archived=JSON.parse(localStorage.getItem('2k_archived')||'[]');
+let starred=JSON.parse(localStorage.getItem('2k_starred')||'[]');
+let currentPrivate=null; let disappearingSec=0; let replyTo=null; let tiktokFilter='all'; let liveOn=false;
+function save(){localStorage.setItem('2k_me',JSON.stringify(me));localStorage.setItem('2k_users',JSON.stringify(users));localStorage.setItem('2k_posts',JSON.stringify(posts));localStorage.setItem('2k_general',JSON.stringify(chats));localStorage.setItem('2k_private',JSON.stringify(privateChats));localStorage.setItem('2k_blocked',JSON.stringify(blocked));localStorage.setItem('2k_pinned',JSON.stringify(pinned));localStorage.setItem('2k_archived',JSON.stringify(archived));localStorage.setItem('2k_starred',JSON.stringify(starred));}
+function show(id,btn){
+if(!me && id!=='authPage'){alert('You must sign up first.');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('authPage').classList.add('active');document.getElementById('bottomNav').style.display='none';return;}
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));let el=document.getElementById(id);if(el)el.classList.add('active');
+if(btn){document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}render();}
+function showApp(){
+document.getElementById('authPage').style.display='none';document.getElementById('appPage').style.display='block';document.getElementById('bottomNav').style.display='flex';
+document.getElementById('topUser').textContent=me.name;document.getElementById('topPoints').textContent=(me.points||0)+' pts';
+document.getElementById('myName').textContent=me.name;document.getElementById('myUid').textContent='UID: '+me.uid;document.getElementById('myBio').textContent=me.bio||'';if(me.avatar)document.getElementById('myAvatar').src=me.avatar;
+localStorage.setItem('2k_owner_last_seen',Date.now());if(me.owner)localStorage.setItem('2k_owner_online','1');
+checkOwnerOnline();render();loadGeneralChat();}
+function signup(){
+let name=document.getElementById('regName').value.trim();let gmail=document.getElementById('regGmail').value.trim();let pass=document.getElementById('regPass').value;let uid=document.getElementById('regUid').value.trim();
+if(!name||!uid){alert('Username + UID required');return;}
+if(!gmail){gmail=name.toLowerCase().replace(/[^a-z0-9]/g,'')+'@2kreborn.com';}
+if(users.find(u=>u.name===name)){alert('Username taken');return;}
+me={name:name,gmail:gmail,pass:pass,uid:uid,points:20,bio:'',owner:false,avatar:'',verified:false,lastDaily:'',subs:0,gifts:0};users.push(me);save();showApp();alert('Welcome to 2K REBORN! Your hidden Gmail: '+gmail);}
+function login(){
+let name=document.getElementById('logName').value.trim();let uid=document.getElementById('logUid').value.trim();
+let f=users.find(u=>u.name===name&&u.uid===uid);if(!f){alert('Not found. Signup first with same Username + UID.');return;}me=f;save();showApp();}
+function logout(){me=null;save();location.reload();}
+function becomeOwner(){let c=prompt('Enter Owner Code');if(c===OWNER_CODE){me.owner=true;me.verified=true;save();alert('Welcome Owner! 👑');showApp();}else alert('Wrong code');}
+let _clicks=0;document.getElementById('logoBtn').addEventListener('click',()=>{_clicks++;if(_clicks>=5){_clicks=0;becomeOwner();}});
+function checkOwnerOnline(){
+let online=localStorage.getItem('2k_owner_online')==='1';let last=parseInt(localStorage.getItem('2k_owner_last_seen')||'0');let isActive=online&&(Date.now()-last<5*60*1000);
+document.getElementById('ownerOnlineDot').textContent=isActive?'🟢':'🔴';
+let b=document.getElementById('ownerBanner');if(!b){b=document.createElement('div');b.id='ownerBanner';b.style.cssText='position:fixed;top:60px;left:10px;right:10px;z-index:9999;padding:12px;border-radius:14px;text-align:center;font-weight:700';document.body.prepend(b);}
+if(isActive){b.style.background='#dcfce7';b.style.color='#166534';b.textContent='Welcome!!! 🔥 🥳 Owner is now active ✅ 2K REBORN';}
+else{b.style.background='#fee2e2';b.style.color='#991b1b';b.textContent='Owner is not active ❌ — Owner go come soon';}
+b.style.display='block';setTimeout(()=>b.style.display='none',5000);}
+window.addEventListener('beforeunload',()=>{if(me&&me.owner)localStorage.setItem('2k_owner_online','0');});
+function contactOwnerWhatsApp(){window.open('https://wa.me/2347015686679?text=Hello%20Owner%202K%20REBORN','_blank');}
+function addEmoji(e){let t=document.getElementById('postText');t.value+=e;}
+function toggleEmoji(inputId){let p=document.getElementById('emojiPicker');p.style.display=p.style.display==='none'?'flex':'none';if(p.innerHTML===''){p.innerHTML=['😀','😂','❤️','🔥','😍','🎮','🏆','👑','💎','🌹','🥶','😎','🙏','💪'].map(em=>`<span onclick="insertEmoji('${inputId}','${em}')">${em}</span>`).join('');}}
+function insertEmoji(id,em){document.getElementById(id).value+=em;}
+function changeWallpaper(v){document.getElementById('generalChatBox').style.background=v;document.getElementById('privateChatBox').style.background=v;}
+function setDisappearing(v){disappearingSec=parseInt(v);alert('Disappearing: '+v+'s');}
+<script>
+function render(){
+if(!me)return;
+let filtered=posts.filter(p=>{if(tiktokFilter==='video')return p.img&&p.img.includes('video');if(tiktokFilter==='photo')return p.img&&!p.img.includes('video');return true;});
+document.getElementById('feedList').innerHTML=filtered.slice().reverse().map((p,i)=>{let idx=posts.indexOf(p);return `<div class="card"><b>${p.user}</b> ${p.user==='2K REBORN'?'👑':''} <span class="muted">${p.time||''}</span><p>${p.text||''}</p>${p.img?`<img class="postImg" src="${p.img}">`:''}<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="small" onclick="likePost(${idx})">❤️ ${p.likes||0}</button><button class="small" onclick="reactPost(${idx})">😍 React</button><button class="small" onclick="deletePost(${idx})">🗑️ Delete</button><button class="small" onclick="forwardPost(${idx})">↗️ Forward</button></div><input placeholder="Comment..." onkeydown="if(event.key==='Enter')commentPost(${idx},this.value,this)"><div>${(p.comments||[]).map(c=>`<div>💬 ${c}</div>`).join('')}</div></div>`}).join('')||'<div class="card">No posts yet. Be first!</div>';
+document.getElementById('leaderList').innerHTML=users.slice().sort((a,b)=>b.points-a.points).map((u,i)=>`<div style="display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #eee"><span>${i+1}. ${u.name} ${u.owner?'👑':''}</span><b>${u.points} pts</b></div>`).join('');
+document.getElementById('shoutout').innerHTML=users.length?`🏆 Top 1 Today: ${users.slice().sort((a,b)=>b.points-a.points)[0].name} - ${users.slice().sort((a,b)=>b.points-a.points)[0].points} points! ⭐ New Star`:'🏆 Top 1 Today: 2K REBORN - 20 points!';
+updateOwnerBoard();renderChat();renderPrivateList();renderStatus();
+document.getElementById('ownerStats').textContent=`${users.length} Users | ${posts.length} Posts | Earnings: ₦0`;
+document.getElementById('topPoints').textContent=(me.points||0)+' pts';
+}
+function showTikTok(f){tiktokFilter=f;render();}
+function createPost(){let t=document.getElementById('postText').value;let f=document.getElementById('postFile').files[0];if(!t&&!f)return;let done=(img)=>{posts.push({user:me.name,text:t,img:img,likes:0,comments:[],time:new Date().toLocaleString()});me.points+=5;save();render();document.getElementById('postText').value='';};if(f){let r=new FileReader();r.onload=e=>done(e.target.result);r.readAsDataURL(f);}else done('');}
+function likePost(i){posts[i].likes=(posts[i].likes||0)+1;me.points+=1;save();render();}
+function reactPost(i){let r=prompt('React: ❤️ 🔥 😂 😍 😮');if(r){posts[i].comments.push(me.name+' reacted '+r);save();render();}}
+function deletePost(i){if(posts[i].user!==me.name&&!me.owner){alert('Only owner / you fit delete');return;}posts.splice(i,1);save();render();}
+function commentPost(i,v,el){if(!v)return;posts[i].comments.push(me.name+': '+v);save();render();}
+function forwardPost(i){let to=prompt('Forward to who? Username');if(!to)return;let key=[me.name,to].sort().join('_');if(!privateChats[key])privateChats[key]=[];privateChats[key].push({user:me.name,text:'Forwarded Post: '+(posts[i].text||''),time:new Date().toLocaleTimeString()});save();alert('Forwarded to '+to);}
+function claimDaily(){let today=new Date().toDateString();if(me.lastDaily===today){document.getElementById('dailyMsg').textContent='You don claim today already.';return;}me.lastDaily=today;me.points+=10;save();render();document.getElementById('dailyMsg').textContent='✅ +10 Points added!';}
+function searchUsers(q){if(!q){document.getElementById('searchResults').innerHTML='';return;}let f=users.filter(u=>u.name.toLowerCase().includes(q.toLowerCase())||u.uid.includes(q));document.getElementById('searchResults').innerHTML=f.map(u=>`<div style="display:flex;justify-content:space-between;padding:8px;border:1px solid #eee;border-radius:10px;margin:4px 0"><span>👤 ${u.name} - ${u.uid}</span><button class="small" onclick="openPrivate('${u.name}')">💬 Chat</button></div>`).join('')||'No user found';}
+function checkMention(v){if(v.includes('@')){let f=users.filter(u=>u.name.toLowerCase().includes(v.split('@').pop().toLowerCase()));document.getElementById('mentionBox').innerHTML=f.map(u=>`<span onclick="insertMention('${u.name}')" style="background:#eee;padding:5px 10px;border-radius:15px;margin:2px;display:inline-block">@${u.name}</span>`).join('');}}
+function insertMention(n){let inp=document.getElementById('chatInput');inp.value+='@'+n+' ';document.getElementById('mentionBox').innerHTML='';}
+function showTyping(){document.getElementById('typingIndicator').textContent=me.name+' is typing...';setTimeout(()=>document.getElementById('typingIndicator').textContent='',1500);}
+function showStickerPicker(){let b=document.getElementById('stickerBox');b.style.display=b.style.display==='none'?'flex':'none';}
+function sendSticker(s){let inp=document.getElementById('chatInput');inp.value+=' '+s+' ';sendGeneral();}
+function createSticker(){let url=prompt('Paste image URL for sticker');if(url){let inp=document.getElementById('chatInput');inp.value+=' [Sticker: '+url+'] ';alert('Sticker created!');}}
+function renderChat(){let box=document.getElementById('generalChatBox');if(!box)return;box.innerHTML=chats.map((m,idx)=>{let isMe=m.user===me.name;let bg=isMe?'#DCF8C6':'#fff';let al=isMe?'margin-left:auto':'margin-right:auto';return `<div onclick="chatOptions(${idx})" style="background:${bg};${al};max-width:80%;padding:8px 10px;border-radius:10px;margin:6px 0;box-shadow:0 1px 1px #ccc;cursor:pointer"><b style="font-size:12px;color:#075E54">${m.user}</b><br>${m.text}${m.reply?`<div style="font-size:11px;background:#eee;padding:4px;border-radius:6px">↩️ ${m.reply}</div>`:''}${m.reaction?`<div>${m.reaction}</div>`:''}<div style="font-size:10px;text-align:right;color:#888">${m.time||''} ${isMe?'✓✓':''} ${starred.includes(idx)?'⭐':''}</div></div>`}).join('');box.scrollTop=box.scrollHeight;}
+function chatOptions(idx){let act=prompt('1=Reply 2=React 3=Star 4=Forward 5=Delete (type number)');if(act==='1'){replyTo=chats[idx].text;alert('Replying to: '+replyTo);}if(act==='2'){let r=prompt('React ❤️ 🔥 😂');chats[idx].reaction=r;save();renderChat();}if(act==='3'){if(!starred.includes(idx))starred.push(idx);save();renderChat();}if(act==='4'){let to=prompt('Forward to who?');if(to){let key=[me.name,to].sort().join('_');if(!privateChats[key])privateChats[key]=[];privateChats[key].push({user:me.name,text:'Forwarded: '+chats[idx].text,time:new Date().toLocaleTimeString()});save();}}if(act==='5'){if(chats[idx].user===me.name||me.owner){chats.splice(idx,1);save();renderChat();}}}
+async function loadGeneralChat(){if(supabaseClient){try{let {data}=await supabaseClient.from('general_chat').select('*').order('created_at',{ascending:true}).limit(300);if(data&&data.length){chats=data.map(d=>({user:d.user_name,text:d.text,time:new Date(d.created_at).toLocaleTimeString()}));renderChat();}}catch(e){console.log(e);}}renderChat();
+if(supabaseClient){try{supabaseClient.channel('general-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'general_chat'},payload=>{chats.push({user:payload.new.user_name,text:payload.new.text,time:new Date(payload.new.created_at).toLocaleTimeString()});save();renderChat();}).subscribe();}catch(e){}}}
+async function sendGeneral(){let inp=document.getElementById('chatInput');let t=inp.value.trim();if(!t)return;let m={user:me.name,text:t,time:new Date().toLocaleTimeString(),reply:replyTo};replyTo=null;chats.push(m);if(supabaseClient){try{await supabaseClient.from('general_chat').insert([{user_name:me.name,text:t}]);}catch(e){alert('Supabase: Make sure you don create table general_chat (user_name, text) for Supabase. Chat still save for this phone.');}}save();inp.value='';renderChat();if(disappearingSec>0){setTimeout(()=>{let ix=chats.indexOf(m);if(ix>=0){chats.splice(ix,1);save();renderChat();}},disappearingSec*1000);}}
+function showChatTab(t){document.getElementById('generalWrap').style.display=t==='general'?'flex':'none';document.getElementById('privateWrap').style.display=t==='private'?'block':'none';}
+function renderPrivateList(){document.getElementById('privateList').innerHTML=users.filter(u=>u.name!==me.name&&!blocked.includes(u.name)&&!archived.includes(u.name)).map(u=>`<div onclick="openPrivate('${u.name}')" style="padding:10px;border-bottom:1px solid #eee;cursor:pointer">${pinned.includes(u.name)?'📌 ':''}👤 ${u.name} <span style="float:right">💬</span></div>`).join('')||'No users yet';}
+function openPrivate(name){if(blocked.includes(name)){alert('You blocked this user');return;}currentPrivate=name;document.getElementById('privateHeaderName').textContent=name;document.getElementById('privateWaWrap').style.display='flex';show('chatPage',null);showChatTab('private');renderPrivateChat();}
+function closePrivateChat(){document.getElementById('privateWaWrap').style.display='none';}
+function renderPrivateChat(){let box=document.getElementById('privateChatBox');if(!currentPrivate)return;let key=[me.name,currentPrivate].sort().join('_');let arr=privateChats[key]||[];box.innerHTML=arr.map(m=>{let isMe=m.user===me.name;return `<div style="background:${isMe?'#DCF8C6':'#fff'};${isMe?'margin-left:auto':'margin-right:auto'};max-width:80%;padding:8px;border-radius:10px;margin:6px 0">${m.text}<div style="font-size:10px;text-align:right">${m.time||''} ✓✓</div></div>`}).join('');box.scrollTop=box.scrollHeight;}
+function sendPrivate(){let inp=document.getElementById('privateInput');let t=inp.value.trim();if(!t||!currentPrivate)return;let key=[me.name,currentPrivate].sort().join('_');if(!privateChats[key])privateChats[key]=[];privateChats[key].push({user:me.name,text:t,time:new Date().toLocaleTimeString()});save();inp.value='';renderPrivateChat();}
+function blockUser(){if(!currentPrivate)return;if(!blocked.includes(currentPrivate))blocked.push(currentPrivate);save();alert(currentPrivate+' blocked');renderPrivateList();}
+function unblockUser(){if(!currentPrivate)return;blocked=blocked.filter(x=>x!==currentPrivate);save();alert('Unblocked');renderPrivateList();}
+function pinChat(){if(!currentPrivate)return;if(!pinned.includes(currentPrivate))pinned.push(currentPrivate);save();renderPrivateList();}
+function archiveChat(){if(!currentPrivate)return;if(!archived.includes(currentPrivate))archived.push(currentPrivate);save();renderPrivateList();}
+function starChat(){alert('Starred this chat ⭐');}
+function saveBio(){me.bio=document.getElementById('editBio').value;save();render();alert('Bio saved');}
+function changeUid(){let v=document.getElementById('editUid').value.trim();if(!v)return;me.uid=v;save();showApp();}
+function changeAvatar(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{me.avatar=ev.target.result;save();showApp();};r.readAsDataURL(f);}
+function openSettings(){alert('Settings: Wallpaper, Block, Archive, Star, Pin, Disappearing, Forward, Reply — all dey inside Chat.');}
+function postStatus(){let f=document.getElementById('statusFile').files[0];if(!f)return;let r=new FileReader();r.onload=e=>{let arr=JSON.parse(localStorage.getItem('2k_status')||'[]');arr.push({user:me.name,img:e.target.result,time:Date.now()});localStorage.setItem('2k_status',JSON.stringify(arr));renderStatus();alert('Status posted!');};r.readAsDataURL(f);}
+function renderStatus(){let arr=JSON.parse(localStorage.getItem('2k_status')||'[]');document.getElementById('statusList').innerHTML=arr.slice().reverse().map((s,i)=>`<div onclick="viewStatus(${arr.length-1-i})" style="display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #eee;border-radius:12px;margin:4px 0;cursor:pointer"><img src="${s.img}" style="width:40px;height:40px;border-radius:50%;object-fit:cover"><span>📸 ${s.user} - Tap to view</span></div>`).join('')||'No status yet';}
+function viewStatus(i){let arr=JSON.parse(localStorage.getItem('2k_status')||'[]');let s=arr[i];if(!s)return;let w=window.open('','_blank');w.document.write(`<img src="${s.img}" style="width:100%"><h2>${s.user}</h2><p>Viewer: ${me.name} viewed this status</p>`);}
+<script>
+function startLive(){
+if(posts.filter(p=>p.user===me.name).length<1){alert('Requirements: Verified, Photo, 1 Post - Post 1 thing first, then Go Live');return;}
+liveOn=true;
+document.getElementById('liveArea').innerHTML=`
+<div style="background:#000;color:#fff;padding:12px;border-radius:14px;margin-top:10px">
+<div style="display:flex;justify-content:space-between"><span style="background:#ef4444;padding:4px 10px;border-radius:20px">🔴 LIVE</span><span>👀 Viewers: <span id="liveViewers">12</span></span><span>${me.name}</span></div>
+<div class="liveFrame" style="margin-top:10px">🎮 FREE FIRE<br>PLAYING LIVE NOW<br><span style="font-size:13px;font-weight:400">Open Free Fire for your phone, play your match.<br>Your viewers dey watch you here, dey chat + send gifts.</span></div>
+<div style="display:flex;gap:6px;margin-top:10px"><input id="liveChatInput" placeholder="Live chat... talk while you dey play Free Fire" style="flex:1"><button class="small" onclick="sendLiveChat()" style="background:#00A884">Send</button></div>
+<div id="liveChatBox" style="background:#111;padding:10px;border-radius:10px;margin-top:8px;max-height:150px;overflow:auto">💬 Live Chat: Welcome to ${me.name} Free Fire Live!</div>
+<div style="display:flex;gap:6px;margin-top:8px"><button class="small" onclick="endLive()" style="background:#ef4444">⏹️ End Live</button><button class="small" onclick="shareLive()" style="background:#111">↗️ Share Live</button></div>
+<p style="font-size:12px;color:#ccc">How to play: 1. Keep this Live open 2. Open Free Fire for your phone 3. Play your match 4. Come back here to see gifts + chat. Your phone screen no go share automatically - na you go tell viewers your gameplay, or record your screen and post am after.</p>
+</div>`;
+setInterval(()=>{let el=document.getElementById('liveViewers');if(el)el.textContent=12+Math.floor(Math.random()*20);},3000);
+}
+function sendLiveChat(){let inp=document.getElementById('liveChatInput');let t=inp.value.trim();if(!t)return;document.getElementById('liveChatBox').innerHTML+=`<div>💬 ${me.name}: ${t}</div>`;inp.value='';}
+function endLive(){liveOn=false;document.getElementById('liveArea').innerHTML='<p>Live ended. Thank you for watching!</p>';}
+function shareLive(){let txt='Watch '+me.name+' play Free Fire LIVE for 2K REBORN! 🔴';if(navigator.share){navigator.share({text:txt});}else{alert(txt);}}
+function sendGift(g){me.gifts=(me.gifts||0)+1;save();document.getElementById('giftMsg').textContent='🎁 You sent '+g+' to Live! Thank you!';let lb=document.getElementById('liveChatBox');if(lb)lb.innerHTML+=`<div>🎁 ${me.name} sent ${g}</div>`;}
+function subscribeLive(){me.subs=(me.subs||0)+1;save();document.getElementById('giftMsg').textContent='⭐ Subscribed! Thank you!';}
+function updateOwnerBoard(){
+let nav=document.getElementById('ownerNavBtn');if(nav)nav.style.display=(me&&me.owner)?'block':'none';
+let card=document.getElementById('ownerCard');if(card)card.style.display=(me&&me.owner)?'block':'none';
+if(!me||!me.owner)return;
+document.getElementById('ownerBoard').innerHTML=`<p>Real Total Users: ${users.length}</p><p>Total Posts: ${posts.length}</p><p>Earnings: ₦0 | Total Gifts: ${users.reduce((a,u)=>a+(u.gifts||0),0)} | Total Subs: ${users.reduce((a,u)=>a+(u.subs||0),0)}</p><p>All Users Gmail (Hidden - Owner Only):</p>`+users.map(u=>`<div style="padding:8px;border:1px solid #eee;border-radius:10px;margin:4px 0"><b>${u.name}</b> - UID: ${u.uid} - Gmail: ${u.gmail||'hidden'} - ${u.points} pts <button class="small" onclick="banUser('${u.name}')">Ban</button><button class="small" onclick="makeVerified('${u.name}')" style="background:#16a34a">Verify</button></div>`).join('');
+}
+function makeVerified(n){let u=users.find(x=>x.name===n);if(u)u.verified=true;save();render();}
+function banUser(n){if(!me.owner)return;users=users.filter(u=>u.name!==n);save();render();alert(n+' banned');}
+function broadcast(){let t=document.getElementById('broadcastText').value;if(!t)return;chats.push({user:'👑 OWNER '+me.name,text:'📣 '+t,time:new Date().toLocaleTimeString()});save();renderChat();alert('Broadcast sent');}
+function playPhonk(){let a=document.getElementById('phonkAudio');if(!a){a=document.createElement('audio');a.id='phonkAudio';a.src='https://example.com/phonk.mp3';document.body.appendChild(a);}a.play();}
+function stopPhonk(){let a=document.getElementById('phonkAudio');if(a)a.pause();}
+setTimeout(()=>{let p=document.getElementById('phonkPopup');if(p)p.style.display='block';},3000);
+setInterval(()=>{if(me)checkOwnerOnline();},60000);
+if(me){showApp();}else{document.getElementById('bottomNav').style.display='none';document.getElementById('ownerNavBtn').style.display='none';}
+</script></body></html>
