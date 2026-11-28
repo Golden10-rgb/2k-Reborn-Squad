@@ -310,5 +310,66 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
+<script> // 2K REBORN - EMOJI + STICKERS - NO VISIBLE LABEL
+(function(){
+  var EMOJIS = Array.from("😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗😙😚😋😛😜🤪😝🤑🤗🤭🤫🤔🤐🤨😐😑😶🙄😬😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳😎🤓🧐😕😟🙁☹️😮😯😲😳🥺😢😭😤😡😠🤬😈👿💀☠️🤡👹👺👻👽👾🤖💋💯💥💫💦💨🕳️👋🤚🖐️✋🖖👌🤌🤏✌️🤞🤟🤘🤙👈👉👆👇☝️👍👎✊👊🤛🤜👏🙌👐🤲🤝🙏💪❤️🧡💛💚💙💜🖤🤍🤎💔💕💞💓💗💖💘💝🔥⭐🌟✨⚡🎉🎊🎁🎈🎮🎲🎯🏆🥇⚽🏀🎤🎧🎵🎶👑💎");
+  var stickers = [];
+  try{ stickers = JSON.parse(localStorage.getItem('myStickers')||'[]'); }catch(e){ stickers=[]; }
+  var activeInput = null;
+  document.addEventListener('focusin', function(e){
+    if(e.target.tagName==='TEXTAREA' || (e.target.tagName==='INPUT' && e.target.type==='text')) activeInput = e.target;
+  });
+  var bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;bottom:72px;left:10px;right:10px;z-index:9999;background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.2);padding:8px;display:flex;gap:8px;align-items:center';
+  bar.innerHTML = '<button id="emojiBtn" style="font-size:24px;background:#f3f4f6;border:0;border-radius:10px;padding:6px 10px">😀</button><button id="stickerBtn" style="font-size:20px;background:#ede9fe;border:0;border-radius:10px;padding:6px 10px">🏷️</button>';
+  document.body.appendChild(bar);
+  var panel = document.createElement('div');
+  panel.style.cssText = 'position:fixed;bottom:125px;left:10px;right:10px;z-index:10000;background:#fff;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.3);padding:12px;display:none;max-height:320px;overflow:auto';
+  document.body.appendChild(panel);
+  document.getElementById('emojiBtn').onclick = function(){
+    panel.style.display='block';
+    panel.innerHTML = '<div style="display:flex;justify-content:space-between"><b>Emojis</b><button id="closeEmoji">Close</button></div><div id="emojiGrid" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:26px"></div>';
+    document.getElementById('closeEmoji').onclick = function(){ panel.style.display='none'; };
+    var grid = document.getElementById('emojiGrid');
+    EMOJIS.forEach(function(em){
+      var s=document.createElement('span'); s.textContent=em; s.style.cursor='pointer';
+      s.onclick=function(){ if(activeInput){ activeInput.value += em; activeInput.focus(); } else { alert('Tap inside Chat or Post box first, then tap an emoji'); } };
+      grid.appendChild(s);
+    });
+  };
+  document.getElementById('stickerBtn').onclick = function(){
+    panel.style.display='block';
+    panel.innerHTML = '<div style="display:flex;justify-content:space-between"><b>Stickers</b><button id="closeStk">Close</button></div><input type="file" id="stkFile" accept="image/*" style="margin:8px 0"><div id="stkGrid" style="display:flex;flex-wrap:wrap;gap:8px"></div>';
+    document.getElementById('closeStk').onclick = function(){ panel.style.display='none'; };
+    var grid = document.getElementById('stkGrid');
+    function renderStk(){
+      grid.innerHTML='';
+      if(stickers.length===0) grid.innerHTML='<span style="font-size:12px">No sticker yet.</span>';
+      stickers.forEach(function(src){
+        var img=document.createElement('img'); img.src=src; img.style.cssText='width:70px;height:70px;object-fit:cover;border-radius:12px;border:2px solid #ede9fe;cursor:pointer';
+        img.onclick=function(){ if(activeInput){ activeInput.value += ' [sticker] '; activeInput.focus(); alert('Sticker picked!'); } else { alert('Tap inside Chat or Post box first'); } };
+        grid.appendChild(img);
+      });
+    }
+    renderStk();
+    document.getElementById('stkFile').onchange=function(e){
+      var f=e.target.files[0]; if(!f) return;
+      var r=new FileReader();
+      r.onload=function(ev){
+        var img=new Image();
+        img.onload=function(){
+          var c=document.createElement('canvas'); c.width=200; c.height=200;
+          var ctx=c.getContext('2d'); ctx.beginPath(); ctx.arc(100,100,100,0,Math.PI*2); ctx.clip(); ctx.drawImage(img,0,0,200,200);
+          var data=c.toDataURL('image/png');
+          stickers.push(data); localStorage.setItem('myStickers', JSON.stringify(stickers));
+          renderStk(); alert('Sticker created!');
+        };
+        img.src=ev.target.result;
+      };
+      r.readAsDataURL(f);
+    };
+  };
+})();
+</script>
 </body>
 </html>   
