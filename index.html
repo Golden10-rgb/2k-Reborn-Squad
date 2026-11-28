@@ -310,7 +310,7 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// FINAL MERGED - WHATSAPP EXACT: EMOJI + STICKERS + DELETE + TYPING + REACTION
+<script>// FINAL MERGED - WHATSAPP EXACT - ENGLISH ONLY - TYPING WILL NOT BLOCK
 (function(){
   function getUser(){
     try{ var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null'); if(u) return u; }catch(e){}
@@ -321,24 +321,44 @@ setInterval(loadPostsFromSupabase, 10000);
   function getMyStickers(){ try{ return JSON.parse(localStorage.getItem(myKey)||'[]'); }catch(e){ return []; } }
   function saveMyStickers(l){ localStorage.setItem(myKey, JSON.stringify(l)); }
 
-  // ===== 1+2. EMOJI + STICKER PANEL =====
+  function closePanels(){
+    var p=document.getElementById('waStickerPanel'); if(p) p.style.display='none';
+    var b=document.getElementById('waBackdrop'); if(b) b.style.display='none';
+    var r=document.getElementById('waReactionPopup'); if(r) r.remove();
+    var rp=document.getElementById('waReactionPicker'); if(rp) rp.remove();
+  }
+  function getBackdrop(){
+    var b=document.getElementById('waBackdrop');
+    if(!b){
+      b=document.createElement('div'); b.id='waBackdrop';
+      b.style.cssText='display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:9998;';
+      b.onclick=closePanels;
+      document.body.appendChild(b);
+    }
+    return b;
+  }
+
+  // ===== EMOJI + STICKERS =====
   function makePanel(input){
     if(document.getElementById('waStickerPanel')) return document.getElementById('waStickerPanel');
     var p=document.createElement('div'); p.id='waStickerPanel';
-    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top:1px solid #ddd;height:320px;flex-direction:column;';
-    p.innerHTML='<div style="display:flex;gap:6px;padding:10px;overflow-x:auto;border-bottom:1px solid #eee;align-items:center;">'+
-      '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:6px 12px;border-radius:20px;flex-shrink:0;">😀 Emoji</button>'+
-      '<button id="tabMine" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;flex-shrink:0;">My Stickers (Private)</button>'+
-      '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:6px 12px;border-radius:20px;flex-shrink:0;">+ Create</button>'+
-      '<span style="margin-left:auto;font-size:20px;cursor:pointer;" onclick="document.getElementById(\'waStickerPanel\').style.display=\'none\'">✕</span></div>'+
-    '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px;overflow-y:auto;"></div>'+
-    '<div id="waCreateArea" style="display:none;padding:14px;text-align:center;">'+
-      '<p style="font-size:13px;color:#555;">Your stickers are PRIVATE. Nobody go see am until you send am to chat or share pack.</p>'+
+    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -4px 20px rgba(0,0,0,0.15);height:340px;flex-direction:column;overflow:hidden;';
+    p.innerHTML=
+    '<div style="width:40px;height:5px;background:#ddd;border-radius:10px;margin:8px auto 4px;"></div>'+
+    '<div style="display:flex;gap:6px;padding:8px 10px;overflow-x:auto;border-bottom:1px solid #eee;align-items:center;">'+
+      '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:7px 14px;border-radius:20px;flex-shrink:0;">Emoji</button>'+
+      '<button id="tabMine" style="border:none;background:#f0f2f5;padding:7px 14px;border-radius:20px;flex-shrink:0;">My Stickers</button>'+
+      '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:7px 14px;border-radius:20px;flex-shrink:0;">+ Create</button>'+
+      '<button id="waCloseBtn" style="margin-left:auto;border:none;background:#f0f2f5;width:30px;height:30px;border-radius:50%;cursor:pointer;flex-shrink:0;">X</button></div>'+
+    '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px;overflow-y:auto;flex:1;"></div>'+
+    '<div id="waCreateArea" style="display:none;padding:16px;text-align:center;">'+
+      '<p style="font-size:13px;color:#555;">Create a sticker from your photo.</p>'+
       '<input type="file" id="waUpload" accept="image/*" style="display:none;">'+
-      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:10px 18px;border-radius:20px;">Choose Picture To Make Sticker</button>'+
-      '<br><br><button id="waSharePack" style="background:#111;color:#fff;border:none;padding:8px 16px;border-radius:20px;">Share My Sticker Pack</button>'+
+      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:11px 20px;border-radius:22px;">Choose Photo</button>'+
+      '<br><br><button id="waSharePack" style="background:#111;color:#fff;border:none;padding:9px 18px;border-radius:20px;">Share Sticker Pack</button>'+
       '<p id="waCreateMsg" style="font-size:12px;color:green;"></p></div>';
     document.body.appendChild(p);
+    p.querySelector('#waCloseBtn').onclick=closePanels;
     p.querySelector('#tabEmoji').onclick=function(){ showEmoji(); };
     p.querySelector('#tabMine').onclick=function(){ showMine(); };
     p.querySelector('#tabCreate').onclick=function(){ document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
@@ -346,33 +366,35 @@ setInterval(loadPostsFromSupabase, 10000);
     p.querySelector('#waUpload').onchange=function(e){
       var file=e.target.files[0]; if(!file) return;
       var reader=new FileReader();
-      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved! Only you go see am.'; showMine(); };
+      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved.'; showMine(); };
       reader.readAsDataURL(file);
     };
-    p.querySelector('#waSharePack').onclick=function(){ var list=getMyStickers(); if(!list.length){ alert('You never create sticker yet'); return; } sendStickerToChat(list[0], true); };
+    p.querySelector('#waSharePack').onclick=function(){ var list=getMyStickers(); if(!list.length){ alert('Create a sticker first'); return; } sendStickerToChat(list[0]); };
     return p;
+  }
+  function openPanel(input, tab){
+    var p=makePanel(input);
+    getBackdrop().style.display='block';
+    p.style.display='flex';
+    if(tab==='mine') showMine(); else showEmoji();
   }
   function showEmoji(){
     document.getElementById('waCreateArea').style.display='none';
     var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
-    var emojis = Array.from("😂🤣😅😍😎🥳🔥💯👍👏🙏😭😡🥺❤️😘🌹🎉👑💪😈✨🥰😋😊🤔😇🙌");
-    grid.innerHTML = emojis.map(function(c){ return '<div class="wa-emo" style="font-size:34px;text-align:center;cursor:pointer;">'+c+'</div>'; }).join('');
+    var emojis = Array.from("😀😃😄😁😆😅😂🤣😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊❤️🧡💛💚💙💜🖤🤍🤎💔❣️💕💞💓💗💖💘💝✨⭐🌟💫🔥💯🎉🎊🎈🎁🏆🥇👑💪👍👎👏🙌🙏👋🤚✋👌✌️🤞🤟🤘👊✊🤛🤜");
+    grid.innerHTML = emojis.map(function(c){ return '<div class="wa-emo" style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
     grid.querySelectorAll('.wa-emo').forEach(function(el){ el.onclick=function(){ var inp=document.querySelector('input[placeholder*="Message"]'); if(inp){ inp.value+=el.textContent; inp.focus(); } }; });
   }
   function showMine(){
     document.getElementById('waCreateArea').style.display='none';
     var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
     var list=getMyStickers();
-    if(!list.length){ grid.innerHTML='<p style="grid-column:1/5;text-align:center;color:#777;font-size:13px;">You never create sticker yet.<br>Go Create tab.<br><b>Private - nobody fit see am.</b></p>'; return; }
-    grid.innerHTML = list.map(function(src,i){ return '<div style="position:relative;"><img src="'+src+'" style="width:100%;height:80px;object-fit:cover;border-radius:10px;cursor:pointer;"><span data-del="'+i+'" style="position:absolute;top:2px;right:2px;background:red;color:#fff;border-radius:50%;width:18px;height:18px;text-align:center;font-size:12px;cursor:pointer;">x</span></div>'; }).join('');
-    grid.querySelectorAll('img').forEach(function(img){ img.onclick=function(){ sendStickerToChat(img.src, false); }; });
+    if(!list.length){ grid.innerHTML='<p style="grid-column:1/7;text-align:center;color:#777;font-size:13px;padding:20px;">No stickers yet.<br>Tap + Create to make one.</p>'; return; }
+    grid.innerHTML = list.map(function(src,i){ return '<div style="position:relative;"><img src="'+src+'" style="width:100%;height:70px;object-fit:cover;border-radius:10px;cursor:pointer;"><span data-del="'+i+'" style="position:absolute;top:2px;right:2px;background:#ff3b30;color:#fff;border-radius:50%;width:18px;height:18px;text-align:center;font-size:12px;cursor:pointer;">x</span></div>'; }).join('');
+    grid.querySelectorAll('img').forEach(function(img){ img.onclick=function(){ sendStickerToChat(img.src); }; });
     grid.querySelectorAll('[data-del]').forEach(function(d){ d.onclick=function(e){ e.stopPropagation(); var l2=getMyStickers(); l2.splice(parseInt(d.getAttribute('data-del')),1); saveMyStickers(l2); showMine(); }; });
   }
-  function sendStickerToChat(src, isPack){
-    alert(isPack ? 'Sticker Pack sent! Now others fit see am.' : 'Sticker sent! Now others fit see am. Before, only you see am.');
-    document.getElementById('waStickerPanel').style.display='none';
-    try{ if(window.sendMessage) window.sendMessage(src); }catch(e){}
-  }
+  function sendStickerToChat(src){ closePanels(); try{ if(window.sendMessage) window.sendMessage(src); }catch(e){} }
   function fixBar(){
     var input=document.querySelector('input[placeholder*="Message"]');
     if(!input || input.dataset.fixed) return; input.dataset.fixed='1';
@@ -384,32 +406,29 @@ setInterval(loadPostsFromSupabase, 10000);
     input.style.cssText='flex:1 !important;border:none !important;outline:none !important;background:transparent !important;padding:10px 4px !important;min-width:0 !important;';
     input.placeholder='Message';
     var emo=document.createElement('span'); emo.textContent='😀'; emo.style.cssText='font-size:24px;cursor:pointer;flex-shrink:0;';
-    emo.onclick=function(){ var p=makePanel(input); p.style.display='flex'; showEmoji(); };
+    emo.onclick=function(){ openPanel(input,'emoji'); };
     pill.insertBefore(emo, input);
     var st=document.createElement('span'); st.textContent='🎁'; st.style.cssText='font-size:22px;cursor:pointer;flex-shrink:0;';
-    st.onclick=function(){ var p=makePanel(input); p.style.display='flex'; showMine(); };
+    st.onclick=function(){ openPanel(input,'mine'); };
     pill.appendChild(st);
-    // Typing listener
     input.addEventListener('input', function(){ showTyping(getUser()); });
   }
 
-  // ===== 3. DELETE LIKE WHATSAPP =====
+  // ===== DELETE =====
   var oldPrompt = window.prompt;
   window.prompt = function(msg, def){
-    if(msg && msg.toLowerCase().includes('delete')){ showWhatsAppDelete(); return null; }
+    if(msg && msg.toLowerCase().includes('delete')){ showDelete(); return null; }
     return oldPrompt(msg, def);
   };
-  function showWhatsAppDelete(){
+  function showDelete(){
     if(document.getElementById('waDeleteModal')){ document.getElementById('waDeleteModal').style.display='flex'; return; }
     var m=document.createElement('div'); m.id='waDeleteModal';
     m.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;';
     m.innerHTML='<div style="background:#fff;width:100%;max-width:320px;border-radius:14px;overflow:hidden;">'+
-      '<div style="padding:16px;text-align:center;font-size:15px;color:#333;border-bottom:1px solid #eee;">Delete this message?</div>'+
-      '<div id="waDelMe" style="padding:14px;text-align:center;color:#25D366;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">🗑️ Delete for me</div>'+
-      '<div style="padding:4px 16px;text-align:center;font-size:11px;color:#888;">Only you go no see am again</div>'+
-      '<div id="waDelAll" style="padding:14px;text-align:center;color:#ff3b30;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">🗑️ Delete for everyone</div>'+
-      '<div style="padding:4px 16px;text-align:center;font-size:11px;color:#888;">Everybody for group go no see am</div>'+
-      '<div id="waDelCancel" style="padding:14px;text-align:center;color:#333;font-size:16px;cursor:pointer;background:#f0f2f5;">Cancel</div></div>';
+      '<div style="padding:16px;text-align:center;font-size:15px;border-bottom:1px solid #eee;">Delete this message?</div>'+
+      '<div id="waDelMe" style="padding:14px;text-align:center;color:#25D366;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">Delete for me</div>'+
+      '<div id="waDelAll" style="padding:14px;text-align:center;color:#ff3b30;font-size:16px;cursor:pointer;border-bottom:1px solid #eee;">Delete for everyone</div>'+
+      '<div id="waDelCancel" style="padding:14px;text-align:center;font-size:16px;cursor:pointer;background:#f0f2f5;">Cancel</div></div>';
     document.body.appendChild(m);
     m.querySelector('#waDelMe').onclick=function(){ doDelete('me'); };
     m.querySelector('#waDelAll').onclick=function(){ doDelete('everyone'); };
@@ -419,54 +438,55 @@ setInterval(loadPostsFromSupabase, 10000);
   function doDelete(type){
     var modal=document.getElementById('waDeleteModal'); if(modal) modal.style.display='none';
     window.lastDeleteChoice = type;
-    try{ if(window.deleteMessage) window.deleteMessage(type); else if(window.handleDelete) window.handleDelete(type); }catch(e){}
-    var toast=document.createElement('div');
-    toast.textContent = type==='me' ? 'Message deleted for you' : 'Message deleted for everyone';
-    toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;z-index:10001;';
-    document.body.appendChild(toast); setTimeout(function(){ toast.remove(); }, 2000);
+    try{ if(window.deleteMessage) window.deleteMessage(type); }catch(e){}
     var selected=document.querySelector('[data-selected="true"], .selected-message');
     if(selected && type==='me'){ selected.style.display='none'; }
-    if(selected && type==='everyone'){ selected.innerHTML='<i style="color:#888;font-size:13px;">🚫 This message was deleted</i>'; }
+    if(selected && type==='everyone'){ selected.innerHTML='<i style="color:#888;font-size:13px;">This message was deleted</i>'; }
   }
 
-  // ===== 4. TYPING =====
+  // ===== TYPING - FIXED, WILL NOT BLOCK CHAT BOX =====
   function showTyping(user){
     var input=document.querySelector('input[placeholder*="Message"]'); if(!input) return;
     var bar=document.getElementById('typingBar');
     if(!bar){
       bar=document.createElement('div'); bar.id='typingBar';
-      bar.style.cssText='display:none;align-items:center;gap:8px;padding:6px 12px;font-size:13px;color:#555;background:#f0f2f5;';
-      bar.innerHTML='<img id="typingAvatar" style="width:28px;height:28px;border-radius:50%;background:#ddd;object-fit:cover;"><span id="typingText"></span>';
-      input.closest('div').parentElement.insertBefore(bar, input.closest('div'));
+      // Small, 1 line, above input, pointer-events none so it never blocks typing
+      bar.style.cssText='display:none;align-items:center;gap:8px;padding:5px 12px;font-size:12px;color:#666;background:#f0f2f5;border-top:1px solid #e5e5e5;min-height:28px;max-height:28px;overflow:hidden;pointer-events:none;position:relative;z-index:1;';
+      bar.innerHTML='<img id="typingAvatar" style="width:22px;height:22px;border-radius:50%;background:#ddd;object-fit:cover;flex-shrink:0;"><span id="typingText" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>';
+      // Place it directly above the input bar
+      var container = input.parentElement.parentElement;
+      if(container) container.insertBefore(bar, input.parentElement);
+      else input.parentElement.insertBefore(bar, input);
     }
+    // Keep it fixed in place every time
+    bar.style.display='flex';
+    bar.style.pointerEvents='none';
     bar.querySelector('#typingAvatar').src = user.avatar||'https://via.placeholder.com/28';
     var isOw = user.isOwner || (user.username||'').toLowerCase().includes('2k reborn');
     var badge = isOw ? ' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>' : '';
     bar.querySelector('#typingText').innerHTML='<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
-    bar.style.display='flex';
     clearTimeout(window._tt); window._tt=setTimeout(function(){ bar.style.display='none'; },3000);
   }
 
-  // ===== 5. REACTION - HOLD + POPUP + PLUS =====
+  // ===== REACTION - ONLY ON LONG PRESS =====
   function makeReactionPopup(targetMsg){
     var old=document.getElementById('waReactionPopup'); if(old) old.remove();
-    var oldP=document.getElementById('waReactionPicker'); if(oldP) oldP.remove();
     var pop=document.createElement('div'); pop.id='waReactionPopup';
-    pop.style.cssText='position:fixed;z-index:10002;background:#fff;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,0.25);padding:8px 10px;display:flex;gap:4px;align-items:center;';
+    pop.style.cssText='position:fixed;z-index:10002;background:#fff;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,0.25);padding:8px 10px;display:flex;gap:2px;align-items:center;';
     var quick=Array.from("❤️😂😮😢🙏👍🔥");
     quick.forEach(function(e){
       var s=document.createElement('span'); s.textContent=e;
-      s.style.cssText='font-size:28px;cursor:pointer;padding:2px;';
-      s.onclick=function(){ addReaction(targetMsg, e); pop.remove(); };
+      s.style.cssText='font-size:28px;cursor:pointer;padding:4px;';
+      s.onclick=function(ev){ ev.stopPropagation(); addReaction(targetMsg, e); pop.remove(); };
       pop.appendChild(s);
     });
     var plus=document.createElement('span'); plus.textContent='+';
     plus.style.cssText='width:32px;height:32px;background:#f0f2f5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;';
-    plus.onclick=function(){ showFullPicker(targetMsg, pop); };
+    plus.onclick=function(e){ e.stopPropagation(); showFullPicker(targetMsg, pop); };
     pop.appendChild(plus);
     document.body.appendChild(pop);
     var r=targetMsg.getBoundingClientRect();
-    var top=r.top-55; if(top<10) top=r.bottom+10;
+    var top=r.top-58; if(top<10) top=r.bottom+10;
     pop.style.left=Math.max(10, Math.min(window.innerWidth-pop.offsetWidth-10, r.left+10))+'px';
     pop.style.top=top+'px';
     setTimeout(function(){
@@ -478,12 +498,12 @@ setInterval(loadPostsFromSupabase, 10000);
   function showFullPicker(targetMsg, pop){
     if(document.getElementById('waReactionPicker')) return;
     var picker=document.createElement('div'); picker.id='waReactionPicker';
-    picker.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10003;background:#fff;border-top:1px solid #ddd;height:300px;padding:12px;overflow-y:auto;';
-    picker.innerHTML='<div style="display:flex;justify-content:space-between;"><b>Choose reaction</b><span id="waClosePicker" style="font-size:20px;cursor:pointer;">✕</span></div><div id="waFullGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px;"></div>';
+    picker.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:10003;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;height:320px;padding:12px;overflow-y:auto;';
+    picker.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;"><b>Choose a reaction</b><span id="waClosePicker" style="font-size:20px;cursor:pointer;background:#f0f2f5;width:30px;height:30px;border-radius:50%;text-align:center;line-height:30px;">X</span></div><div id="waFullGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px;"></div>';
     document.body.appendChild(picker);
-    var all=Array.from("❤️🧡💛💚💙💜🖤🤍🤎😂🤣😅😍😘🥰😎😭😡🥺😮😲😳🙏👍👎👏🙌🔥💯🎉✨🌹👑💪😈🥳😋😇🤔😴");
+    var all=Array.from("❤️🧡💛💚💙💜🖤🤍🤎💔💕💞💓💗💖💘💝😂🤣😅😍😘🥰😎😭😡🥺😮😲😳🙏👍👎👏🙌🔥💯🎉✨🌹👑💪😈🥳😋😇🤔😴😀😃😄😁😆😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊");
     var grid=picker.querySelector('#waFullGrid');
-    grid.innerHTML=all.map(function(c){ return '<div style="font-size:32px;text-align:center;cursor:pointer;">'+c+'</div>'; }).join('');
+    grid.innerHTML=all.map(function(c){ return '<div style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
     grid.querySelectorAll('div').forEach(function(el){ el.onclick=function(){ addReaction(targetMsg, el.textContent); picker.remove(); pop.remove(); }; });
     picker.querySelector('#waClosePicker').onclick=function(){ picker.remove(); };
   }
@@ -492,23 +512,18 @@ setInterval(loadPostsFromSupabase, 10000);
     var badge=document.createElement('div'); badge.className='wa-my-reaction'; badge.textContent=emoji;
     badge.style.cssText='position:absolute;bottom:-10px;left:10px;background:#fff;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,0.2);padding:2px 6px;font-size:16px;z-index:5;';
     msgEl.style.position='relative'; msgEl.appendChild(badge);
-    try{ if(window.supabase) window.supabase.channel('reactions').send({type:'broadcast',event:'reaction',payload:{emoji:emoji}}); }catch(e){}
   }
   function bindReactions(){
-    var msgs=document.querySelectorAll('div');
+    var msgs=document.querySelectorAll('[class*="message"], [class*="bubble"], [data-message-id]');
     msgs.forEach(function(m){
       if(m.dataset.reactionBound) return;
-      if(m.textContent && m.textContent.length>1 && m.textContent.length<500 && m.children.length<5){
-        var s=getComputedStyle(m);
-        if(s.backgroundColor!=='rgba(0, 0, 0, 0)' || m.className.toLowerCase().includes('message') || m.className.toLowerCase().includes('bubble')){
-          m.dataset.reactionBound='1'; var timer=null;
-          m.addEventListener('touchstart', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); }, {passive:true});
-          m.addEventListener('touchend', function(){ clearTimeout(timer); });
-          m.addEventListener('mousedown', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); });
-          m.addEventListener('mouseup', function(){ clearTimeout(timer); });
-          m.addEventListener('dblclick', function(e){ e.preventDefault(); makeReactionPopup(m); });
-        }
-      }
+      m.dataset.reactionBound='1';
+      var timer=null;
+      m.addEventListener('touchstart', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); }, {passive:true});
+      m.addEventListener('touchend', function(){ clearTimeout(timer); });
+      m.addEventListener('touchmove', function(){ clearTimeout(timer); });
+      m.addEventListener('mousedown', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); });
+      m.addEventListener('mouseup', function(){ clearTimeout(timer); });
     });
   }
 
