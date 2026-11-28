@@ -326,6 +326,24 @@ render();
 loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
+function ownerQuickLogin(){
+  var code = prompt('Enter Owner Code');
+  if(code!=='2K-OWNER-2026-SECRET-99'){ alert('Wrong Owner Code'); return; }
+  var found = users.find(u=>u.name.toLowerCase()==='2k reborn');
+  if(found){
+    var p = prompt('Enter your password');
+    if(p && found.pass!==p){ alert('Wrong password'); return; }
+    me=found; me.owner=true; me.verified=true;
+  } else {
+    var np = prompt('Create NEW owner password:');
+    if(!np) return;
+    me={name:'2K REBORN', uid:'12345678', ign:'Player', pass:np, game:'Free Fire', bio:'', photo:'', proof:'', owner:true, country:'Nigeria', lang:'en', points:0, verified:true, uidHistory:[], postPrivacy:'everyone', passLock:'off', blockedUsers:[], about:'Hey there!'};
+    users.push(me);
+  }
+  save(); showApp(); show('feedPage', document.querySelector('nav button'));
+  alert('Welcome Owner 2K REBORN!');
+}  
+  setTimeout(()=>{let b=document.createElement('button');b.innerText='👑 Owner Quick Login';b.style.cssText='background:#111;color:#fff;padding:14px;width:100%;border-radius:12px;font-weight:700;margin:10px 0';b.onclick=()=>ownerQuickLogin();document.body.prepend(b);},1000);
 </script>
 </body>
 </html>                                                                                                                                                                                                                                                                                                                                                                     
