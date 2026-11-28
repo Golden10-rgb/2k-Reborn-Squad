@@ -186,8 +186,38 @@ function liveCheckUID(val){let el=document.getElementById('uidLiveCheck');if(!va
 function liveCheckEditUID(val){let el=document.getElementById('editUidCheck');if(!val){el.innerText='';return;}let r=isValidUID(val,true);el.innerText=r.msg;el.style.color=r.ok?'#16a34a':'#dc2626';}
 function getBadges(name){let s=getScores().find(x=>x.name==name);let b=[];if(!s)return b;if(s.points>=100)b.push('🏆 Game Master');else if(s.points>=50)b.push('⭐ Rising Star');else if(s.points>=10)b.push('✨ New Star');if(s.posts>=3)b.push('🎨 Creator');if(s.comments>=5)b.push('💬 Chat King');return b;}
 function save(){try{localStorage.setItem('final_users',JSON.stringify(users));localStorage.setItem('final_posts',JSON.stringify(posts));localStorage.setItem('final_chats',JSON.stringify(chats));localStorage.setItem('final_status',JSON.stringify(statuses));localStorage.setItem('final_me',JSON.stringify(me));localStorage.setItem('live_sessions',JSON.stringify(liveSessions));}catch(e){}syncToSupabase();syncPostToSupabase();}
-async function syncPostToSupabase(){try{if(!posts.length)return;let p=posts[0];if(p._synced)return;await supabaseClient.from('posts').insert([{name:p.name,uid:p.uid,photo:p.photo||'',text:p.text||'',type:p.type||'',media:(p.media||'').slice(0,2000),media_type:p.mediaType||'',likes:p.likes||0,country:p.country||'',lang:p.lang||'en'}]);p._synced=true;}catch(e){}}
-async function loadPostsFromSupabase(){try{let r=await supabaseClient.from('posts').select('*').order('created_at',{ascending:false}).limit(50);if(r.data){r.data.forEach(x=>{if(!posts.find(y=>y.text===x.text&&y.name===x.name)){posts.push({name:x.name,uid:x.uid,photo:x.photo,text:x.text,type:x.type,media:x.media,mediaType:x.media_type,likes:x.likes||0,likedBy:[],comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:false,country:x.country,lang:x.lang,_synced:true});}});render();}}catch(e){}}
+async function syncPostToSupabase(){
+  try{
+    if(!posts.length) return;
+    for(let p of posts){
+      if(p._synced) continue;
+      let r = await supabaseClient.from('posts').insert([{
+        name:p.name, uid:p.uid, photo:p.photo||'',
+        text:p.text||'', type:p.type||'',
+        media:(p.media||'').slice(0,2000),
+        media_type:p.mediaType||'',
+        likes:p.likes||0, country:p.country||'', lang:p.lang||'en'
+      }]);
+      if(r.error){ alert('Supabase error: '+r.error.message); console.log(r.error); return; }
+      p._synced = true;
+    }
+    save();
+  }catch(e){ alert('Sync fail: '+e.message); }
+}
+async function loadPostsFromSupabase(){
+  try{
+    let r = await supabaseClient.from('posts').select('*').order('created_at',{ascending:false}).limit(50);
+    if(r.error){ console.log('LOAD ERROR:', r.error); return; }
+    if(r.data){
+      r.data.forEach(x=>{
+        if(!posts.find(y=>y.text===x.text && y.name===x.name)){
+          posts.push({name:x.name,uid:x.uid,photo:x.photo,text:x.text,type:x.type,media:x.media,mediaType:x.media_type,likes:x.likes||0,likedBy:[],comments:[],reactions:{fire:0,love:0,laugh:0,wow:0},owner:false,country:x.country,lang:x.lang,_synced:true});
+        }
+      });
+      render();
+    }
+  }catch(e){ console.log('LOAD FAIL', e); }
+}
 function fileToUrl(f,cb){let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);}
 function show(id,btn){if(!me){showAuthOnly();return;}if(id==='ownerPage'&&!(me&&me.owner)){alert('👑 Only Owner can see this.');return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');render();}
 function showAuthOnly(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('authPage').classList.add('active');document.getElementById('mainHeader').style.display='none';document.getElementById('bottomNav').classList.remove('show');}
