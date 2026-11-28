@@ -6,17 +6,21 @@
 <title>2K REBORN FREE FIRE COMMUNITY</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f2f2f7;color:#111;padding-bottom:90px}
-header{position:sticky;top:0;z-index:10;background:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee}
-.logo{font-weight:900;font-size:22px;cursor:pointer;user-select:none;line-height:1}
-.logo span{color:#7c3aed}
-.logo small{display:block;font-size:10px;letter-spacing:1px;color:#666;font-weight:700;margin-top:2px}
-.top-right{font-size:13px;font-weight:700;text-align:right}
+body{font-family:Arial,sans-serif;color:#fff;padding-bottom:95px;
+background:#0f0f1e;
+background-image:radial-gradient(circle at 10% 20%, rgba(255,255,255,.25) 1px, transparent 1px),radial-gradient(circle at 80% 10%, rgba(255,255,255,.3) 1px, transparent 1px),radial-gradient(circle at 30% 80%, rgba(255,215,0,.35) 1px, transparent 1px),radial-gradient(circle at 70% 70%, rgba(255,255,255,.2) 1px, transparent 1px),linear-gradient(180deg,#14142b 0%, #1a1a3a 50%, #0f0f1e 100%);
+background-size:120px 120px, 90px 90px, 150px 150px, 110px 110px, cover;
+background-attachment:fixed}
+header{position:sticky;top:0;z-index:10;background:rgba(20,20,43,.95);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2e2e55;backdrop-filter:blur(5px)}
+.logo{font-weight:900;font-size:22px;cursor:pointer;user-select:none;line-height:1;color:#fff}
+.logo span{color:#a78bfa}
+.logo small{display:block;font-size:10px;letter-spacing:1px;color:#c4b5fd;font-weight:700;margin-top:2px}
+.top-right{font-size:13px;font-weight:700;text-align:right;color:#fff}
 .dot{width:10px;height:10px;background:#22c55e;border-radius:50%;display:inline-block;margin-left:6px}
-.card{background:#fff;margin:12px;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:15px;background:#fff}
-button{width:100%;padding:13px;border:none;border-radius:12px;background:#7c3aed;color:#fff;font-weight:800;font-size:15px;cursor:pointer;margin-top:10px}
-button:active{opacity:.8}
+.card{background:rgba(255,255,255,.96);color:#111;margin:12px;border-radius:18px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.35);border:1px solid #e5e7eb}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-top:8px;font-size:15px;background:#fff;color:#111}
+button{width:100%;padding:13px;border:none;border-radius:12px;background:#7c3aed;color:#fff;font-weight:800;font-size:15px;cursor:pointer;margin-top:10px;box-shadow:0 2px 8px rgba(124,58,237,.3)}
+button:active{opacity:.85;transform:scale(.98)}
 button.orange{background:#f59e0b;color:#111}
 button.green{background:#22c55e;color:#fff}
 button.red{background:#ef4444}
@@ -31,13 +35,13 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .meta{color:#888;font-size:12px;margin:4px 0}
 .actions{display:flex;gap:8px;margin-top:8px}
 .actions button{flex:1;background:#f3f4f6;color:#111;padding:9px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:1px solid #eee;z-index:20}
-nav div{flex:1;text-align:center;padding:9px 0;font-size:12px;font-weight:700;cursor:pointer;color:#666}
-nav div.active{color:#7c3aed}
+nav{position:fixed;bottom:0;left:0;right:0;background:#14142b;display:flex;border-top:1px solid #2e2e55;z-index:20}
+nav div{flex:1;text-align:center;padding:9px 0;font-size:12px;font-weight:700;cursor:pointer;color:#a1a1aa}
+nav div.active{color:#a78bfa}
 .hidden{display:none!important}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
-.modal-box{background:#fff;width:100%;max-width:420px;border-radius:20px;padding:20px;max-height:90vh;overflow:auto}
-.welcome-banner{background:#7c3aed;color:#fff;border-radius:14px;padding:14px;text-align:center;font-weight:800;margin:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal-box{background:#fff;color:#111;width:100%;max-width:430px;border-radius:20px;padding:20px;max-height:90vh;overflow:auto}
+.welcome-banner{background:linear-gradient(90deg,#7c3aed,#f59e0b);color:#fff;border-radius:14px;padding:14px;text-align:center;font-weight:800;margin:12px;box-shadow:0 4px 15px rgba(0,0,0,.3)}
 img.post-img{width:100%;border-radius:12px;margin-top:10px;max-height:320px;object-fit:cover}
 .avatar{width:50px;height:50px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
 .flex{display:flex;gap:10px;align-items:center}
@@ -47,11 +51,10 @@ img.post-img{width:100%;border-radius:12px;margin-top:10px;max-height:320px;obje
 .tabs{display:flex;gap:8px;margin-top:10px}
 .tabs button{flex:1}
 .progress{height:8px;background:#eee;border-radius:10px;overflow:hidden;margin-top:8px}
-.progress div{height:100%;background:#7c3aed;width:0%}
+.progress div{height:100%;background:linear-gradient(90deg,#7c3aed,#f59e0b);width:0%}
 .section-title{font-size:16px;font-weight:800;margin-bottom:6px}
 .small-text{font-size:13px;color:#666;line-height:1.5}
-/* TIKTOK LIVE STYLES */
-.live-stage{background:#111;color:#fff;border-radius:16px;padding:16px;position:relative;overflow:hidden;min-height:340px}
+.live-stage{background:#111;color:#fff;border-radius:16px;padding:16px;position:relative;overflow:hidden;min-height:360px;border:1px solid #333}
 .live-badge{background:#ef4444;color:#fff;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800}
 .tiktok-comments{height:190px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;margin-top:12px}
 .tiktok-comment{background:rgba(255,255,255,.14);padding:8px 10px;border-radius:14px;font-size:13px;animation:slideUp .4s ease}
@@ -60,33 +63,41 @@ img.post-img{width:100%;border-radius:12px;margin-top:10px;max-height:320px;obje
 @keyframes pop{from{transform:scale(.8)}to{transform:scale(1)}}
 .floating-heart{position:absolute;font-size:26px;animation:floatUp 1s ease forwards;pointer-events:none}
 @keyframes floatUp{from{transform:translateY(0);opacity:1}to{transform:translateY(-90px);opacity:0}}
-.coin-badge{background:#fef3c7;color:#92400e;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:800}
+.emoji-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.emoji-bar span{font-size:22px;cursor:pointer;background:#f3f4f6;padding:6px 8px;border-radius:10px}
+.emoji-bar span:active{transform:scale(1.2)}
+.sticker-bar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sticker-bar span{font-size:32px;cursor:pointer;background:#fff7ed;padding:8px;border-radius:12px;border:1px solid #fed7aa}
+.chat-bubble{padding:10px 12px;border-radius:16px;margin:8px 0;max-width:85%;font-size:14px;line-height:1.4}
+.chat-me{background:#ede9fe;margin-left:auto;border-bottom-right-radius:4px}
+.chat-other{background:#f3f4f6;margin-right:auto;border-bottom-left-radius:4px}
+.online-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block}
 </style>
 </head>
 <body>
 <header>
-<div class="logo" id="siteLogo">2K <span>REBORN</span><small>FREE FIRE COMMUNITY</small></div>
+<div class="logo" id="siteLogo">2K <span>REBORN</span><small>FREE FIRE COMMUNITY ✨</small></div>
 <div class="top-right"><span id="headerUser">2K REBORN</span><br><span id="headerPts">0 pts</span> <span id="headerCoins">0 coins</span> <span id="notifCount"></span><span class="dot"></span></div>
 </header>
 
 <div id="authScreen">
 <div class="card" style="text-align:center">
-<h1 style="font-size:30px;line-height:1.1">2K REBORN<br><span style="color:#7c3aed">FREE FIRE COMMUNITY</span></h1>
+<h1 style="font-size:30px;line-height:1.1">2K REBORN<br><span style="color:#7c3aed">FREE FIRE COMMUNITY ✨</span></h1>
 <p style="color:#666;margin-top:10px;font-weight:700">Welcome to 2K REBORN FREE FIRE COMMUNITY!</p>
-<p style="color:#666;font-size:14px;margin-top:6px">The home for Free Fire players. Chat, post, join tournaments, earn points, go Live like TikTok.</p>
-<input id="authName" placeholder="Username - e.g. Eligencymah">
+<p style="color:#666;font-size:14px;margin-top:6px">The home for Free Fire players. Everyone can post, chat, join tournaments, go Live like TikTok, and gift. 💬🔥</p>
+<input id="authName" placeholder="Username - e.g. Eligencymah 😎">
 <input id="authUid" placeholder="Free Fire UID">
 <input id="authRank" placeholder="Your Rank - e.g. Heroic, Diamond (optional)">
-<button onclick="signup()">Create Account</button>
+<button onclick="signup()">Create Account ✨</button>
 <button class="grey" onclick="login()">Login with UID</button>
-<p style="font-size:12px;color:#888;margin-top:10px">Owner? Tap the logo 5 times at the top to open Owner Login.</p>
+<p style="font-size:12px;color:#888;margin-top:10px">Owner? Tap the logo 5 times at the top to open Owner Login. This is private, others will not see it.</p>
 </div>
 <div class="card">
-<h3 class="section-title">Why Join 2K REBORN FREE FIRE COMMUNITY?</h3>
-<p class="small-text">Daily Rewards<br>Tournaments and Prizes<br>Chat With Real Players<br>Top Players Leaderboard<br>TikTok Style Live Room, Gifts and Likes<br>Friend System and Squad Finder</p>
+<h3 class="section-title">Why Join 2K REBORN FREE FIRE COMMUNITY? 🌟</h3>
+<p class="small-text">✨ Sparkling Community<br>🎁 Daily Rewards<br>🏆 Tournaments and Prizes<br>💬 General Chat Like WhatsApp<br>📺 TikTok Style Live, Gifts and Likes<br>👥 Everyone Can Post and Chat<br>😀 Emoji and Stickers</p>
 </div>
 <div class="card">
-<h3 class="section-title">Community Rules</h3>
+<h3 class="section-title">Community Rules 📜</h3>
 <p class="small-text">1. Be respectful to all members.<br>2. No hate, no insults, no spam.<br>3. No fake UID or impersonation.<br>4. You must pay Owner first before you can gift in Live.<br>5. Owner decisions are final.</p>
 </div>
 </div>
@@ -101,180 +112,198 @@ img.post-img{width:100%;border-radius:12px;margin-top:10px;max-height:320px;obje
 <div class="progress"><div id="levelBar"></div></div><p style="font-size:12px;color:#888;margin-top:6px" id="levelText">Level 1 - New Player</p>
 </div>
 <div class="card">
-<input id="searchInput" placeholder="Find Friends - Type username or UID..." oninput="searchUsers()">
+<input id="searchInput" placeholder="🔍 Find Friends - Type username or UID..." oninput="searchUsers()">
 <div id="searchResults"></div>
 <div class="tabs"><button class="small grey" onclick="filterFeed('all')">All Posts</button><button class="small grey" onclick="filterFeed('announce')">Announcements</button><button class="small grey" onclick="filterFeed('mine')">My Posts</button></div>
 </div>
 <div class="card">
-<h3>Daily Reward</h3><p style="color:#666;margin-top:6px">Claim +10 Points Today</p>
-<button onclick="claimReward()">Claim +10 Points</button><p id="rewardMsg" style="margin-top:8px"></p>
+<h3>🎁 Daily Reward</h3><p style="color:#666;margin-top:6px">Claim +10 Points Today</p>
+<button onclick="claimReward()">Claim +10 Points ✨</button><p id="rewardMsg" style="margin-top:8px"></p>
 </div>
 <div class="card">
-<h3>Create Post</h3>
-<textarea id="postText" placeholder="Share something with the community..."></textarea>
-<select id="postType"><option value="general">General Post</option><option value="clip">Game Clip</option><option value="looking">Looking For Squad</option><option value="question">Question</option><option value="tournament">Tournament</option></select>
+<h3>Create Post ✍️ — Everyone Can Post</h3>
+<textarea id="postText" placeholder="Share something with the community... 😀🔥"></textarea>
+<div class="emoji-bar" id="postEmojiBar"></div>
+<p style="font-size:12px;color:#888;margin-top:6px">Tap an emoji to add it to your post. Tap a sticker to add it too.</p>
+<div class="sticker-bar" id="postStickerBar"></div>
+<select id="postType"><option value="general">General Post</option><option value="clip">Game Clip 🎬</option><option value="looking">Looking For Squad 👥</option><option value="question">Question ❓</option><option value="tournament">Tournament 🏆</option></select>
 <input type="file" id="postImage" accept="image/*">
-<button onclick="createPost()">Post to Community</button>
+<button onclick="createPost()">Post to Community 🚀</button>
 </div>
-<div class="card"><h3>Community Feed - 2K REBORN FREE FIRE COMMUNITY</h3><div id="feedList"></div></div>
-<div class="card"><h3>Suggested Friends</h3><div id="suggestedFriends"></div></div>
+<div class="card"><h3>Community Feed - 2K REBORN FREE FIRE COMMUNITY ✨</h3><div id="feedList"></div></div>
+<div class="card"><h3>👥 Suggested Friends</h3><div id="suggestedFriends"></div></div>
 </div>
+<!-- GENERAL CHAT - FOR EVERYONE LIKE WHATSAPP -->
+<div id="page-general" class="hidden">
+<div class="card">
+<div class="flex-between"><div><h3>💬 General Chat — For Everyone</h3><p style="font-size:13px;color:#666">Like WhatsApp Group. Everyone in 2K REBORN FREE FIRE COMMUNITY can chat here.</p></div><span><span class="online-dot"></span> <span id="generalOnline">0 online</span></span></div>
+<div style="background:#f9fafb;border-radius:14px;padding:10px;margin-top:10px;max-height:420px;overflow:auto" id="generalChatBox"></div>
+<div style="margin-top:10px"><input id="generalChatInput" placeholder="Type a message to everyone... 💬"><div class="emoji-bar" id="generalEmojiBar"></div><div class="sticker-bar" id="generalStickerBar"></div><div class="flex"><button class="small" onclick="sendGeneralChat()">Send 💬</button><button class="small grey" onclick="sendGeneralSticker('🔥')">Send 🔥</button><button class="small grey" onclick="sendGeneralSticker('😂')">Send 😂</button></div></div>
+</div>
+<div class="card"><h3>WhatsApp Features in General Chat</h3><p class="small-text">✅ Everyone can see and reply<br>✅ Emoji and Stickers<br>✅ Your name + time shows like WhatsApp<br>✅ Owner messages show OWNER badge<br>✅ No private chat needed, this is for everyone</p></div>
+</div>
+
 <div id="page-chats" class="hidden">
-<div class="card"><h3>Chats</h3><p style="color:#666;font-size:14px">Chat with community members. Be respectful.</p>
+<div class="card"><h3>💬 Private Chats</h3><p style="color:#666;font-size:14px">Chat one-to-one with a friend. For group chat, use General Chat.</p>
 <input id="chatToUid" placeholder="Enter friend UID to chat"><button onclick="openChat()">Open Chat</button></div>
 <div class="card"><h3>Messages</h3><div id="chatList"></div></div>
-<div class="card hidden" id="chatBoxCard"><h3 id="chatWithTitle">Chat</h3><div id="chatMessages" style="max-height:320px;overflow:auto"></div><input id="chatInput" placeholder="Type a message..."><button onclick="sendChat()">Send</button></div>
-<div class="card"><h3>Notifications</h3><div id="notifList"></div><button class="grey" onclick="clearNotifs()">Clear Notifications</button></div>
+<div class="card hidden" id="chatBoxCard"><h3 id="chatWithTitle">Chat</h3><div id="chatMessages" style="max-height:320px;overflow:auto"></div><input id="chatInput" placeholder="Type a message... 😀"><div class="emoji-bar" id="privateEmojiBar"></div><button onclick="sendChat()">Send 💬</button></div>
+<div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><button class="grey" onclick="clearNotifs()">Clear Notifications</button></div>
 </div>
 
 <!-- TIKTOK STYLE LIVE -->
 <div id="page-live" class="hidden">
 <div class="card">
-<h3>Live Room - 2K REBORN FREE FIRE COMMUNITY</h3>
+<h3>📺 Live Room - 2K REBORN FREE FIRE COMMUNITY ✨</h3>
 <p style="color:#666;font-size:13px">Like TikTok Live. Like many times, comment, and gift. Gifts only work when someone is Live.</p>
 <div class="live-stage" id="liveStage">
 <div class="flex-between"><span class="live-badge" id="liveStatusBadge">OFFLINE</span><span id="liveViewers">0 viewers</span></div>
-<h2 id="liveTitle" style="margin-top:12px">2K REBORN - Free Fire Community Live</h2>
+<h2 id="liveTitle" style="margin-top:12px">2K REBORN - Free Fire Community Live ✨</h2>
 <p id="liveHost" style="color:#aaa;font-size:13px;margin-top:4px">Host: No one is Live now</p>
-<p style="margin-top:8px"><span id="liveLikeCount">0</span> Likes &nbsp;|&nbsp; <span id="liveGiftCount">0</span> Gifts &nbsp;|&nbsp; <span id="liveCoinCount">0</span> Coins Earned</p>
+<p style="margin-top:8px">❤️ <span id="liveLikeCount">0</span> Likes &nbsp;|&nbsp; 🎁 <span id="liveGiftCount">0</span> Gifts &nbsp;|&nbsp; 🪙 <span id="liveCoinCount">0</span> Coins Earned</p>
 <div class="tiktok-comments" id="liveChatBox"></div>
 <div id="giftBannerArea"></div>
 <div id="heartArea"></div>
 </div>
-<div class="flex" style="margin-top:10px"><input id="liveChatInput" placeholder="Comment on Live like TikTok..." style="margin-top:0"><button class="small" style="width:90px;margin-top:0" onclick="sendLiveChat()">Send</button></div>
+<div class="flex" style="margin-top:10px"><input id="liveChatInput" placeholder="Comment on Live like TikTok... 😍" style="margin-top:0"><button class="small" style="width:90px;margin-top:0" onclick="sendLiveChat()">Send</button></div>
+<div class="emoji-bar" id="liveEmojiBar"></div>
 <div class="flex">
 <button class="small" style="background:#fee2e2;color:#111;font-size:18px" onclick="likeLive()">❤️ Like (Tap Many Times)</button>
 <button class="small orange" onclick="openGiftPanel()">🎁 Gift</button>
 <button class="small green" onclick="openBuyCoins()">🪙 Buy Coins</button>
 </div>
 <div id="giftPanel" class="hidden" style="margin-top:10px;background:#f9fafb;padding:12px;border-radius:14px">
-<p style="font-weight:800">Send a Gift - Only when Live</p>
+<p style="font-weight:800">Send a Gift 🎁 - Only when Live</p>
 <p id="giftLockMsg" style="font-size:13px;color:#888;margin-top:4px"></p>
-<div class="flex"><button class="small" onclick="sendGift('Rose',10)">🌹 Rose - 10 Coins</button><button class="small" onclick="sendGift('Fire',50)">🔥 Fire - 50 Coins</button></div>
-<div class="flex"><button class="small" onclick="sendGift('Diamond',100)">💎 Diamond - 100 Coins</button><button class="small" onclick="sendGift('Crown',500)">👑 Crown - 500 Coins</button></div>
+<div class="flex"><button class="small" onclick="sendGift('Rose 🌹',10)">🌹 Rose - 10 Coins</button><button class="small" onclick="sendGift('Fire 🔥',50)">🔥 Fire - 50 Coins</button></div>
+<div class="flex"><button class="small" onclick="sendGift('Diamond 💎',100)">💎 Diamond - 100 Coins</button><button class="small" onclick="sendGift('Crown 👑',500)">👑 Crown - 500 Coins</button></div>
 <p style="font-size:12px;color:#888;margin-top:6px">Your Coins: <span id="myCoinsText">0</span>. If you have 0 coins, you must pay Owner first. Tap Buy Coins.</p>
 </div>
-<button class="orange" onclick="goLive()">Go Live (Owner Only)</button>
-<button class="grey" onclick="endLive()">End Live (Owner Only)</button>
+<button class="orange" onclick="goLive()">Go Live (Owner + Approved Users) 📺</button>
+<button class="small grey" onclick="requestLivePermission()">Request Live Permission - Pay Owner First</button>
+<button class="grey" onclick="endLive()">End Live (Owner / Host Only)</button>
 </div>
-<div class="card"><h3>How Gifting Works</h3><p class="small-text">1. No one can gift if no one is Live.<br>2. To gift, you must first have Coins.<br>3. To get Coins, you must pay Owner first.<br>4. Tap Buy Coins - Contact Owner on WhatsApp to pay.<br>5. Owner will add Coins to your account after payment.<br>6. Then you can gift in Live.</p></div>
-<div class="card"><h3>Upcoming Events</h3><p class="small-text">Every Friday 7PM - Tournament Live<br>Every Sunday 6PM - Custom Room Live<br>Daily - Squad Finder in Feed</p></div>
+<div class="card"><h3>How Gifting Works 🎁</h3><p class="small-text">1. No one can gift if no one is Live.<br>2. To gift, you must first have Coins.<br>3. To get Coins, you must pay Owner first.<br>4. Tap Buy Coins - Contact Owner on WhatsApp to pay.<br>5. Owner will add Coins to your account after payment.<br>6. Then you can gift in Live.</p></div>
+<div class="card"><h3>How To Go Live 📺</h3><p class="small-text">Owner can go Live anytime.<br>Other users: Pay Owner first, Owner gives Live Permission, then you can go Live too and receive gifts.</p></div>
 </div>
 
 <div id="page-shop" class="hidden">
-<div class="card"><h3>2K Shop</h3><p style="color:#666">Use your points to get rewards. Points are earned by posting, claiming daily reward, and winning tournaments. Coins are for Live Gifts only and you must pay Owner first.</p>
+<div class="card"><h3>🛍️ 2K Shop ✨</h3><p style="color:#666">Use your points to get rewards. Coins are for Live Gifts only and you must pay Owner first.</p>
 <div id="shopList"></div>
-<button class="green" onclick="openBuyCoins()">Buy Coins - Contact Owner on WhatsApp</button>
+<button class="green" onclick="openBuyCoins()">Buy Coins - Contact Owner on WhatsApp 🪙</button>
 </div>
-<div class="card"><h3>My Rewards</h3><div id="myRewards"></div></div>
-<div class="card"><h3>My Gifts Sent</h3><div id="myGifts"></div></div>
+<div class="card"><h3>My Rewards 🎁</h3><div id="myRewards"></div></div>
+<div class="card"><h3>My Gifts Sent 🎁</h3><div id="myGifts"></div></div>
 </div>
 
 <div id="page-tournament" class="hidden">
-<div class="card"><h3>Tournaments</h3><p style="color:#666">Join tournaments. Winner gets points and shoutout.</p>
-<input id="tourName" placeholder="Your Team Name"><button onclick="joinTournament()">Join Next Tournament</button><div id="tourList" style="margin-top:10px"></div></div>
-<div class="card"><h3>Shoutout of the Day</h3><div id="shoutout"></div></div>
-<div class="card"><h3>Top Players - 2K REBORN FREE FIRE COMMUNITY</h3><div id="topList"></div></div>
+<div class="card"><h3>🏆 Tournaments</h3><p style="color:#666">Everyone can join. Winner gets points and shoutout.</p>
+<input id="tourName" placeholder="Your Team Name 😎"><button onclick="joinTournament()">Join Next Tournament 🏆</button><div id="tourList" style="margin-top:10px"></div></div>
+<div class="card"><h3>📣 Shoutout of the Day 🌟</h3><div id="shoutout"></div></div>
+<div class="card"><h3>🏆 Top Players - 2K REBORN FREE FIRE COMMUNITY</h3><div id="topList"></div></div>
 </div>
 
 <div id="page-profile" class="hidden">
 <div class="card" style="text-align:center"><div class="avatar" id="profileAvatar" style="margin:0 auto;width:80px;height:80px;font-size:32px">E</div>
-<h2 id="profileName" style="margin-top:10px">User</h2><p id="profileUid" style="color:#666"></p><p id="profileRank" style="color:#666"></p><p id="profilePts" style="font-weight:800;margin-top:8px"></p><p id="profileRole" style="margin-top:6px"></p><p id="profileCoins" style="margin-top:6px;font-weight:800"></p>
-<div class="flex" style="justify-content:center;margin-top:10px"><button class="small" onclick="editProfile()">Edit Profile</button><button class="small grey" onclick="shareProfile()">Share Profile</button></div>
+<h2 id="profileName" style="margin-top:10px">User</h2><p id="profileUid" style="color:#666"></p><p id="profileRank" style="color:#666"></p><p id="profilePts" style="font-weight:800;margin-top:8px"></p><p id="profileRole" style="margin-top:6px"></p><p id="profileCoins" style="margin-top:6px;font-weight:800"></p><p id="profileLivePerm" style="margin-top:6px"></p>
+<div class="flex" style="justify-content:center;margin-top:10px"><button class="small" onclick="editProfile()">Edit Profile ✏️</button><button class="small grey" onclick="shareProfile()">Share Profile 🔗</button></div>
 <button class="orange" onclick="logout()">Logout</button></div>
-<div class="card"><h3>About Me</h3><p id="profileBio" style="color:#666">No bio yet. Tap Edit Profile to add your bio.</p></div>
-<div class="card"><h3>My Posts</h3><div id="myPosts"></div></div>
-<div class="card"><h3>My Friends</h3><div id="myFriends"></div></div>
+<div class="card"><h3>About Me 😎</h3><p id="profileBio" style="color:#666">No bio yet. Tap Edit Profile to add your bio.</p></div>
+<div class="card"><h3>My Posts 📝</h3><div id="myPosts"></div></div>
+<div class="card"><h3>My Friends 👥</h3><div id="myFriends"></div></div>
 </div>
 
 <div id="page-owner" class="hidden">
-<div class="card"><h3>Owner Dashboard - 2K REBORN FREE FIRE COMMUNITY</h3><p id="ownerStatus" style="color:#666">Only the owner can access this page.</p>
+<div class="card"><h3>👑 Owner Dashboard - 2K REBORN FREE FIRE COMMUNITY</h3><p style="color:#ef4444;font-size:13px;font-weight:700">Private - Only Owner can see this. Others cannot see this page.</p><p id="ownerStatus" style="color:#666">Only the owner can access this page.</p>
 <div id="ownerTools" class="hidden">
-<p style="margin-top:10px">Welcome Owner, Eligencymah.</p>
-<input id="announceText" placeholder="Write an announcement..."><button onclick="postAnnouncement()">Post Announcement</button>
-<input id="giveUid" placeholder="User UID to give points"><input id="givePts" placeholder="Points to give" type="number"><button class="green" onclick="givePoints()">Give Points</button>
-<input id="coinUid" placeholder="User UID to give Coins after payment"><input id="coinAmount" placeholder="Coins to give" type="number"><button class="green" onclick="giveCoins()">Give Coins After Payment</button>
-<input id="banUid" placeholder="UID to ban"><button class="red" onclick="banUser()">Ban User</button>
+<p style="margin-top:10px">Welcome Owner, Eligencymah 👑</p>
+<input id="announceText" placeholder="Write an announcement... 📢"><button onclick="postAnnouncement()">Post Announcement 📢</button>
+<input id="giveUid" placeholder="User UID to give points"><input id="givePts" placeholder="Points to give" type="number"><button class="green" onclick="givePoints()">Give Points ✨</button>
+<input id="coinUid" placeholder="User UID to give Coins after payment"><input id="coinAmount" placeholder="Coins to give" type="number"><button class="green" onclick="giveCoins()">Give Coins After Payment 🪙</button>
+<input id="livePermUid" placeholder="UID to give Live Permission"><button onclick="giveLivePermission()">Give Live Permission 📺</button>
+<input id="banUid" placeholder="UID to ban"><button class="red" onclick="banUser()">Ban User 🚫</button>
 <button class="orange" onclick="clearAllPosts()">Clear All Posts (Owner Only)</button>
 <button class="grey" onclick="exportUsers()">Export Users List</button>
 </div></div>
-<div class="card"><h3>All Users</h3><div id="allUsers"></div></div>
-<div class="card"><h3>Live Earnings</h3><div id="liveEarnings"></div></div>
-<div class="card"><h3>Reports</h3><div id="reportList"></div></div>
+<div class="card"><h3>All Users 👥</h3><div id="allUsers"></div></div>
+<div class="card"><h3>Live Earnings 🪙</h3><div id="liveEarnings"></div></div>
+<div class="card"><h3>Live Permission Requests 📺</h3><div id="liveRequests"></div></div>
+<div class="card"><h3>Reports 🚩</h3><div id="reportList"></div></div>
 </div>
 </div>
 
 <nav id="bottomNav" class="hidden">
-<div id="nav-feed" class="active" onclick="showPage('feed')">Home<br>Feed</div>
-<div id="nav-chats" onclick="showPage('chats')">Chats</div>
-<div id="nav-live" onclick="showPage('live')">Live</div>
-<div id="nav-shop" onclick="showPage('shop')">Shop</div>
-<div id="nav-tournament" onclick="showPage('tournament')">Top</div>
-<div id="nav-profile" onclick="showPage('profile')">Profile</div>
-<div id="nav-owner" onclick="showPage('owner')">Owner</div>
+<div id="nav-feed" class="active" onclick="showPage('feed')">🏠<br>Feed</div>
+<div id="nav-general" onclick="showPage('general')">💬<br>General</div>
+<div id="nav-chats" onclick="showPage('chats')">💭<br>Chats</div>
+<div id="nav-live" onclick="showPage('live')">📺<br>Live</div>
+<div id="nav-shop" onclick="showPage('shop')">🛍️<br>Shop</div>
+<div id="nav-tournament" onclick="showPage('tournament')">🏆<br>Top</div>
+<div id="nav-profile" onclick="showPage('profile')">👤<br>Profile</div>
+<div id="nav-owner" onclick="showPage('owner')" class="hidden">👑<br>Owner</div>
 </nav>
 
-<!-- OWNER LOGIN SPACE -->
 <div id="ownerModal" class="modal hidden"><div class="modal-box">
-<h3>Owner Login - 2K REBORN FREE FIRE COMMUNITY</h3><p style="color:#666;font-size:14px;margin-top:6px">Welcome, Owner. Enter your secret code to continue.</p>
-<p style="font-size:12px;color:#888;margin-top:4px">You must be logged in first with your Username and UID.</p>
-<input id="ownerCodeInput" placeholder="Enter Owner Secret Code"><button onclick="checkOwnerCode()">Login as Owner</button><button class="grey" onclick="closeOwnerModal()">Cancel</button><p id="ownerMsg" style="color:red;font-size:13px;margin-top:8px"></p>
+<h3>👑 Owner Login - 2K REBORN FREE FIRE COMMUNITY</h3><p style="color:#666;font-size:14px;margin-top:6px">Welcome, Owner. Enter your secret code to continue. This is private.</p>
+<input id="ownerCodeInput" placeholder="Enter Owner Secret Code"><button onclick="checkOwnerCode()">Login as Owner 👑</button><button class="grey" onclick="closeOwnerModal()">Cancel</button><p id="ownerMsg" style="color:red;font-size:13px;margin-top:8px"></p>
 </div></div>
 
-<!-- BUY COINS - PAY OWNER FIRST VIA WHATSAPP -->
 <div id="buyCoinsModal" class="modal hidden"><div class="modal-box">
-<h3>Buy Coins - Pay Owner First</h3>
-<p style="color:#666;font-size:14px;margin-top:6px">To gift in Live, you must have Coins. To get Coins, you must pay Owner first.</p>
-<div style="background:#f9fafb;padding:12px;border-radius:12px;margin-top:10px">
-<p><b>100 Coins</b> - Contact Owner</p>
-<p><b>500 Coins</b> - Contact Owner</p>
-<p><b>1000 Coins</b> - Contact Owner</p>
-</div>
+<h3>🪙 Buy Coins - Pay Owner First</h3>
+<p style="color:#666;font-size:14px;margin-top:6px">To gift in Live, you must have Coins. To get Coins, you must pay Owner first via WhatsApp.</p>
+<div style="background:#f9fafb;padding:12px;border-radius:12px;margin-top:10px"><p><b>100 Coins</b> - Contact Owner</p><p><b>500 Coins</b> - Contact Owner</p><p><b>1000 Coins</b> - Contact Owner</p></div>
 <p style="font-size:13px;margin-top:10px">Step 1: Contact Owner on WhatsApp and say you want to buy Coins.<br>Step 2: Pay Owner as agreed.<br>Step 3: Owner will add Coins to your account.<br>Step 4: Come back and gift in Live.</p>
 <input id="buyCoinsAmount" placeholder="How many Coins do you want? e.g. 100">
-<button class="green" onclick="contactOwnerWhatsApp()">Contact Owner on WhatsApp</button>
+<button class="green" onclick="contactOwnerWhatsApp()">Contact Owner on WhatsApp 💬</button>
 <button class="grey" onclick="closeBuyCoins()">Cancel</button>
 </div></div>
 
 <div id="profileModal" class="modal hidden"><div class="modal-box">
-<h3>Edit Profile</h3><input id="editBio" placeholder="Your bio - e.g. Pro Rusher, Heroic"><input id="editRank2" placeholder="Your Rank"><button onclick="saveProfile()">Save Profile</button><button class="grey" onclick="closeProfileModal()">Cancel</button>
+<h3>Edit Profile ✏️</h3><input id="editBio" placeholder="Your bio - e.g. Pro Rusher, Heroic 😎"><input id="editRank2" placeholder="Your Rank"><button onclick="saveProfile()">Save Profile ✅</button><button class="grey" onclick="closeProfileModal()">Cancel</button>
 </div></div>
 
 <script>
 let users = JSON.parse(localStorage.getItem('2k_users')||'[]');
 let posts = JSON.parse(localStorage.getItem('2k_posts')||'[]');
 let chats = JSON.parse(localStorage.getItem('2k_chats')||'[]');
+let generalChats = JSON.parse(localStorage.getItem('2k_general')||'[]');
 let notifs = JSON.parse(localStorage.getItem('2k_notifs')||'[]');
 let liveChats = JSON.parse(localStorage.getItem('2k_live')||'[]');
 let tours = JSON.parse(localStorage.getItem('2k_tours')||'[]');
 let rewards = JSON.parse(localStorage.getItem('2k_rewards')||'[]');
 let friends = JSON.parse(localStorage.getItem('2k_friends')||'[]');
 let gifts = JSON.parse(localStorage.getItem('2k_gifts')||'[]');
-let liveState = JSON.parse(localStorage.getItem('2k_liveState')||'{"isLive":false,"host":"","likes":0,"giftCoins":0,"giftCount":0,"viewers":0}');
+let liveRequests = JSON.parse(localStorage.getItem('2k_liveReq')||'[]');
+let liveState = JSON.parse(localStorage.getItem('2k_liveState')||'{"isLive":false,"host":"","hostUid":"","likes":0,"giftCoins":0,"giftCount":0,"viewers":0}');
 let me = JSON.parse(localStorage.getItem('2k_me')||'null');
 let logoTaps = 0, currentChatUid = null, feedFilter='all';
+let EMOJIS=['😀','😂','😍','🔥','❤️','😎','👑','🏆','🎁','💎','🌹','😭','🙏','💪','🎉','✨','😡','👍','👎','💬'];
+let STICKERS=['🔥','😂','❤️','👑','💎','🏆','🎉','😎','🌹','💪','🎁','✨','😍','🙏','🎮','🔫'];
 function save(){
   localStorage.setItem('2k_users',JSON.stringify(users));
   localStorage.setItem('2k_posts',JSON.stringify(posts));
   localStorage.setItem('2k_chats',JSON.stringify(chats));
+  localStorage.setItem('2k_general',JSON.stringify(generalChats));
   localStorage.setItem('2k_notifs',JSON.stringify(notifs));
   localStorage.setItem('2k_live',JSON.stringify(liveChats));
   localStorage.setItem('2k_tours',JSON.stringify(tours));
   localStorage.setItem('2k_rewards',JSON.stringify(rewards));
   localStorage.setItem('2k_friends',JSON.stringify(friends));
   localStorage.setItem('2k_gifts',JSON.stringify(gifts));
+  localStorage.setItem('2k_liveReq',JSON.stringify(liveRequests));
   localStorage.setItem('2k_liveState',JSON.stringify(liveState));
   localStorage.setItem('2k_me',JSON.stringify(me));
 }
 function isOwner(){ return me && me.isOwner===true; }
-function ownerBadge(u){ return u && u.isOwner ? '<span class="badge badge-owner">OWNER</span>' : ''; }
+function canGoLive(){ return isOwner() || (me && me.livePerm===true); }
+function ownerBadge(u){ return u && u.isOwner ? '<span class="badge badge-owner">👑 OWNER</span>' : ''; }
 function signup(){
   let name=document.getElementById('authName').value.trim();
   let uid=document.getElementById('authUid').value.trim();
   let rank=document.getElementById('authRank').value.trim()||'Unranked';
   if(!name||!uid){ alert('Please enter Username and UID'); return; }
   if(users.find(u=>u.uid===uid)){ alert('This UID already exists. Please Login with UID.'); return; }
-  me={name:name,uid:uid,rank:rank,bio:'',pts:20,coins:0,isOwner:false,lastClaim:'',banned:false,joined:new Date().toLocaleDateString()};
+  me={name:name,uid:uid,rank:rank,bio:'',pts:20,coins:0,livePerm:false,isOwner:false,lastClaim:'',banned:false,joined:new Date().toLocaleDateString()};
   users.push(me); save(); enterApp(true);
   addNotif('Welcome to 2K REBORN FREE FIRE COMMUNITY! You got +20 points for joining.');
 }
@@ -284,6 +313,7 @@ function login(){
   if(!found){ alert('No account found with this UID. Please Create Account first.'); return; }
   if(found.banned){ alert('This account is banned. Contact the Owner.'); return; }
   if(found.coins===undefined) found.coins=0;
+  if(found.livePerm===undefined) found.livePerm=false;
   me=found; save(); enterApp(false);
 }
 function enterApp(isNew){
@@ -292,14 +322,19 @@ function enterApp(isNew){
   document.getElementById('bottomNav').classList.remove('hidden');
   if(isNew){
     let w=document.getElementById('welcomeBox'); w.classList.remove('hidden');
-    w.innerHTML='Welcome to 2K REBORN FREE FIRE COMMUNITY!<br><span style="font-weight:400;font-size:14px">Hello '+me.name+', welcome to the community!</span>';
+    w.innerHTML='Welcome to 2K REBORN FREE FIRE COMMUNITY! ✨<br><span style="font-weight:400;font-size:14px">Hello '+me.name+', welcome to the community! 🎉</span>';
     setTimeout(()=>w.classList.add('hidden'),7000);
   }
   renderAll();
 }
 function logout(){ me=null; save(); location.reload(); }
 function showPage(p){
-  ['feed','chats','live','shop','tournament','profile','owner'].forEach(x=>{
+  // OWNER PAGE IS PRIVATE - BLOCK OTHERS
+  if(p==='owner' && !isOwner()){
+    alert('This page is private. Only Owner can see Owner Dashboard. Tap logo 5 times to login as Owner.');
+    return;
+  }
+  ['feed','general','chats','live','shop','tournament','profile','owner'].forEach(x=>{
     let el=document.getElementById('page-'+x); if(el) el.classList.add('hidden');
     let nv=document.getElementById('nav-'+x); if(nv) nv.classList.remove('active');
   });
@@ -313,9 +348,24 @@ function claimReward(){
   if(me.lastClaim===today){ document.getElementById('rewardMsg').innerText='You have already claimed today.'; return; }
   me.pts+=10; me.lastClaim=today;
   let u=users.find(x=>x.uid===me.uid); if(u){u.pts=me.pts;u.lastClaim=today;}
-  save(); renderAll(); document.getElementById('rewardMsg').innerText='You claimed +10 points!';
+  save(); renderAll(); document.getElementById('rewardMsg').innerText='You claimed +10 points! ✨';
 }
 function filterFeed(f){ feedFilter=f; renderAll(); }
+function addEmojiTo(inputId,emoji){ let el=document.getElementById(inputId); el.value+=emoji; el.focus(); }
+function buildEmojiBars(){
+  let html=EMOJIS.map(e=>'<span onclick="addEmojiTo(\'postText\',\''+e+'\')">'+e+'</span>').join('');
+  let p=document.getElementById('postEmojiBar'); if(p) p.innerHTML=html;
+  let g=EMOJIS.map(e=>'<span onclick="addEmojiTo(\'generalChatInput\',\''+e+'\')">'+e+'</span>').join('');
+  let ge=document.getElementById('generalEmojiBar'); if(ge) ge.innerHTML=g;
+  let pr=EMOJIS.map(e=>'<span onclick="addEmojiTo(\'chatInput\',\''+e+'\')">'+e+'</span>').join('');
+  let pe=document.getElementById('privateEmojiBar'); if(pe) pe.innerHTML=pr;
+  let lv=EMOJIS.map(e=>'<span onclick="addEmojiTo(\'liveChatInput\',\''+e+'\')">'+e+'</span>').join('');
+  let le=document.getElementById('liveEmojiBar'); if(le) le.innerHTML=lv;
+  let st=STICKERS.map(s=>'<span onclick="addEmojiTo(\'postText\',\' '+s+' \')">'+s+'</span>').join('');
+  let ps=document.getElementById('postStickerBar'); if(ps) ps.innerHTML=st;
+  let gs=STICKERS.map(s=>'<span onclick="sendGeneralSticker(\''+s+'\')">'+s+'</span>').join('');
+  let gse=document.getElementById('generalStickerBar'); if(gse) gse.innerHTML=gs;
+}
 </script>
 <script>
 function createPost(){
@@ -334,8 +384,8 @@ function createPost(){
 function postAnnouncement(){
   if(!isOwner()){ alert('Only owner can post announcements'); return; }
   let t=document.getElementById('announceText').value.trim(); if(!t) return;
-  posts.unshift({id:Date.now(),name:me.name,uid:me.uid,isOwner:true,text:'ANNOUNCEMENT: '+t,type:'announce',img:'',likes:0,comments:[],time:new Date().toLocaleString()});
-  save(); document.getElementById('announceText').value=''; renderAll(); alert('Announcement posted');
+  posts.unshift({id:Date.now(),name:me.name,uid:me.uid,isOwner:true,text:'📢 ANNOUNCEMENT: '+t,type:'announce',img:'',likes:0,comments:[],time:new Date().toLocaleString()});
+  save(); document.getElementById('announceText').value=''; renderAll(); alert('Announcement posted 📢');
 }
 function likePost(id){ let p=posts.find(x=>x.id===id); if(p){p.likes++; save(); renderAll();} }
 function deletePost(id){
@@ -351,22 +401,43 @@ function addComment(id){
   if(p.uid!==me.uid) addNotif(me.name+' commented on your post.');
   save(); renderAll();
 }
+function addEmojiToComment(id,emoji){ let el=document.getElementById('cmt-'+id); el.value+=emoji; }
 function searchUsers(){
   let q=document.getElementById('searchInput').value.toLowerCase().trim();
   let box=document.getElementById('searchResults'); if(!q){box.innerHTML='';return;}
   let res=users.filter(u=>u.name.toLowerCase().includes(q)||u.uid.includes(q));
-  box.innerHTML=res.map(u=>'<div class="flex-between" style="padding:10px;border-bottom:1px solid #eee"><div><b>'+u.name+'</b> '+ownerBadge(u)+'<div style="color:#888;font-size:12px">UID: '+u.uid+' - '+u.pts+' pts - '+(u.coins||0)+' coins - '+u.rank+'</div></div><button class="small" onclick="addFriend(\''+u.uid+'\')">Add Friend</button></div>').join('')||'<p style="padding:10px;color:#888">No user found</p>';
+  box.innerHTML=res.map(u=>'<div class="flex-between" style="padding:10px;border-bottom:1px solid #eee"><div><b>'+u.name+'</b> '+ownerBadge(u)+'<div style="color:#888;font-size:12px">UID: '+u.uid+' - '+u.pts+' pts - '+(u.coins||0)+' coins - '+u.rank+'</div></div><button class="small" onclick="addFriend(\''+u.uid+'\')">Add Friend 👥</button></div>').join('')||'<p style="padding:10px;color:#888">No user found</p>';
 }
 function addFriend(uid){
   if(uid===me.uid){ alert('You cannot add yourself'); return; }
   if(friends.find(f=>f.me===me.uid && f.friend===uid)){ alert('Already friends'); return; }
-  friends.push({me:me.uid,friend:uid}); save(); renderAll(); alert('Friend added!');
+  friends.push({me:me.uid,friend:uid}); save(); renderAll(); alert('Friend added! 👥');
+}
+// GENERAL CHAT - LIKE WHATSAPP FOR EVERYONE
+function sendGeneralChat(){
+  let txt=document.getElementById('generalChatInput').value.trim(); if(!txt) return;
+  generalChats.push({name:me.name,uid:me.uid,isOwner:isOwner(),text:txt,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  if(generalChats.length>100) generalChats=generalChats.slice(-100);
+  save(); document.getElementById('generalChatInput').value=''; renderAll();
+}
+function sendGeneralSticker(sticker){
+  generalChats.push({name:me.name,uid:me.uid,isOwner:isOwner(),text:sticker,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  save(); renderAll();
+}
+function renderGeneralChat(){
+  let box=document.getElementById('generalChatBox'); if(!box) return;
+  box.innerHTML=generalChats.map(c=>{
+    let isMe=c.uid===me.uid;
+    return '<div class="chat-bubble '+(isMe?'chat-me':'chat-other')+'"><b>'+c.name+'</b> '+(c.isOwner?'<span class="badge badge-owner">👑 OWNER</span>':'')+'<br>'+c.text+'<div style="font-size:11px;color:#888;text-align:right">'+c.time+' ✓✓</div></div>';
+  }).join('')||'<p style="color:#888;text-align:center;padding:20px">No messages yet. Be the first to say hello in General Chat! 💬</p>';
+  box.scrollTop=box.scrollHeight;
+  let on=document.getElementById('generalOnline'); if(on) on.innerText=users.length+' online';
 }
 function openChat(){
   let uid=document.getElementById('chatToUid').value.trim();
   let user=users.find(u=>u.uid===uid); if(!user){alert('User not found');return;}
   currentChatUid=uid; document.getElementById('chatBoxCard').classList.remove('hidden');
-  document.getElementById('chatWithTitle').innerText='Chat with '+user.name+' '+(user.isOwner?'OWNER':''); renderChats();
+  document.getElementById('chatWithTitle').innerText='Chat with '+user.name+' '+(user.isOwner?'👑 OWNER':''); renderChats();
 }
 function sendChat(){
   if(!currentChatUid) return; let txt=document.getElementById('chatInput').value.trim(); if(!txt) return;
@@ -376,26 +447,25 @@ function sendChat(){
 function renderChats(){
   let box=document.getElementById('chatMessages'); if(!box) return;
   let list=chats.filter(c=>(c.from===me.uid && c.to===currentChatUid)||(c.from===currentChatUid && c.to===me.uid));
-  box.innerHTML=list.map(c=>'<div style="padding:8px;background:'+(c.from===me.uid?'#ede9fe':'#f3f4f6')+';border-radius:10px;margin:6px 0"><b>'+c.fromName+'</b> '+(c.fromOwner?'<span class="badge badge-owner">OWNER</span>':'')+'<br>'+c.text+'<div style="font-size:11px;color:#888">'+c.time+'</div></div>').join('')||'<p style="color:#888">No messages yet. Say hello!</p>';
+  box.innerHTML=list.map(c=>'<div style="padding:8px;background:'+(c.from===me.uid?'#ede9fe':'#f3f4f6')+';border-radius:10px;margin:6px 0"><b>'+c.fromName+'</b> '+(c.fromOwner?'<span class="badge badge-owner">👑 OWNER</span>':'')+'<br>'+c.text+'<div style="font-size:11px;color:#888">'+c.time+' ✓✓</div></div>').join('')||'<p style="color:#888">No messages yet. Say hello! 💬</p>';
   let cl=document.getElementById('chatList');
   let others=[...new Set(chats.filter(c=>c.from===me.uid||c.to===me.uid).map(c=>c.from===me.uid?c.to:c.from))];
   cl.innerHTML=others.map(uid=>{let u=users.find(x=>x.uid===uid); return '<div style="padding:10px;border-bottom:1px solid #eee;cursor:pointer" onclick="document.getElementById(\'chatToUid\').value=\''+uid+'\';openChat()"><b>'+(u?u.name:uid)+'</b> '+(u?ownerBadge(u):'')+'</div>';}).join('')||'<p style="color:#888">No chats yet</p>';
 }
-// TIKTOK LIVE - LIKE MANY TIMES, COMMENT, GIFT LOCKED UNTIL LIVE
+// TIKTOK LIVE
 function goLive(){
-  if(!isOwner()){ alert('Only Owner can go Live. Contact Owner.'); return; }
-  liveState={isLive:true,host:me.name,likes:0,giftCoins:0,giftCount:0,viewers:1};
-  liveChats=[]; save(); renderAll(); alert('You are now LIVE! Members can now like, comment and gift.');
+  if(!canGoLive()){ alert('You cannot go Live yet. You must pay Owner first and get Live Permission. Tap Request Live Permission.'); return; }
+  liveState={isLive:true,host:me.name,hostUid:me.uid,likes:0,giftCoins:0,giftCount:0,viewers:users.length};
+  liveChats=[]; save(); renderAll(); alert('You are now LIVE! ✨ Members can now like, comment and gift.');
 }
 function endLive(){
-  if(!isOwner()) return;
+  if(!liveState.isLive) return;
+  if(!isOwner() && liveState.hostUid!==me.uid){ alert('Only Host or Owner can end Live.'); return; }
   liveState.isLive=false; save(); renderAll(); alert('Live ended. Gifts are now locked again.');
 }
 function likeLive(){
-  if(!liveState.isLive){ alert('No one is Live now. Wait for Owner to go Live.'); return; }
-  // Can like more than once - like TikTok - no limit
-  liveState.likes++; liveState.viewers=Math.max(1,liveState.viewers);
-  save();
+  if(!liveState.isLive){ alert('No one is Live now. Wait for someone to go Live.'); return; }
+  liveState.likes++; save();
   let heart=document.createElement('div'); heart.className='floating-heart'; heart.innerText='❤️';
   heart.style.left=(30+Math.random()*70)+'%'; heart.style.bottom='80px';
   document.getElementById('heartArea').appendChild(heart);
@@ -411,23 +481,21 @@ function sendLiveChat(){
 }
 function openGiftPanel(){
   document.getElementById('giftPanel').classList.remove('hidden');
-  if(!liveState.isLive){ document.getElementById('giftLockMsg').innerText='Gifts are LOCKED. No one is Live now. Wait for Owner to go Live.'; }
+  if(!liveState.isLive){ document.getElementById('giftLockMsg').innerText='🎁 Gifts are LOCKED. No one is Live now. Wait for someone to go Live.'; }
   else if((me.coins||0)<=0){ document.getElementById('giftLockMsg').innerText='You have 0 Coins. You must pay Owner first. Tap Buy Coins and contact Owner on WhatsApp.'; }
-  else { document.getElementById('giftLockMsg').innerText='Live is ON. You have '+(me.coins||0)+' Coins. You can gift now!'; }
+  else { document.getElementById('giftLockMsg').innerText='Live is ON ✨ You have '+(me.coins||0)+' Coins. You can gift now!'; }
   renderAll();
 }
 function sendGift(giftName,cost){
-  // RULE 1: Cannot gift until Live
-  if(!liveState.isLive){ alert('You cannot gift now. No one is Live. Wait for Owner to go Live.'); return; }
-  // RULE 2: Must have Coins - must pay Owner first
+  if(!liveState.isLive){ alert('You cannot gift now. No one is Live. Wait for someone to go Live.'); return; }
   if((me.coins||0)<cost){ alert('You do not have enough Coins. You must pay Owner first. Tap Buy Coins and contact Owner on WhatsApp.'); openBuyCoins(); return; }
   me.coins-=cost; let u=users.find(x=>x.uid===me.uid); if(u) u.coins=me.coins;
   liveState.giftCoins+=cost; liveState.giftCount++;
   gifts.push({from:me.name,fromUid:me.uid,to:liveState.host,gift:giftName,cost:cost,time:new Date().toLocaleString()});
-  liveChats.push({name:'SYSTEM',isOwner:false,text:me.name+' sent '+giftName+' ('+cost+' Coins) to '+liveState.host});
+  liveChats.push({name:'SYSTEM',isOwner:false,text:me.name+' sent '+giftName+' ('+cost+' Coins) to '+liveState.host+' 🎁'});
   save(); renderAll();
   let banner=document.getElementById('giftBannerArea');
-  banner.innerHTML='<div class="gift-banner">'+me.name+' sent '+giftName+' to '+liveState.host+' - '+cost+' Coins!</div>';
+  banner.innerHTML='<div class="gift-banner">🎁 '+me.name+' sent '+giftName+' to '+liveState.host+' - '+cost+' Coins!</div>';
   setTimeout(()=>banner.innerHTML='',4000);
 }
 function openBuyCoins(){ document.getElementById('buyCoinsModal').classList.remove('hidden'); }
@@ -439,15 +507,32 @@ function contactOwnerWhatsApp(){
   window.open(url,'_blank');
   alert('WhatsApp opened. Send the message to Owner. After you pay, Owner will add '+amount+' Coins to your account.');
 }
+function requestLivePermission(){
+  if(canGoLive()){ alert('You already have Live Permission! You can go Live now.'); return; }
+  if(liveRequests.find(r=>r.uid===me.uid)){ alert('You already requested Live Permission. Wait for Owner to approve.'); return; }
+  liveRequests.push({name:me.name,uid:me.uid,time:new Date().toLocaleString()});
+  save(); renderAll();
+  let msg='Hello Owner, I am '+me.name+' (UID: '+me.uid+'). I want Live Permission for 2K REBORN FREE FIRE COMMUNITY. I have paid / want to pay. Please approve me.';
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  alert('Request sent to Owner. Contact Owner on WhatsApp to pay and get Live Permission.');
+}
+function giveLivePermission(){
+  if(!isOwner()) return;
+  let uid=document.getElementById('livePermUid').value.trim();
+  let u=users.find(x=>x.uid===uid); if(!u){alert('User not found');return;}
+  u.livePerm=true; if(me.uid===uid) me.livePerm=true;
+  liveRequests=liveRequests.filter(r=>r.uid!==uid);
+  save(); renderAll(); alert(u.name+' can now go Live! 📺');
+}
 function joinTournament(){
   let team=document.getElementById('tourName').value.trim(); if(!team){alert('Enter team name');return;}
   tours.push({name:me.name,team:team,uid:me.uid,time:new Date().toLocaleString()});
-  save(); document.getElementById('tourName').value=''; renderAll(); alert('You joined the tournament! Good luck!');
+  save(); document.getElementById('tourName').value=''; renderAll(); alert('You joined the tournament! Good luck! 🏆');
 }
 function buyReward(name,cost){
   if(me.pts<cost){ alert('Not enough points. You need '+cost+' points.'); return; }
   me.pts-=cost; let u=users.find(x=>x.uid===me.uid); if(u) u.pts=me.pts;
-  rewards.push({name:name,by:me.uid,time:new Date().toLocaleString()}); save(); renderAll(); alert('You bought: '+name);
+  rewards.push({name:name,by:me.uid,time:new Date().toLocaleString()}); save(); renderAll(); alert('You bought: '+name+' ✨');
 }
 function editProfile(){ document.getElementById('profileModal').classList.remove('hidden'); document.getElementById('editBio').value=me.bio||''; document.getElementById('editRank2').value=me.rank||''; }
 function closeProfileModal(){ document.getElementById('profileModal').classList.add('hidden'); }
@@ -456,7 +541,7 @@ function saveProfile(){
   let u=users.find(x=>x.uid===me.uid); if(u){u.bio=me.bio;u.rank=me.rank;}
   save(); closeProfileModal(); renderAll();
 }
-function shareProfile(){ let txt='Join 2K REBORN FREE FIRE COMMUNITY! My username is '+me.name+' UID: '+me.uid; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert(txt); }
+function shareProfile(){ let txt='Join 2K REBORN FREE FIRE COMMUNITY! ✨ My username is '+me.name+' UID: '+me.uid; if(navigator.clipboard) navigator.clipboard.writeText(txt); alert(txt); }
 </script>
 <script>
 document.getElementById('siteLogo').addEventListener('click', function(){
@@ -470,7 +555,7 @@ function checkOwnerCode(){
     if(!me){ document.getElementById('ownerMsg').innerText='Please login first with your Username and UID, then try again.'; return; }
     me.isOwner=true; let u=users.find(x=>x.uid===me.uid); if(u) u.isOwner=true;
     save(); closeOwnerModal(); renderAll();
-    alert('Welcome Owner! You are now the Owner of 2K REBORN FREE FIRE COMMUNITY');
+    alert('Welcome Owner! 👑 You are now the Owner of 2K REBORN FREE FIRE COMMUNITY');
     showPage('owner');
   } else { document.getElementById('ownerMsg').innerText='Wrong code. Try again.'; }
 }
@@ -478,25 +563,29 @@ function givePoints(){
   if(!isOwner()) return;
   let uid=document.getElementById('giveUid').value.trim(); let pts=parseInt(document.getElementById('givePts').value);
   let u=users.find(x=>x.uid===uid); if(!u){alert('User not found');return;}
-  u.pts+=pts; if(me.uid===uid) me.pts=u.pts; save(); renderAll(); alert('Gave '+pts+' points to '+u.name);
+  u.pts+=pts; if(me.uid===uid) me.pts=u.pts; save(); renderAll(); alert('Gave '+pts+' points to '+u.name+' ✨');
 }
 function giveCoins(){
   if(!isOwner()) return;
   let uid=document.getElementById('coinUid').value.trim(); let amt=parseInt(document.getElementById('coinAmount').value);
   let u=users.find(x=>x.uid===uid); if(!u){alert('User not found');return;}
-  if(!u.coins) u.coins=0; u.coins+=amt; if(me.uid===uid) me.coins=u.coins; save(); renderAll(); alert('Gave '+amt+' Coins to '+u.name+' after payment confirmed.');
+  if(!u.coins) u.coins=0; u.coins+=amt; if(me.uid===uid) me.coins=u.coins; save(); renderAll(); alert('Gave '+amt+' Coins to '+u.name+' after payment confirmed. 🪙');
 }
 function banUser(){
   if(!isOwner()) return; let uid=document.getElementById('banUid').value.trim();
   let u=users.find(x=>x.uid===uid); if(!u){alert('User not found');return;}
-  u.banned=true; save(); renderAll(); alert(u.name+' has been banned.');
+  u.banned=true; save(); renderAll(); alert(u.name+' has been banned. 🚫');
 }
 function exportUsers(){
-  let txt=users.map(u=>u.name+' - UID:'+u.uid+' - '+u.pts+' pts - '+(u.coins||0)+' coins - Owner:'+u.isOwner).join('\n');
+  let txt=users.map(u=>u.name+' - UID:'+u.uid+' - '+u.pts+' pts - '+(u.coins||0)+' coins - LivePerm:'+(u.livePerm||false)+' - Owner:'+u.isOwner).join('\n');
   if(navigator.clipboard) navigator.clipboard.writeText(txt); alert('Users list copied:\n'+txt);
 }
 function renderAll(){
   if(!me) return;
+  buildEmojiBars();
+  // OWNER TAB - HIDE FOR OTHERS, SHOW ONLY FOR OWNER
+  let ownerNav=document.getElementById('nav-owner');
+  if(ownerNav){ if(isOwner()) ownerNav.classList.remove('hidden'); else ownerNav.classList.add('hidden'); }
   document.getElementById('headerUser').innerText=me.name;
   document.getElementById('headerPts').innerText=me.pts+' pts';
   document.getElementById('headerCoins').innerText=(me.coins||0)+' coins';
@@ -504,7 +593,7 @@ function renderAll(){
   document.getElementById('feedAvatar').innerText=me.name.charAt(0).toUpperCase();
   document.getElementById('feedName').innerText=me.name;
   document.getElementById('feedUid').innerText='UID: '+me.uid+' - '+me.rank;
-  document.getElementById('feedRole').innerHTML=isOwner()?'<span class="badge badge-owner">OWNER</span>':'<span class="badge">MEMBER</span>';
+  document.getElementById('feedRole').innerHTML=isOwner()?'<span class="badge badge-owner">👑 OWNER</span>':'<span class="badge">MEMBER</span>';
   let myPostsCount=posts.filter(p=>p.uid===me.uid).length;
   let myFriendsCount=friends.filter(f=>f.me===me.uid).length;
   document.getElementById('statPosts').innerText=myPostsCount;
@@ -513,57 +602,58 @@ function renderAll(){
   document.getElementById('statCoins').innerText=me.coins||0;
   let level=Math.floor(me.pts/100)+1;
   document.getElementById('levelBar').style.width=Math.min(100,(me.pts%100))+'%';
-  document.getElementById('levelText').innerText='Level '+level+' - '+(level>=5?'Pro Player':level>=3?'Rising Star':'New Player')+' - '+me.pts+' points';
+  document.getElementById('levelText').innerText='Level '+level+' - '+(level>=5?'Pro Player ⭐':level>=3?'Rising Star ✨':'New Player')+' - '+me.pts+' points';
   document.getElementById('profileAvatar').innerText=me.name.charAt(0).toUpperCase();
   document.getElementById('profileName').innerText=me.name;
   document.getElementById('profileUid').innerText='UID: '+me.uid;
   document.getElementById('profileRank').innerText='Rank: '+me.rank+' - Joined: '+me.joined;
   document.getElementById('profilePts').innerText=me.pts+' Points - Level '+level;
-  document.getElementById('profileCoins').innerText='Coins: '+(me.coins||0)+' - Buy Coins by contacting Owner on WhatsApp';
-  document.getElementById('profileRole').innerHTML=isOwner()?'<span class="badge badge-owner">OWNER - 2K REBORN FREE FIRE COMMUNITY</span>':'Member - 2K REBORN FREE FIRE COMMUNITY';
-  document.getElementById('profileBio').innerText=me.bio||'No bio yet. Tap Edit Profile to add your bio.';
+  document.getElementById('profileCoins').innerText='🪙 Coins: '+(me.coins||0)+' - Buy Coins by contacting Owner on WhatsApp';
+  document.getElementById('profileLivePerm').innerText=canGoLive()?'📺 Live Permission: YES - You can go Live':'📺 Live Permission: NO - Pay Owner first to go Live';
+  document.getElementById('profileRole').innerHTML=isOwner()?'<span class="badge badge-owner">👑 OWNER - 2K REBORN FREE FIRE COMMUNITY</span>':'Member - 2K REBORN FREE FIRE COMMUNITY ✨';
+  document.getElementById('profileBio').innerText=me.bio||'No bio yet. Tap Edit Profile to add your bio. 😎';
   let filtered=posts;
   if(feedFilter==='announce') filtered=posts.filter(p=>p.type==='announce');
   if(feedFilter==='mine') filtered=posts.filter(p=>p.uid===me.uid);
   document.getElementById('feedList').innerHTML=filtered.map(p=>`
     <div class="post">
-      <div class="flex"><div class="avatar" style="width:38px;height:38px;font-size:16px">${p.name.charAt(0).toUpperCase()}</div><div><b>${p.name}</b> ${p.isOwner?'<span class="badge badge-owner">OWNER</span>':''}<div class="meta">UID: ${p.uid} - ${p.type} - ${p.time}</div></div></div>
+      <div class="flex"><div class="avatar" style="width:38px;height:38px;font-size:16px">${p.name.charAt(0).toUpperCase()}</div><div><b>${p.name}</b> ${p.isOwner?'<span class="badge badge-owner">👑 OWNER</span>':''}<div class="meta">UID: ${p.uid} - ${p.type} - ${p.time}</div></div></div>
       <div style="margin-top:8px">${p.text}</div>
       ${p.img?`<img class="post-img" src="${p.img}">`:''}
-      <div class="actions"><button onclick="likePost(${p.id})">Like ${p.likes}</button><button onclick="reportPost(${p.id})">Report</button><button onclick="deletePost(${p.id})">Delete</button></div>
-      <div style="margin-top:8px">${p.comments.map(c=>`<div style="background:#f3f4f6;padding:8px;border-radius:10px;margin-top:6px"><b>${c.name}</b> ${c.isOwner?'<span class="badge badge-owner">OWNER</span>':''} - ${c.text}</div>`).join('')}</div>
-      <input id="cmt-${p.id}" placeholder="Write a comment..."><button class="small" onclick="addComment(${p.id})">Comment</button>
-    </div>`).join('')||'<p style="color:#888">No posts yet. Be the first to post!</p>';
-  document.getElementById('myPosts').innerHTML=posts.filter(p=>p.uid===me.uid).map(p=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${p.name}</b> ${p.isOwner?'<span class="badge badge-owner">OWNER</span>':''}<br>${p.text}</div>`).join('')||'<p style="color:#888">You have no posts yet</p>';
+      <div class="actions"><button onclick="likePost(${p.id})">❤️ Like ${p.likes}</button><button onclick="reportPost(${p.id})">🚩 Report</button><button onclick="deletePost(${p.id})">🗑️ Delete</button></div>
+      <div style="margin-top:8px">${p.comments.map(c=>`<div style="background:#f3f4f6;padding:8px;border-radius:10px;margin-top:6px"><b>${c.name}</b> ${c.isOwner?'<span class="badge badge-owner">👑 OWNER</span>':''} - ${c.text}</div>`).join('')}</div>
+      <input id="cmt-${p.id}" placeholder="Write a comment... 😀"><div class="emoji-bar">${EMOJIS.slice(0,8).map(e=>`<span onclick="addEmojiToComment(${p.id},'${e}')">${e}</span>`).join('')}</div><button class="small" onclick="addComment(${p.id})">Comment 💬</button>
+    </div>`).join('')||'<p style="color:#888">No posts yet. Be the first to post! 🚀</p>';
+  document.getElementById('myPosts').innerHTML=posts.filter(p=>p.uid===me.uid).map(p=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${p.name}</b> ${p.isOwner?'<span class="badge badge-owner">👑 OWNER</span>':''}<br>${p.text}</div>`).join('')||'<p style="color:#888">You have no posts yet</p>';
   document.getElementById('myFriends').innerHTML=friends.filter(f=>f.me===me.uid).map(f=>{let u=users.find(x=>x.uid===f.friend); return u?`<div style="padding:8px;border-bottom:1px solid #eee"><b>${u.name}</b> ${ownerBadge(u)} - UID: ${u.uid}</div>`:''}).join('')||'<p style="color:#888">No friends yet</p>';
-  document.getElementById('suggestedFriends').innerHTML=users.filter(u=>u.uid!==me.uid).slice(0,5).map(u=>`<div class="flex-between" style="padding:10px;border-bottom:1px solid #eee"><div><b>${u.name}</b> ${ownerBadge(u)}<div style="font-size:12px;color:#888">UID: ${u.uid} - ${u.pts} pts</div></div><button class="small" onclick="addFriend('${u.uid}')">Add</button></div>`).join('')||'No users yet';
+  document.getElementById('suggestedFriends').innerHTML=users.filter(u=>u.uid!==me.uid).slice(0,5).map(u=>`<div class="flex-between" style="padding:10px;border-bottom:1px solid #eee"><div><b>${u.name}</b> ${ownerBadge(u)}<div style="font-size:12px;color:#888">UID: ${u.uid} - ${u.pts} pts</div></div><button class="small" onclick="addFriend('${u.uid}')">Add 👥</button></div>`).join('')||'No users yet';
   document.getElementById('notifList').innerHTML=notifs.slice(0,10).map(n=>`<div style="padding:10px;border-bottom:1px solid #eee">${n.text}<div style="font-size:11px;color:#888">${n.time}</div></div>`).join('')||'<p style="color:#888">No notifications</p>';
-  // TIKTOK LIVE RENDER
-  document.getElementById('liveStatusBadge').innerText=liveState.isLive?'LIVE':'OFFLINE';
+  document.getElementById('liveStatusBadge').innerText=liveState.isLive?'🔴 LIVE':'OFFLINE';
   document.getElementById('liveStatusBadge').style.background=liveState.isLive?'#ef4444':'#666';
-  document.getElementById('liveHost').innerText=liveState.isLive?'Host: '+liveState.host+' - Live Now':'Host: No one is Live now';
+  document.getElementById('liveHost').innerText=liveState.isLive?'Host: '+liveState.host+' - Live Now ✨':'Host: No one is Live now';
   document.getElementById('liveViewers').innerText=(liveState.viewers||0)+' viewers';
   document.getElementById('liveLikeCount').innerText=liveState.likes||0;
   document.getElementById('liveGiftCount').innerText=liveState.giftCount||0;
   document.getElementById('liveCoinCount').innerText=liveState.giftCoins||0;
   document.getElementById('myCoinsText').innerText=me.coins||0;
-  document.getElementById('liveChatBox').innerHTML=liveChats.slice(-12).map(c=>`<div class="tiktok-comment"><b>${c.name}</b> ${c.isOwner?'<span class="badge badge-owner">OWNER</span>':''}: ${c.text}</div>`).join('')||'<div class="tiktok-comment">No comments yet. Be first to comment on Live!</div>';
+  document.getElementById('liveChatBox').innerHTML=liveChats.slice(-12).map(c=>`<div class="tiktok-comment"><b>${c.name}</b> ${c.isOwner?'<span class="badge badge-owner">👑 OWNER</span>':''}: ${c.text}</div>`).join('')||'<div class="tiktok-comment">No comments yet. Be first to comment on Live! 💬</div>';
   document.getElementById('shopList').innerHTML=`
-    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>Shoutout - 50 pts</b><p style="color:#666;font-size:13px">Get a shoutout on Top page</p><button onclick="buyReward('Shoutout',50)">Buy - 50 pts</button></div>
-    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>VIP Badge - 200 pts</b><p style="color:#666;font-size:13px">VIP badge for 30 days</p><button onclick="buyReward('VIP Badge',200)">Buy - 200 pts</button></div>
-    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>Custom Room Slot - 100 pts</b><p style="color:#666;font-size:13px">Guaranteed slot in next custom room</p><button onclick="buyReward('Custom Room Slot',100)">Buy - 100 pts</button></div>`;
+    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>⭐ Shoutout - 50 pts</b><p style="color:#666;font-size:13px">Get a shoutout on Top page</p><button onclick="buyReward('Shoutout',50)">Buy - 50 pts ✨</button></div>
+    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>👑 VIP Badge - 200 pts</b><p style="color:#666;font-size:13px">VIP badge for 30 days</p><button onclick="buyReward('VIP Badge',200)">Buy - 200 pts ✨</button></div>
+    <div style="padding:12px;border:1px solid #eee;border-radius:12px;margin-top:10px"><b>🎁 Custom Room Slot - 100 pts</b><p style="color:#666;font-size:13px">Guaranteed slot in next custom room</p><button onclick="buyReward('Custom Room Slot',100)">Buy - 100 pts ✨</button></div>`;
   document.getElementById('myRewards').innerHTML=rewards.filter(r=>r.by===me.uid).map(r=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${r.name}</b> - ${r.time}</div>`).join('')||'<p style="color:#888">No rewards yet</p>';
   document.getElementById('myGifts').innerHTML=gifts.filter(g=>g.fromUid===me.uid).map(g=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${g.gift}</b> - ${g.cost} Coins to ${g.to} - ${g.time}</div>`).join('')||'<p style="color:#888">No gifts sent yet. Gift only works when Live and after you pay Owner.</p>';
-  document.getElementById('tourList').innerHTML=tours.map(t=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${t.team}</b> by ${t.name} - ${t.time}</div>`).join('')||'<p style="color:#888">No teams joined yet. Be first!</p>';
+  document.getElementById('tourList').innerHTML=tours.map(t=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${t.team}</b> by ${t.name} - ${t.time}</div>`).join('')||'<p style="color:#888">No teams joined yet. Be first! 🏆</p>';
   let sorted=[...users].sort((a,b)=>b.pts-a.pts);
   document.getElementById('topList').innerHTML=sorted.slice(0,10).map((u,i)=>`<div style="padding:10px;border-bottom:1px solid #eee">${i+1}. <b>${u.name}</b> ${ownerBadge(u)} - ${u.pts} pts - UID: ${u.uid} - ${u.rank}</div>`).join('')||'No users yet';
-  document.getElementById('shoutout').innerHTML=sorted[0]?`<b>Top 1 Today: ${sorted[0].name} - ${sorted[0].pts} points!</b><br><span style="color:#666;font-size:13px">Congratulations to our top player!</span>`:'No shoutout yet';
-  document.getElementById('ownerStatus').innerText=isOwner()?'You are logged in as Owner.':'You are not the owner. Tap the logo 5 times to login as owner.';
+  document.getElementById('shoutout').innerHTML=sorted[0]?`<b>🌟 Top 1 Today: ${sorted[0].name} - ${sorted[0].pts} points!</b><br><span style="color:#666;font-size:13px">Congratulations to our top player! 🎉</span>`:'No shoutout yet';
+  document.getElementById('ownerStatus').innerText=isOwner()?'You are logged in as Owner. 👑':'You are not the owner. Tap the logo 5 times to login as owner.';
   document.getElementById('ownerTools').classList.toggle('hidden',!isOwner());
-  document.getElementById('allUsers').innerHTML=users.map(u=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${u.name}</b> ${ownerBadge(u)} - UID: ${u.uid} - ${u.pts} pts - ${(u.coins||0)} coins - ${u.rank} ${u.banned?'[BANNED]':''}</div>`).join('')||'No users';
+  document.getElementById('allUsers').innerHTML=users.map(u=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${u.name}</b> ${ownerBadge(u)} - UID: ${u.uid} - ${u.pts} pts - ${(u.coins||0)} coins - LivePerm: ${u.livePerm?'YES':'NO'} - ${u.rank} ${u.banned?'[BANNED]':''}</div>`).join('')||'No users';
   document.getElementById('liveEarnings').innerHTML='<p>Total Gifts: '+(liveState.giftCount||0)+' | Total Coins Earned: '+(liveState.giftCoins||0)+'</p>'+gifts.map(g=>`<div style="padding:8px;border-bottom:1px solid #eee"><b>${g.from}</b> sent ${g.gift} - ${g.cost} Coins</div>`).join('');
+  document.getElementById('liveRequests').innerHTML=liveRequests.map(r=>`<div style="padding:10px;border-bottom:1px solid #eee"><b>${r.name}</b> UID: ${r.uid} - ${r.time} <button class="small" onclick="document.getElementById('livePermUid').value='${r.uid}';giveLivePermission()">Approve ✅</button></div>`).join('')||'<p style="color:#888">No Live requests</p>';
   document.getElementById('reportList').innerHTML='<p style="color:#888">No reports yet</p>';
-  renderChats();
+  renderChats(); renderGeneralChat();
 }
 if(me){
   document.getElementById('authScreen').classList.add('hidden');
