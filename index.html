@@ -310,7 +310,7 @@ loadFromSupabase();
 loadPostsFromSupabase();
 setInterval(loadPostsFromSupabase, 10000);
 </script>
-<script>// FINAL MERGED - WHATSAPP EXACT - ENGLISH ONLY - TYPING WILL NOT BLOCK
+<script>// CORRECT FINAL MERGED - WHATSAPP EXACT
 (function(){
   function getUser(){
     try{ var u = JSON.parse(localStorage.getItem('user')||localStorage.getItem('currentUser')||'null'); if(u) return u; }catch(e){}
@@ -320,6 +320,7 @@ setInterval(loadPostsFromSupabase, 10000);
   var myKey = 'myStickers_' + (me.username||me.name);
   function getMyStickers(){ try{ return JSON.parse(localStorage.getItem(myKey)||'[]'); }catch(e){ return []; } }
   function saveMyStickers(l){ localStorage.setItem(myKey, JSON.stringify(l)); }
+  function getMyName(){ return me.username||me.name||'Me'; }
 
   function closePanels(){
     var p=document.getElementById('waStickerPanel'); if(p) p.style.display='none';
@@ -337,36 +338,45 @@ setInterval(loadPostsFromSupabase, 10000);
     }
     return b;
   }
+  function setActiveTab(id){
+    ['tabEmoji','tabMine','tabCreate'].forEach(function(t){
+      var el=document.getElementById(t); if(!el) return;
+      if(t===id){ el.style.background='#25D366'; el.style.color='#fff'; }
+      else{ el.style.background='#f0f2f5'; el.style.color='#000'; }
+    });
+  }
 
   // ===== EMOJI + STICKERS =====
   function makePanel(input){
     if(document.getElementById('waStickerPanel')) return document.getElementById('waStickerPanel');
     var p=document.createElement('div'); p.id='waStickerPanel';
-    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -4px 20px rgba(0,0,0,0.15);height:340px;flex-direction:column;overflow:hidden;';
+    p.style.cssText='display:none;position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#fff;border-top-left-radius:18px;border-top-right-radius:18px;box-shadow:0 -4px 20px rgba(0,0,0,0.15);height:360px;flex-direction:column;overflow:hidden;';
     p.innerHTML=
     '<div style="width:40px;height:5px;background:#ddd;border-radius:10px;margin:8px auto 4px;"></div>'+
-    '<div style="display:flex;gap:6px;padding:8px 10px;overflow-x:auto;border-bottom:1px solid #eee;align-items:center;">'+
-      '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:7px 14px;border-radius:20px;flex-shrink:0;">Emoji</button>'+
-      '<button id="tabMine" style="border:none;background:#f0f2f5;padding:7px 14px;border-radius:20px;flex-shrink:0;">My Stickers</button>'+
-      '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:7px 14px;border-radius:20px;flex-shrink:0;">+ Create</button>'+
-      '<button id="waCloseBtn" style="margin-left:auto;border:none;background:#f0f2f5;width:30px;height:30px;border-radius:50%;cursor:pointer;flex-shrink:0;">X</button></div>'+
+    '<div style="display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid #eee;align-items:center;flex-shrink:0;">'+
+      '<button id="tabEmoji" style="border:none;background:#25D366;color:#fff;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">Emoji</button>'+
+      '<button id="tabMine" style="border:none;background:#f0f2f5;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">My Stickers</button>'+
+      '<button id="tabCreate" style="border:none;background:#f0f2f5;padding:8px 12px;border-radius:20px;flex:1;white-space:nowrap;font-size:13px;">+ Create</button>'+
+      '<button id="waCloseBtn" style="border:none;background:#f0f2f5;width:32px;height:32px;border-radius:50%;cursor:pointer;flex-shrink:0;">X</button></div>'+
     '<div id="waStickerGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:10px;overflow-y:auto;flex:1;"></div>'+
-    '<div id="waCreateArea" style="display:none;padding:16px;text-align:center;">'+
-      '<p style="font-size:13px;color:#555;">Create a sticker from your photo.</p>'+
+    '<div id="waCreateArea" style="display:none;padding:16px;text-align:center;overflow-y:auto;flex:1;">'+
+      '<div style="font-size:50px;">🎨</div>'+
+      '<h3 style="margin:8px 0 4px;">Create Your Own Sticker</h3>'+
+      '<p style="font-size:13px;color:#555;">Pick any photo from your phone and turn it into a sticker.</p>'+
       '<input type="file" id="waUpload" accept="image/*" style="display:none;">'+
-      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:11px 20px;border-radius:22px;">Choose Photo</button>'+
+      '<button id="waUploadBtn" style="background:#25D366;color:#fff;border:none;padding:12px 22px;border-radius:22px;font-size:14px;">Choose Photo</button>'+
       '<br><br><button id="waSharePack" style="background:#111;color:#fff;border:none;padding:9px 18px;border-radius:20px;">Share Sticker Pack</button>'+
       '<p id="waCreateMsg" style="font-size:12px;color:green;"></p></div>';
     document.body.appendChild(p);
     p.querySelector('#waCloseBtn').onclick=closePanels;
-    p.querySelector('#tabEmoji').onclick=function(){ showEmoji(); };
-    p.querySelector('#tabMine').onclick=function(){ showMine(); };
-    p.querySelector('#tabCreate').onclick=function(){ document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
+    p.querySelector('#tabEmoji').onclick=function(){ setActiveTab('tabEmoji'); showEmoji(); };
+    p.querySelector('#tabMine').onclick=function(){ setActiveTab('tabMine'); showMine(); };
+    p.querySelector('#tabCreate').onclick=function(){ setActiveTab('tabCreate'); document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; };
     p.querySelector('#waUploadBtn').onclick=function(){ p.querySelector('#waUpload').click(); };
     p.querySelector('#waUpload').onchange=function(e){
       var file=e.target.files[0]; if(!file) return;
       var reader=new FileReader();
-      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved.'; showMine(); };
+      reader.onload=function(ev){ var list=getMyStickers(); list.push(ev.target.result); saveMyStickers(list); document.getElementById('waCreateMsg').textContent='Sticker saved. Go to My Stickers to see it.'; setActiveTab('tabMine'); showMine(); };
       reader.readAsDataURL(file);
     };
     p.querySelector('#waSharePack').onclick=function(){ var list=getMyStickers(); if(!list.length){ alert('Create a sticker first'); return; } sendStickerToChat(list[0]); };
@@ -376,9 +386,12 @@ setInterval(loadPostsFromSupabase, 10000);
     var p=makePanel(input);
     getBackdrop().style.display='block';
     p.style.display='flex';
-    if(tab==='mine') showMine(); else showEmoji();
+    if(tab==='mine'){ setActiveTab('tabMine'); showMine(); }
+    else if(tab==='create'){ setActiveTab('tabCreate'); document.getElementById('waStickerGrid').style.display='none'; document.getElementById('waCreateArea').style.display='block'; }
+    else{ setActiveTab('tabEmoji'); showEmoji(); }
   }
   function showEmoji(){
+    setActiveTab('tabEmoji');
     document.getElementById('waCreateArea').style.display='none';
     var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
     var emojis = Array.from("😀😃😄😁😆😅😂🤣😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊❤️🧡💛💚💙💜🖤🤍🤎💔❣️💕💞💓💗💖💘💝✨⭐🌟💫🔥💯🎉🎊🎈🎁🏆🥇👑💪👍👎👏🙌🙏👋🤚✋👌✌️🤞🤟🤘👊✊🤛🤜");
@@ -386,10 +399,24 @@ setInterval(loadPostsFromSupabase, 10000);
     grid.querySelectorAll('.wa-emo').forEach(function(el){ el.onclick=function(){ var inp=document.querySelector('input[placeholder*="Message"]'); if(inp){ inp.value+=el.textContent; inp.focus(); } }; });
   }
   function showMine(){
+    setActiveTab('tabMine');
     document.getElementById('waCreateArea').style.display='none';
-    var grid=document.getElementById('waStickerGrid'); grid.style.display='grid';
+    var grid=document.getElementById('waStickerGrid'); grid.style.display='block';
     var list=getMyStickers();
-    if(!list.length){ grid.innerHTML='<p style="grid-column:1/7;text-align:center;color:#777;font-size:13px;padding:20px;">No stickers yet.<br>Tap + Create to make one.</p>'; return; }
+    if(!list.length){
+      grid.innerHTML='<div style="text-align:center;padding:10px 20px 30px;">'+
+        '<div style="font-size:42px;animation:bounce 1s infinite;">👆</div>'+
+        '<div style="font-size:22px;color:#25D366;font-weight:bold;">Tap + Create Above</div>'+
+        '<div style="font-size:22px;margin:10px 0;">🎨</div>'+
+        '<p style="color:#333;font-size:15px;font-weight:bold;margin:4px 0;">You can create your own stickers!</p>'+
+        '<p style="color:#777;font-size:13px;margin:4px 0;">Tap the <b>+ Create</b> button at the top to pick a photo and make a sticker.</p>'+
+        '<button onclick="document.getElementById(\'tabCreate\').click()" style="background:#25D366;color:#fff;border:none;padding:11px 22px;border-radius:22px;font-size:14px;margin-top:10px;cursor:pointer;">Create My First Sticker →</button>'+
+        '<style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}</style></div>';
+      var cb=document.getElementById('tabCreate');
+      if(cb){ cb.style.background='#25D366'; cb.style.color='#fff'; cb.style.boxShadow='0 0 0 3px #b9f5cd'; }
+      return;
+    }
+    grid.style.display='grid';
     grid.innerHTML = list.map(function(src,i){ return '<div style="position:relative;"><img src="'+src+'" style="width:100%;height:70px;object-fit:cover;border-radius:10px;cursor:pointer;"><span data-del="'+i+'" style="position:absolute;top:2px;right:2px;background:#ff3b30;color:#fff;border-radius:50%;width:18px;height:18px;text-align:center;font-size:12px;cursor:pointer;">x</span></div>'; }).join('');
     grid.querySelectorAll('img').forEach(function(img){ img.onclick=function(){ sendStickerToChat(img.src); }; });
     grid.querySelectorAll('[data-del]').forEach(function(d){ d.onclick=function(e){ e.stopPropagation(); var l2=getMyStickers(); l2.splice(parseInt(d.getAttribute('data-del')),1); saveMyStickers(l2); showMine(); }; });
@@ -444,40 +471,60 @@ setInterval(loadPostsFromSupabase, 10000);
     if(selected && type==='everyone'){ selected.innerHTML='<i style="color:#888;font-size:13px;">This message was deleted</i>'; }
   }
 
-  // ===== TYPING - FIXED, WILL NOT BLOCK CHAT BOX =====
+  // ===== TYPING - CORRECT VERSION: VERY SMALL AT TOP, NEVER BLOCKS =====
   function showTyping(user){
-    var input=document.querySelector('input[placeholder*="Message"]'); if(!input) return;
-    var bar=document.getElementById('typingBar');
+    // Remove old bottom bar if it still exists
+    var old=document.getElementById('typingBar'); if(old) old.remove();
+    var bar=document.getElementById('waTopTyping');
     if(!bar){
-      bar=document.createElement('div'); bar.id='typingBar';
-      // Small, 1 line, above input, pointer-events none so it never blocks typing
-      bar.style.cssText='display:none;align-items:center;gap:8px;padding:5px 12px;font-size:12px;color:#666;background:#f0f2f5;border-top:1px solid #e5e5e5;min-height:28px;max-height:28px;overflow:hidden;pointer-events:none;position:relative;z-index:1;';
-      bar.innerHTML='<img id="typingAvatar" style="width:22px;height:22px;border-radius:50%;background:#ddd;object-fit:cover;flex-shrink:0;"><span id="typingText" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>';
-      // Place it directly above the input bar
-      var container = input.parentElement.parentElement;
-      if(container) container.insertBefore(bar, input.parentElement);
-      else input.parentElement.insertBefore(bar, input);
+      bar=document.createElement('div'); bar.id='waTopTyping';
+      bar.style.cssText='display:none;position:fixed;top:58px;left:0;right:0;z-index:9000;text-align:center;pointer-events:none;';
+      bar.innerHTML='<span id="waTopTypingText" style="display:inline-block;background:#fff;color:#25D366;font-size:11px;padding:3px 10px;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.12);white-space:nowrap;overflow:hidden;max-width:85%;text-overflow:ellipsis;"></span>';
+      document.body.appendChild(bar);
     }
-    // Keep it fixed in place every time
-    bar.style.display='flex';
-    bar.style.pointerEvents='none';
-    bar.querySelector('#typingAvatar').src = user.avatar||'https://via.placeholder.com/28';
     var isOw = user.isOwner || (user.username||'').toLowerCase().includes('2k reborn');
-    var badge = isOw ? ' <span style="background:#25D366;color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;">OWNER</span>' : '';
-    bar.querySelector('#typingText').innerHTML='<b>'+(user.username||user.name)+'</b>'+badge+' is typing...';
-    clearTimeout(window._tt); window._tt=setTimeout(function(){ bar.style.display='none'; },3000);
+    var badge = isOw ? ' OWNER' : '';
+    bar.querySelector('#waTopTypingText').textContent=(user.username||user.name)+badge+' is typing...';
+    bar.style.display='block';
+    clearTimeout(window._topTypingTimer); window._topTypingTimer=setTimeout(function(){ bar.style.display='none'; }, 2500);
   }
 
-  // ===== REACTION - ONLY ON LONG PRESS =====
+  // ===== REACTION - ADD / REMOVE / COUNT =====
+  function getMsgId(msgEl){ return msgEl.getAttribute('data-message-id') || msgEl.getAttribute('id') || ('msg_' + (msgEl.textContent||'').trim().slice(0,40)); }
+  function getReactions(msgId){ try{ return JSON.parse(localStorage.getItem('reactions_'+msgId)||'{}'); }catch(e){ return {}; } }
+  function saveReactions(msgId, data){ localStorage.setItem('reactions_'+msgId, JSON.stringify(data)); }
+  function toggleReaction(msgEl, emoji){
+    var id=getMsgId(msgEl); var data=getReactions(id); var myName=getMyName();
+    if(!data[emoji]) data[emoji]=[];
+    var idx=data[emoji].indexOf(myName);
+    if(idx>-1){ data[emoji].splice(idx,1); if(data[emoji].length===0) delete data[emoji]; }
+    else{
+      Object.keys(data).forEach(function(k){ var i2=data[k].indexOf(myName); if(i2>-1) data[k].splice(i2,1); if(data[k].length===0) delete data[k]; });
+      if(!data[emoji]) data[emoji]=[];
+      data[emoji].push(myName);
+    }
+    saveReactions(id, data); renderReactions(msgEl, data);
+  }
+  function renderReactions(msgEl, data){
+    var old=msgEl.querySelector('.wa-reactions-bar'); if(old) old.remove();
+    var keys=Object.keys(data); if(!keys.length) return;
+    var bar=document.createElement('div'); bar.className='wa-reactions-bar';
+    bar.style.cssText='display:flex;gap:6px;align-items:center;background:#fff;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,0.2);padding:3px 8px;font-size:14px;position:absolute;bottom:-12px;left:10px;z-index:5;cursor:pointer;';
+    bar.innerHTML=keys.map(function(e){ var count=data[e].length; var isMine=data[e].indexOf(getMyName())>-1; return '<span data-emoji="'+e+'" style="display:flex;gap:3px;align-items:center;'+(isMine?'background:#e7f8ef;border-radius:12px;padding:1px 5px;':'')+'">'+e+'<b style="font-size:12px;">'+count+'</b></span>'; }).join('');
+    msgEl.style.position='relative'; msgEl.appendChild(bar);
+    bar.querySelectorAll('span').forEach(function(s){ s.onclick=function(ev){ ev.stopPropagation(); toggleReaction(msgEl, s.getAttribute('data-emoji')); }; });
+  }
   function makeReactionPopup(targetMsg){
     var old=document.getElementById('waReactionPopup'); if(old) old.remove();
     var pop=document.createElement('div'); pop.id='waReactionPopup';
     pop.style.cssText='position:fixed;z-index:10002;background:#fff;border-radius:30px;box-shadow:0 4px 20px rgba(0,0,0,0.25);padding:8px 10px;display:flex;gap:2px;align-items:center;';
     var quick=Array.from("❤️😂😮😢🙏👍🔥");
+    var id=getMsgId(targetMsg); var data=getReactions(id);
     quick.forEach(function(e){
       var s=document.createElement('span'); s.textContent=e;
-      s.style.cssText='font-size:28px;cursor:pointer;padding:4px;';
-      s.onclick=function(ev){ ev.stopPropagation(); addReaction(targetMsg, e); pop.remove(); };
+      var isMine=(data[e]||[]).indexOf(getMyName())>-1;
+      s.style.cssText='font-size:28px;cursor:pointer;padding:4px;border-radius:50%;'+(isMine?'background:#e7f8ef;box-shadow:0 0 0 2px #25D366;':'');
+      s.onclick=function(ev){ ev.stopPropagation(); toggleReaction(targetMsg, e); pop.remove(); };
       pop.appendChild(s);
     });
     var plus=document.createElement('span'); plus.textContent='+';
@@ -485,15 +532,9 @@ setInterval(loadPostsFromSupabase, 10000);
     plus.onclick=function(e){ e.stopPropagation(); showFullPicker(targetMsg, pop); };
     pop.appendChild(plus);
     document.body.appendChild(pop);
-    var r=targetMsg.getBoundingClientRect();
-    var top=r.top-58; if(top<10) top=r.bottom+10;
-    pop.style.left=Math.max(10, Math.min(window.innerWidth-pop.offsetWidth-10, r.left+10))+'px';
-    pop.style.top=top+'px';
-    setTimeout(function(){
-      document.addEventListener('click', function close(e){
-        if(!pop.contains(e.target) && !document.getElementById('waReactionPicker')?.contains(e.target)){ pop.remove(); document.removeEventListener('click', close); }
-      });
-    },100);
+    var r=targetMsg.getBoundingClientRect(); var top=r.top-58; if(top<10) top=r.bottom+10;
+    pop.style.left=Math.max(10, Math.min(window.innerWidth-pop.offsetWidth-10, r.left+10))+'px'; pop.style.top=top+'px';
+    setTimeout(function(){ document.addEventListener('click', function close(e){ if(!pop.contains(e.target) && !document.getElementById('waReactionPicker')?.contains(e.target)){ pop.remove(); document.removeEventListener('click', close); } }); },100);
   }
   function showFullPicker(targetMsg, pop){
     if(document.getElementById('waReactionPicker')) return;
@@ -504,20 +545,15 @@ setInterval(loadPostsFromSupabase, 10000);
     var all=Array.from("❤️🧡💛💚💙💜🖤🤍🤎💔💕💞💓💗💖💘💝😂🤣😅😍😘🥰😎😭😡🥺😮😲😳🙏👍👎👏🙌🔥💯🎉✨🌹👑💪😈🥳😋😇🤔😴😀😃😄😁😆😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😡😠🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾🙈🙉🙊");
     var grid=picker.querySelector('#waFullGrid');
     grid.innerHTML=all.map(function(c){ return '<div style="font-size:30px;text-align:center;cursor:pointer;padding:4px;">'+c+'</div>'; }).join('');
-    grid.querySelectorAll('div').forEach(function(el){ el.onclick=function(){ addReaction(targetMsg, el.textContent); picker.remove(); pop.remove(); }; });
+    grid.querySelectorAll('div').forEach(function(el){ el.onclick=function(){ toggleReaction(targetMsg, el.textContent); picker.remove(); pop.remove(); }; });
     picker.querySelector('#waClosePicker').onclick=function(){ picker.remove(); };
-  }
-  function addReaction(msgEl, emoji){
-    var old=msgEl.querySelector('.wa-my-reaction'); if(old) old.remove();
-    var badge=document.createElement('div'); badge.className='wa-my-reaction'; badge.textContent=emoji;
-    badge.style.cssText='position:absolute;bottom:-10px;left:10px;background:#fff;border-radius:20px;box-shadow:0 1px 4px rgba(0,0,0,0.2);padding:2px 6px;font-size:16px;z-index:5;';
-    msgEl.style.position='relative'; msgEl.appendChild(badge);
   }
   function bindReactions(){
     var msgs=document.querySelectorAll('[class*="message"], [class*="bubble"], [data-message-id]');
     msgs.forEach(function(m){
       if(m.dataset.reactionBound) return;
       m.dataset.reactionBound='1';
+      renderReactions(m, getReactions(getMsgId(m)));
       var timer=null;
       m.addEventListener('touchstart', function(){ timer=setTimeout(function(){ makeReactionPopup(m); }, 500); }, {passive:true});
       m.addEventListener('touchend', function(){ clearTimeout(timer); });
